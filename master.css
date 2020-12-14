@@ -1,0 +1,208 @@
+/* General */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: moonbold;
+    src: url(./fonts/Moon\ Bold.otf);
+  }
+  
+  @font-face {
+    font-family: moonlight;
+    src: url(./fonts/Moon\ Light.otf);
+  }
+
+body {
+    background-color: #FDF3D3;
+}
+
+header {
+    width: 100%;
+    height: 150px;
+}
+
+header > div {
+    width: 75%;
+    margin: auto;
+}
+
+header > div > a > img {
+    height: 100px;
+}
+
+.nav-container {
+    height: 50px;
+    width: 100%;
+    background-color: rgb(251, 251, 251);
+}
+
+nav {
+    margin: auto;
+    width: 75%;
+}
+
+nav > ul {
+    float: right;
+    list-style-type: none;
+}
+
+nav > ul > li {
+    display: inline-block;
+    text-decoration: none;
+    font-family: moonlight;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 18px;
+    border-width: 0;
+    border-right: 5px;
+    border-style: solid;
+    border-color: #89413149;
+}
+nav > ul > li > a {
+    padding: 12px;
+    text-decoration: none;
+    color: black;
+    cursor:pointer;
+}
+
+/* Hero Banner */
+.heroBanner {
+    background: linear-gradient(to right, rgba(4, 1, 5, 0.767), 30% , transparent), url("./imagesW/waffle.jpg") no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 60vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.heroBannerContent {
+    color: #EF5191;
+    font-family: Roboto;
+    animation: w70 2s forwards;
+}
+@keyframes w70 {
+    from { opacity: 0; position: relative; bottom: 80px;}
+    to { opacity: 1; position: relative; bottom: 0px;}
+}
+.heroBannerContent > h1 {
+    font-family: moonbold;
+    font-size: 60px;
+    color: white;
+}
+.heroBannerContent > button {
+    font-size: 18px;
+    font-family: moonlight;
+    padding: 15px 0px;
+    width: 180px;
+    margin: 2% 1%;
+    background-color: #EFAD43;
+    border-style: none;
+    outline-style: none;
+}
+
+/* Menu Bar */
+.menuBar {
+    height: 80px;
+    background-color:rgb(251, 251, 251);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(175, 175, 175);
+}
+.menuOptions {
+    width: 37%;
+    margin: auto;
+    text-align: center;
+}
+.menuBtn {
+    display: inline-block;
+    font-size: 20px;
+    font-family: moonbold;
+    color: #894131;
+    padding: 28px 0px;
+    width: 32%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(175, 175, 175);
+    outline-style: none;
+}
+.menuBtn:hover {
+    background-color: #EFAD43;
+    color: rgb(255, 255, 255);
+}
+.ActiveMenu {
+    background-color: #EFAD43;
+    color: rgb(255, 255, 255);
+}
+.menuOptions > ul > li:nth-child(2) {
+    position: relative;
+    right: 5px;
+}
+.menuOptions > ul >li:nth-child(3) {
+    position: relative;
+    right: 9.6px;
+}
+
+
+main {
+    
+}
+
+/* Gallery Section */
+.hideGallery {
+    display: none;
+}
+
+#nanogallery2 {
+    width: 90%;
+    margin: auto;
+}
+
+/* Menu Page Section */
+.menu {
+    display: none;
+}
+.menu > h2 {
+    text-align: center;
+    color: black;
+    padding: 10px;
+    font-family: moonbold;
+    font-size: 50px;
+}
+.menu > img {
+    width: 100%;
+}
+
+/* About Page Section */
+.about {
+    display: none;
+}
+
+/* Footer Section */
+.foot {
+    width: 100%;
+    background-color: #3a1c15;
+}
+footer {
+    padding-top: 30px;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    font-family: moonbold;
+    font-size: 14px;
+    color: white;
+}
+footer > img {
+    height: 250px;
+}
+footer > p {
+    padding: 10px;
+}
+
+/* After General */
+.disp {
+    display: block;
+}
