@@ -9,15 +9,15 @@ body {
 
 div {
     width: 500px;
-    margin: auto 0;
+    margin: auto;
     margin-top: 20vh;
 }
 
-body > img {
+body > div > img {
     height: 100px;
 }
 
-body > h2 {
+body > div > h2 {
     text-align: center;
     width: 500px;
     padding: 20px;
@@ -27,7 +27,7 @@ body > h2 {
     line-height: 1.6rem;
 }
 
-body > p {
+body > div > p {
     text-align: center;
     width: 500px;
     padding: 20px;
