@@ -1,0 +1,18 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    text-align: center;
+    margin: auto;
+}
+
+body > img {
+    height: 100px;
+}
+
+body > p {
+    padding: 20px;
+    text-align: center;
+}
