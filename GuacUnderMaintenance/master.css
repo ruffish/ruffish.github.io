@@ -4,16 +4,16 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    margin: auto;
     background-color: #141928;
 }
 
-body > img {
+div {
+    width: 500px;
+    margin: auto 0;
     margin-top: 20vh;
+}
+
+body > img {
     height: 100px;
 }
 
