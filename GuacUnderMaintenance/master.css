@@ -13,11 +13,11 @@ div {
     margin-top: 20vh;
 }
 
-body > div > img {
+img {
     height: 100px;
 }
 
-body > div > h2 {
+h2 {
     text-align: center;
     width: 500px;
     padding: 20px;
@@ -27,7 +27,7 @@ body > div > h2 {
     line-height: 1.6rem;
 }
 
-body > div > p {
+p {
     text-align: center;
     width: 500px;
     padding: 20px;
