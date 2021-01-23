@@ -14,19 +14,16 @@ div {
 }
 
 img {
-    text-align: center;
     margin: auto;
     height: 200px;
 }
 
 h2 {
     text-align: center;
-    width: 500px;
     padding: 10px;
     color: white;
     font-size: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    line-height: 1.6rem;
 }
 
 p {
