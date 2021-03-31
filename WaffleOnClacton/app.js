@@ -36,6 +36,7 @@ function MenuButton(e) {
         galCheck = 0;
     };
 
+    
     e.setAttribute("class", "menuBtn ActiveMenu")
     if (e.getAttribute("id") == 1) {
         document.querySelector(".about").setAttribute("class", "about");
@@ -43,7 +44,7 @@ function MenuButton(e) {
         document.querySelector(".menu").setAttribute("class", "menu disp");
         setTimeout(() => {
             window.scrollTo({
-                top: 850,
+                top: 735,
                 behavior: 'smooth'
             });
         }, 300);
@@ -107,3 +108,18 @@ function runGallery() {
         ]
     });
 };
+
+function loading() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    setTimeout(() => {
+        document.querySelector(".loading").setAttribute("class", "loading fadeout")
+    }, 1000);
+    
+    setTimeout(() => {
+        document.querySelector(".loading").setAttribute("class", "loading dispn")
+    }, 2500);
+}
