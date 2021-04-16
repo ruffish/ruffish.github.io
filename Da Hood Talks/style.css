@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald';
+}
+
+.sidebar {
+    width: 350px;
+    height: 100vh;
+    position: fixed;
+    background-color: #c7c6c6;
+}
+
+.logo {
+    height: 200px;
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+}
+
+nav {
+    margin-top: 75px;
+}
+
+nav > a {
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 30px;
+    text-decoration: none;
+    color: black;
+    font-size: 22px;
+}
+
+.HOME {
+    color: #CF404D;
+}
+
+main {
+    margin-left: 350px;
+}
+
+.jumbotron {
+    color: white;
+    background-image: url("https://i.ibb.co/hCN0FpT/jukka-aalho-t9c-km-Mjl8-unsplash.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+
+.container-center {
+    width: 50%;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.welcomeh1 {
+    font-size: 50px;
+    font-weight: 400;
+}
+
+.btn-primary1 {
+    color: white;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    border-radius: 2px;
+    width: 100px;
+    height: 40px;
+    margin: 0 10px;
+}
+
+.btn-primary1:hover {
+    color: white;
+    border-style: solid;
+    border-color: #2D3E4F;
+    background-color: #2D3E4F;
+}
+
+.btn-primary2 {
+    background-color: #CF404D;
+    border-style: solid;
+    border-color: #CF404D;
+    border-width: 2px;
+    border-radius: 2px;
+    width: 100px;
+    height: 40px;
+    margin: 0 10px;
+    color: white;
+}
+
+.btn-primary2:hover {
+    color: white;
+    border-color: #CF404D;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.latestPodcasts {
+    padding: 10px;
+    background-color: rgb(223, 223, 223);
+}
+
+h2 {
+    padding: 5px 20px;
+}
+
+iframe {
+    margin: 0 20px;
+    margin-bottom: 70px;
+}
+
+.about {
+    padding: 20px;
+    background-color: #303030;
+    color: white;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-box {
+    margin: 0 20px;
+}

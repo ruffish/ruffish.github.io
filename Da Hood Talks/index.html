@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
+  <title>Da Hood Talks</title>
+</head>
+
+<body>
+  <div class="sidebar">
+    <img src="./images/logo.png" alt="da hood talks logo" class="logo">
+
+    <nav>
+      <a class="HOME" href="#top">HOME</a>
+      <a class="ABOUT" href="#ABOUT">ABOUT</a>
+      <a class="MERCH" href="#MERCH">MERCH</a>
+      <a class="CONTACT" href="#CONTACT">CONTACT</a>
+    </nav>
+  </div>
+
+  <main>
+    <div class="jumbotron jumbotron-fluid" id="HOME">
+      <div class="container-center">
+        <h1 class="welcomeh1">WELCOME TO DA HOOD TALKS</h1>
+        <p>The podcast for the voiceless, empowering the everyday people and supporting the community in the STL area.
+        </p>
+        <button class="btn btn-primary1">Merch</button>
+        <button class="btn btn-primary2">YouTube</button>
+      </div>
+    </div>
+
+    <div class="latestPodcasts">
+      <div class="container">
+        <h2>Latest Podcasts</h2>
+        <iframe class="latestVideoEmbed" vnum='0' cid="UCNBgw_oB6UB1O6E2Mq6b6Ag" width="600" height="340"
+          frameborder="0" allowfullscreen></iframe>
+        <iframe class="latestVideoEmbed" vnum='1' cid="UCNBgw_oB6UB1O6E2Mq6b6Ag" width="600" height="340"
+          frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="about" id="ABOUT">
+      <div class="container">
+        <h2>About</h2>
+        <div class="flex-container">
+          <div class="flex-box">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque consequuntur reprehenderit veniam non
+              quod labore, libero at quam, est debitis nam explicabo quis illo sunt officiis, quo rerum consequatur
+              blanditiis?</p>
+          </div>
+          <div class="flex-box">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque consequuntur reprehenderit veniam non
+              quod labore, libero at quam, est debitis nam explicabo quis illo sunt officiis, quo rerum consequatur
+              blanditiis?</p>
+          </div>
+          <div class="flex-box">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque consequuntur reprehenderit veniam non
+              quod labore, libero at quam, est debitis nam explicabo quis illo sunt officiis, quo rerum consequatur
+              blanditiis?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container merch" id="MERCH">
+      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatum similique molestiae maiores, rerum alias, mollitia, voluptates saepe suscipit consequatur corporis? Velit corrupti quod quibusdam, eos eum explicabo cumque praesentium!</h1>      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatum similique molestiae maiores, rerum alias, mollitia, voluptates saepe suscipit consequatur corporis? Velit corrupti quod quibusdam, eos eum explicabo cumque praesentium!</h1>
+    </div>
+
+    <div class="container contact" id="CONTACT">
+      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatum similique molestiae maiores, rerum alias, mollitia, voluptates saepe suscipit consequatur corporis? Velit corrupti quod quibusdam, eos eum explicabo cumque praesentium!</h1>
+      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatum similique molestiae maiores, rerum alias, mollitia, voluptates saepe suscipit consequatur corporis? Velit corrupti quod quibusdam, eos eum explicabo cumque praesentium!</h1>
+      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatum similique molestiae maiores, rerum alias, mollitia, voluptates saepe suscipit consequatur corporis? Velit corrupti quod quibusdam, eos eum explicabo cumque praesentium!</h1>
+      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatum similique molestiae maiores, rerum alias, mollitia, voluptates saepe suscipit consequatur corporis? Velit corrupti quod quibusdam, eos eum explicabo cumque praesentium!</h1>
+      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptatum similique molestiae maiores, rerum alias, mollitia, voluptates saepe suscipit consequatur corporis? Velit corrupti quod quibusdam, eos eum explicabo cumque praesentium!</h1>
+    </div>
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    var reqURL = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(
+      "https://www.youtube.com/feeds/videos.xml?channel_id=");
+
+    function loadVideo(iframe) {
+      $.getJSON(reqURL + iframe.getAttribute('cid'),
+        function (data) {
+          var videoNumber = (iframe.getAttribute('vnum') ? Number(iframe.getAttribute('vnum')) : 0);
+          console.log(videoNumber);
+          var link = data.items[videoNumber].link;
+          id = link.substr(link.indexOf("=") + 1);
+          iframe.setAttribute("src", "https://youtube.com/embed/" + id + "?controls=1&autoplay=0");
+        }
+      );
+    }
+    var iframes = document.getElementsByClassName('latestVideoEmbed');
+    for (var i = 0, len = iframes.length; i < len; i++) {
+      loadVideo(iframes[i]);
+    }
+  </script>
+  <script>
+    $(document).ready(function () {
+      var scroll_start = 0;
+      var startchange = $('#ABOUT');
+      var offset = startchange.offset();
+      if (startchange.length) {
+        $(document).scroll(function () {
+          scroll_start = $(this).scrollTop();
+          if (scroll_start > offset.top - 1) {
+            $(".HOME").css('color', 'black');
+          } else {
+            $('.HOME').css('color', '#CF404D');
+          }
+        });
+      }
+    });
+
+    $(document).ready(function () {
+      var scroll_start = 0;
+      var startchange = $('#ABOUT');
+      var endchange = $('#MERCH');
+      var offset = startchange.offset();
+      var offset2 = endchange.offset();
+      if (startchange.length) {
+        $(document).scroll(function () {
+          scroll_start = $(this).scrollTop();
+          if (scroll_start > offset.top - 1 && scroll_start < offset2.top ) {
+            $(".ABOUT").css('color', '#CF404D');
+          } else {
+            $('.ABOUT').css('color', 'black');
+          }
+        });
+      }
+    });
+
+    $(document).ready(function () {
+      var scroll_start = 0;
+      var startchange = $('#MERCH');
+      var endchange = $('#CONTACT');
+      var offset = startchange.offset();
+      var offset2 = endchange.offset();
+      if (startchange.length) {
+        $(document).scroll(function () {
+          scroll_start = $(this).scrollTop();
+          if (scroll_start > offset.top - 1 && scroll_start < offset2.top ) {
+            $(".MERCH").css('color', '#CF404D');
+          } else {
+            $('.MERCH').css('color', 'black');
+          }
+        });
+      }
+    });
+
+    $(document).ready(function () {
+      var scroll_start = 0;
+      var startchange = $('#CONTACT');
+      var offset = startchange.offset();
+      if (startchange.length) {
+        $(document).scroll(function () {
+          scroll_start = $(this).scrollTop();
+          if (scroll_start > offset.top - 1) {
+            $(".CONTACT").css('color', '#CF404D');
+          } else {
+            $('.CONTACT').css('color', 'black');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
