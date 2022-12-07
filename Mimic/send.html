@@ -55,9 +55,15 @@
             (function () {
 
                 // Auto Room Connect
-                const queryString = window.location.search;
-                console.log(queryString);
-                const urlParams = new URLSearchParams(queryString);
+                try {
+                    const queryString = window.location.search;
+                    console.log(queryString);
+                    const urlParams = new URLSearchParams(queryString);
+                    const hostID = urlParams.get('hostid');
+                    join(hostID)
+                } catch {
+                    console.log("no Host ID Parameter");
+                }
 
                 // Generate a random number between 0 and 1
                 let randomNumber = Math.random();
@@ -143,14 +149,14 @@
                  * Sets up callbacks that handle any events related to the
                  * connection and data received on it.
                  */
-                function join() {
+                function join(hostID) {
                     // Close old connection
                     if (conn) {
                         conn.close();
                     }
 
                     // Create connection to destination peer specified in the input field
-                    conn = peer.connect(recvIdInput.value, {
+                    conn = peer.connect(hostID, {
                         reliable: true,
                     });
 
@@ -288,7 +294,7 @@
                 // Clear messages box
                 clearMsgsButton.addEventListener('click', clearMessages);
                 // Start peer connection on click
-                connectButton.addEventListener('click', join);
+                connectButton.addEventListener('click', join(recvIdInput.value,));
 
                 // Since all our callbacks are setup, start the process of obtaining an ID
                 initialize();
