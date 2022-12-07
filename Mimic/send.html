@@ -148,7 +148,7 @@
                  * Sets up callbacks that handle any events related to the
                  * connection and data received on it.
                  */
-                function join(hostID) {
+                function join() {
                     // Close old connection
                     if (conn) {
                         conn.close();
@@ -157,7 +157,7 @@
                     console.log("JOINIDHERE: " + hostID);
 
                     // Create connection to destination peer specified in the input field
-                    conn = peer.connect(hostID, {
+                    conn = peer.connect(recvIdInput.value, {
                         reliable: true,
                     });
 
