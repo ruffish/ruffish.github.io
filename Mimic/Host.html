@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <td>
-                    <div id="receiver-id" style="font-weight: bold; text-decoration: underline; color: rgb(137, 137, 255);" onclick="copyShareLink()" title="Copy this link and send it to your friends.">Share link: f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
+                    <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">Share link: f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
                 </td>
                 <td>
                     <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true">
@@ -204,18 +204,6 @@
                     addMessage("Msgs cleared");
                 }
 
-                function copyShareLink() {
-                    // Get the text field
-                    var copyText = document.getElementById("share-link");
-
-                    // Select the text field
-                    copyText.select();
-                    copyText.setSelectionRange(0, 99999); // For mobile devices
-
-                    // Copy the text inside the text field
-                    navigator.clipboard.writeText(copyText.innerText);
-                }
-
                 // Listen for enter in message box
                 sendMessageBox.addEventListener('keypress', function (e) {
                     var event = e || window.event;
@@ -243,6 +231,19 @@
 
                 initialize();
             })();
+
+            // My functions
+            function copyShareLink() {
+                // Get the text field
+                var copyText = document.getElementById("share-link");
+
+                // Select the text field
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(copyText.innerText);
+            }
         </script>
     
 

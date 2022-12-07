@@ -105,3 +105,18 @@ a:visited{
 .peerMsg {
     color: red;
 }
+
+
+#receiver-id {
+    cursor: pointer;
+    font-weight: bold; 
+    color: rgb(219, 33, 8);
+}
+
+#receiver-id:hover {
+    color: rgb(182, 26, 5);
+}
+
+#receiver-id:active {
+    color: rgb(129, 15, 0);
+}
