@@ -55,13 +55,13 @@
             (function () {
 
                 // Auto Room Connect
-                    const queryString = window.location.search;
-                    console.log(queryString);
-                    const urlParams = new URLSearchParams(queryString);
-                    const hostID = urlParams.get('hostid');
-                    console.log("HERE: " + hostID);
-                    join(hostID);
-                    console.log("no Host ID Parameter");
+                const queryString = window.location.search;
+                console.log(queryString);
+                const urlParams = new URLSearchParams(queryString);
+                const hostID = urlParams.get('hostid');
+                console.log("HERE: " + hostID);
+                join(hostID);
+                console.log("no Host ID Parameter");
 
                 // Generate a random number between 0 and 1
                 let randomNumber = Math.random();
@@ -152,6 +152,8 @@
                     if (conn) {
                         conn.close();
                     }
+
+                    console.log(hostID);
 
                     // Create connection to destination peer specified in the input field
                     conn = peer.connect(hostID, {
