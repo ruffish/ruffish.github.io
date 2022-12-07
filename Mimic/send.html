@@ -138,7 +138,7 @@
                  * Sets up callbacks that handle any events related to the
                  * connection and data received on it.
                  */
-                function join(ID) {
+                function join() {
                     // Close old connection
                     if (conn) {
                         conn.close();
@@ -298,7 +298,7 @@
                 // Clear messages box
                 clearMsgsButton.addEventListener('click', clearMessages);
                 // Start peer connection on click
-                connectButton.addEventListener('click', join(recvIdInput.value));
+                connectButton.addEventListener('click', join);
 
                 // Since all our callbacks are setup, start the process of obtaining an ID
                 initialize();
