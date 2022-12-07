@@ -234,14 +234,10 @@
 
             // My functions
             function copyShareLink() {
-                // Get the text field
+                // Get the link
                 var copyText = document.getElementById("share-link");
 
-                // Select the text field
-                copyText.select();
-                copyText.setSelectionRange(0, 99999); // For mobile devices
-
-                // Copy the text inside the text field
+                // Copy the text in the share link element
                 navigator.clipboard.writeText(copyText.innerText);
             }
         </script>
