@@ -137,7 +137,7 @@
                  * Sets up callbacks that handle any events related to the
                  * connection and data received on it.
                  */
-                function join() {
+                function join(hostID) {
                     // Close old connection
                     if (conn) {
                         conn.close();
