@@ -137,7 +137,7 @@
                  * Sets up callbacks that handle any events related to the
                  * connection and data received on it.
                  */
-                function join(hostID) {
+                function join(hostID,) {
                     // Close old connection
                     if (conn) {
                         conn.close();
@@ -295,8 +295,8 @@
                 const queryString = window.location.search;
                 console.log(queryString);
                 const urlParams = new URLSearchParams(queryString);
-                const hostID = urlParams.get('hostid');
-                join(hostID);
+                var hostID = urlParams.get('hostid');
+                join(hostID,);
             } catch {
                 console.log("No Host ID Parameter");
             }
