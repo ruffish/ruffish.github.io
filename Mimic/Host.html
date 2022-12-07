@@ -80,7 +80,7 @@
 
                         console.log("TEST: " + peer.clientPlayerName)
                         console.log('ID: ' + peer.id);
-                        recvId.innerHTML = "Share link: " + window.location.hostname + "?hostid=" + peer.id;
+                        recvId.innerHTML = "Share link: " + window.location.hostname + "/Mimic/send.html?hostid=" + peer.id;
                         status.innerHTML = "Awaiting connection...";
                     });
                     peer.on('connection', function (c) {
