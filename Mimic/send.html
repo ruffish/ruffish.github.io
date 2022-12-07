@@ -144,8 +144,20 @@
                         conn.close();
                     }
 
+                    // Auto Room Connect
+                    try {
+                        const queryString = window.location.search;
+                        console.log(queryString);
+                        const urlParams = new URLSearchParams(queryString);
+                        var ID = urlParams.get('hostid');
+                    } catch {
+                        ID = recvIdInput.value;
+                    }
+
                     console.log("JOINIDHERE: ");
                     console.log(ID);
+
+                    console.log(peer)
 
                     // Create connection to destination peer specified in the input field
                     conn = peer.connect(ID, {
@@ -286,23 +298,12 @@
                 // Clear messages box
                 clearMsgsButton.addEventListener('click', clearMessages);
                 // Start peer connection on click
-                connectButton.addEventListener('click', join(recvIdInput.value,));
+                connectButton.addEventListener('click', join(recvIdInput.value));
 
                 // Since all our callbacks are setup, start the process of obtaining an ID
                 initialize();
+                join();
             })();
-
-            // Auto Room Connect
-            try {
-                const queryString = window.location.search;
-                console.log(queryString);
-                const urlParams = new URLSearchParams(queryString);
-                var hostID = urlParams.get('hostid');
-                console.log("Auto Room Connect" + hostID);
-                join(hostID);
-            } catch {
-                console.log("No Host ID Parameter");
-            }
         </script>
     </body>
 </html>
