@@ -138,7 +138,7 @@ class MimicGame {
     // Give clues
     giveClues() {
         for (let playerID in players) {
-            while (pasued) {
+            while (paused) {
 
             }
             paused = true;
