@@ -232,6 +232,19 @@
                 // Clear messages box
                 clearMsgsButton.addEventListener('click', clearMessages);
 
+                function updatePlayerList() {
+                    playersConnectedList = "";
+
+                    for (var player in players) {
+                        if (playersConnectedList != "") {
+                            playersConnectedList = playersConnectedList + ", ";
+                        }
+                        playersConnectedList = playersConnectedList + ", " + players["playerName"];
+                    }
+
+                    playerListElement.innerHTML = playersConnectedList;
+                }
+
                 initialize();
             })();
 
@@ -242,19 +255,6 @@
 
                 // Copy the text in the share link element
                 navigator.clipboard.writeText(copyText.innerText);
-            }
-
-            function updatePlayerList() {
-                playersConnectedList = "";
-
-                for (var player in players) {
-                    if (playersConnectedList != "") {
-                        playersConnectedList = playersConnectedList + ", ";
-                    }
-                    playersConnectedList = playersConnectedList + ", " + players["playerName"];
-                }
-
-                playerListElement.innerHTML = playersConnectedList;
             }
         </script>
 
