@@ -14,7 +14,7 @@ function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function activateGame(numPlayers) {
+function activateGame(numPlayers, players) {
     // Set the number of players in the game
     game.setNumPlayers(numPlayers);
 
@@ -33,7 +33,7 @@ function activateGame(numPlayers) {
     // Set the mimic word for the mimics
     game.setMimicWord(pairs[randomPairIndex][mimicWord]);
     // Start the game
-    game.start();
+    game.start(players);
 }
 
 // The game will now run until a player wins or all players have been eliminated.
@@ -61,9 +61,9 @@ class MimicGame {
     }
   
     // Start the game
-    start() {
+    start(players) {
       // Generate the player roles
-      this.generatePlayerRoles();
+      this.generatePlayerRoles(players);
   
       // Start the game loop
       while (!this.gameOver()) {
@@ -80,9 +80,11 @@ class MimicGame {
     }
   
     // Generate the player roles
-    generatePlayerRoles() {
+    generatePlayerRoles(players) {
         // Create an array of roles
         var roles = [];
+
+
 
         if (this.numPlayers === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
