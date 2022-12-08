@@ -96,6 +96,8 @@ class MimicGame {
       this.players = this.shuffleArray(this.players);
 
       console.log(this.players);
+
+
     }
   
     // Shuffle an array in place
@@ -214,7 +216,7 @@ class MimicPlayer extends Player {
         while (paused) {
             
         }
-        paused = True,
+        paused = True
     }
 
     // Choose a player to vote for
