@@ -119,35 +119,37 @@
                  * Defines callbacks to handle incoming data and connection events.
                  */
                 function ready() {
-                          currentConn.on('data', function (data) {
-                            console.log("Data recieved");
-                            var playerVote = "<span class=\"cueMsg\">" + data[0] + ": </span>";
-                            switch (data[0]) {
-                                case 'setPlayerName':
-                                    changePlayerName(data[1]["playerName"]);
-                                    console.log(data[1]["playerID"] + " changed to" + data[1]["playerName"]);
-                                    break;
-                                case 'F':
-                                    fade();
-                                    addMessage(playerVote + data[1]);
-                                    break;
-                                default:
-                                    for (let step = 0; step < conn.length; step++) {
-                                            console.log(conn.length);
-                                            console.log(conn);
-                                            conn[step].send(["chatMessage", {"playerName":data[1]["playerName"], "msg" : data[1]["msg"]}]);
-                                        }
-                                    addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" + data[1]["msg"]);
-                                    break;
-                            };
-                        });
-                        currentConn.on('close', function () { // Execute code when user disconnects.
+                    currentConn.on('data', function (data) {
+                    console.log("Data recieved");
+                    var playerVote = "<span class=\"cueMsg\">" + data[0] + ": </span>";
+                    switch (data[0]) {
+                        case 'setPlayerName':
+                            changePlayerName(data[1]["playerName"]);
+                            console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
+                            updatePlayerList();
+                            break;
+                        case 'F':
+                            fade();
+                            addMessage(playerVote + data[1]);
+                            break;
+                        default:
                             for (let step = 0; step < conn.length; step++) {
-                                if (conn[step]["_open"] == false) {
-                                    // players.delete(conn[step]);
-                                    conn.splice(step, 1);
+                                    console.log(conn.length);
+                                    console.log(conn);
+                                    conn[step].send(["chatMessage", {"playerName":data[1]["playerName"], "msg" : data[1]["msg"]}]);
                                 }
+                            addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" + data[1]["msg"]);
+                            break;
+                        };
+                    });
+                    currentConn.on('close', function () { // Execute code when user disconnects.
+                        for (let step = 0; step < conn.length; step++) {
+                            if (conn[step]["_open"] == false) {
+                                // players.delete(conn[step]);
+                                conn.splice(step, 1);
                             }
+                        }
+                        updatePlayerList();
                     });
                 }
 
@@ -258,7 +260,7 @@
             }
         </script>
 
-        <script src="./mimicGameLogic.js?v=0.3">
+        <script src="./mimicGameLogic.js?v=0.4">
         </script>
 <style type="text/css" id="dark-mode-custom-color">
 :root{
