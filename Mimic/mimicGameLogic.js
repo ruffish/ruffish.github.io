@@ -41,6 +41,8 @@ class MimicGame {
       this.numPlayers = 0;
       this.secretWord = "";
       this.mimicWord = "";
+      this.round = 1;
+      this.playersInGame = [];
     }
   
     // Set the number of players in the game
@@ -70,6 +72,7 @@ class MimicGame {
   
         // Take a vote to eliminate a player
         this.takeVote();
+        this.round++;
       }
   
       // Announce the winner
@@ -80,15 +83,15 @@ class MimicGame {
     generatePlayerRoles() {
         // Create an array of roles
         let roles = [];
-        if (numPlayers === 3) {
+        if (this.numPlayers === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
             roles = ["Civilian", "Civilian", "Mimic"];
-        } else if (numPlayers === 4 || numPlayers === 5) {
+        } else if (this.numPlayers === 4 || this.numPlayers === 5) {
             // In a 4 or 5 player game, there will be 1 or 2 mimics
-            roles = ["Civilian"].repeat(numPlayers - 1).concat(["Mimic"].repeat(numPlayers % 2));
+            roles = ["Civilian"].repeat(this.numPlayers - 1).concat(["Mimic"].repeat(this.numPlayers % 2));
         } else {
             // In a game with 6 or more players, there will be 1 or 2 mimics and 0 or 1 blind mimics
-            roles = ["Civilian"].repeat(numPlayers - 2).concat(["Mimic", "Mimic"], ["Blind Mimic"].repeat(numPlayers % 2));
+            roles = ["Civilian"].repeat(this.numPlayers - 2).concat(["Mimic", "Mimic"], ["Blind Mimic"].repeat(this.numPlayers % 2));
         }
         
         // Shuffle the roles to randomize the order
@@ -102,68 +105,59 @@ class MimicGame {
         console.log(players);
     }
   
-    // Shuffle an array in place
-    shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-  
     // Check if the game is over
     gameOver() {
-      // The game is over if there is only two players remaining
-      return this.players.length <= 2;
+        let mimicInGame = false;
+        for (let step = 0; step < this.playersInGame.length; step++) {
+            if (players[this.playersInGame[step]]["role"] == "Mimic") {
+                mimicInGame = true;
+            }
+        }
+        // The game is over if there is only two players remaining
+        return this.players.length <= 2 || mimicInGame == false;
     }
   
     // Give clues
     giveClues() {
-        // Loop through the players and have them give a clue
-        for (const player of this.players) {
-            player.giveClue();
+        for (playerID in players) {
+            while (pasued) {
+
+            }
+            paused = true;
         }
     }
     
     // Take a vote to eliminate a player
     takeVote() {
-        // Create a map of players to their vote count
-        const votes = new Map();
-        for (const player of this.players) {
-            votes.set(player, 0);
-        }
-        // Loop through the players and have them vote
-        for (const voter of this.players) {
-            // Have the player choose another player to vote for
-            const vote = voter.choosePlayerToVoteFor(this.players);
-
-            // Increment the vote count for the chosen player
-            votes.set(vote, votes.get(vote) + 1);
-        }
-        // Find the player with the most votes
-        let mostVotes = 0;
-        let eliminatedPlayer = null;
-        for (const [player, voteCount] of votes.entries()) {
-            if (voteCount > mostVotes) {
-                mostVotes = voteCount;
-                eliminatedPlayer = player;
+        while (paused) {
+            paused = false;
+            // Check if all players have voted.
+            for (playerID in players) {
+                if (players[playerID]["vote"] == "NA") {
+                    paused = true;
+                }
             }
         }
-
-        // If a player was chosen to be eliminated, remove them from the game
-        if (eliminatedPlayer) {
-            const index = this.players.indexOf(eliminatedPlayer);
-            this.players.splice(index, 1);
-        }
+        paused = true;
     }
 
     // Announce the winner of the game
     announceWinner() {
-        if (this.players.length === 1) {
-            console.log("The winner is ${this.players[0].name}!");
+        let winners = []
+        if (mimicInGame == true) {
+            for (playerID in players) {
+                if (players[playerID]["role"] == "Mimic") {
+                    winners.push(players[playerID]["playerName"]);
+                }
+            }
         } else {
-            console.log("The game ended in a tie.");
+            for (playerID in players) {
+                if (players[playerID]["role"] == "Civilian") {
+                    winners.push(players[playerID]["playerName"]);
+                }
+            }
         }
+        return winners;
     }
 }
 
