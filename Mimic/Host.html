@@ -236,7 +236,7 @@
 
                     for (var player in players) {
                         if (playersConnectedList != "") {
-                            playersConnectedList = playersConnectedList + ", ";
+                            playersConnectedList = playersConnectedList + players[player]["playerName"];
                         }
                         playersConnectedList = playersConnectedList + ", " + players[player]["playerName"];
                     }
