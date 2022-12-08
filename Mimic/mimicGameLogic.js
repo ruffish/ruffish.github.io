@@ -118,6 +118,8 @@ class MimicGame {
         // Assign each player a role
         for (let playerId in players) {
             console.log(roles.pop());
+            console.lop("roles variable below:");
+            console.log(roles);
             players[playerId]['role'] = roles.pop();
         }
 
