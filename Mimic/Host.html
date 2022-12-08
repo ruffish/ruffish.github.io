@@ -148,7 +148,7 @@
                     currentConn.on('close', function () { // Execute code when user disconnects.
                         for (let step = 0; step < conn.length; step++) {
                             if (conn[step]["_open"] == false) {
-                                players.delete(conn[step]['peer']);
+                                delete players(conn[step]['peer']);
                                 conn.splice(step, 1);
                             }
                         }
