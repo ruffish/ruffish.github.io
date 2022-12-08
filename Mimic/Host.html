@@ -86,11 +86,11 @@
                         console.log("TEST: " + conn);
                         cPlayerID = c.peer
                         players[cPlayerID] = {playerName : "unknown"};
-                        updatePlayerList()
                         currentConn = c
                         console.log("Connected to: " + c.peer);
                         status.innerHTML = "Connected";
                         ready();
+                        updatePlayerList()
                     });
                     peer.on('disconnected', function () {
                         status.innerHTML = "Connection lost. Please reconnect";
