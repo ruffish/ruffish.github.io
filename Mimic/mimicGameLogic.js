@@ -95,9 +95,8 @@ class MimicGame {
       // Shuffle the players array to randomize the roles
       this.players = this.shuffleArray(this.players);
 
+      console.log("this.players BELOW \n\n\n\n")
       console.log(this.players);
-
-
     }
   
     // Shuffle an array in place
