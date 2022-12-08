@@ -93,7 +93,7 @@ class MimicGame {
         } else {
             const stringifiedArray = JSON.stringify(['Civilian']);
             // In a game with 6 or more players, there will be 1 or 2 mimics and 0 or 1 blind mimics
-            roles = stringifiedArray.repeat(this.numPlayers - 2).concat("[\"Mimic", "Mimic\"]").concat("[\"Blind Mimic\"]").repeat(this.numPlayers % 2);
+            roles = stringifiedArray.repeat(this.numPlayers - 2).concat("[\"Mimic", "Mimic\"]").concat(", [\"Blind Mimic\"]").repeat(this.numPlayers % 2);
             roles = JSON.parse(roles);
         }
         
