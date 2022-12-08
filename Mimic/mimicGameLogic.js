@@ -42,7 +42,6 @@ class MimicGame {
       this.secretWord = "";
       this.mimicWord = "";
       this.round = 1;
-      this.playersInGame = [];
     }
   
     // Set the number of players in the game

@@ -41,7 +41,7 @@
             (function () {
 
                 clientPlayerName = "Host";
-                players = {"host":{"playerName": clientPlayerName}};
+                players = {"host":{"playerName": clientPlayerName, "inPlay" : true}};
 
                 var lastPeerId = null;
                 var peer = null; // Own peer object
@@ -123,8 +123,11 @@
                     console.log("Data recieved");
                     var playerVote = "<span class=\"cueMsg\">" + data[0] + ": </span>";
                     switch (data[0]) {
+                        case 'setPlayerData':
+                            setPlayerData(data[1]["playerID"], data[1]["playerName"]);
+                            updatePlayerList();
                         case 'setPlayerName':
-                            changePlayerName(data[1]["playerName"]);
+                            changePlayerName(data[1]["playerID"], data[1]["playerName"]);
                             console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
                             updatePlayerList();
                             break;
@@ -145,6 +148,7 @@
                     currentConn.on('close', function () { // Execute code when user disconnects.
                         for (let step = 0; step < conn.length; step++) {
                             if (conn[step]["_open"] == false) {
+                                console.log(conn[step]);
                                 // players.delete(conn[step]);
                                 conn.splice(step, 1);
                             }
@@ -153,8 +157,14 @@
                     });
                 }
 
-                function changePlayerName(newName) {
-                    players[cPlayerID]["playerName"] = newName;
+                function setPlayerData(playerID, newName, inPlay) {
+                    players[playerID]["inPlay"] = inPlay;
+                    players[playerID]["playerName"] = newName;
+                    return;
+                }
+
+                function changePlayerName(playerID, newName) {
+                    players[playerID]["playerName"] = newName;
                     return;
                 };
 

@@ -147,8 +147,8 @@
                         status.innerHTML = "Connected to: " + conn.peer;
                         console.log("Connected to: " + conn.peer);
 
-                        // Send player name to the host
-                        conn.send(["setPlayerName", {"playerName":clientPlayerName, "playerID": peer.id}]);
+                        // Send player data to the host
+                        conn.send(["setPlayerData", {"playerName":clientPlayerName, "playerID": peer.id, "inPlay": true}]);
 
                         // Check URL params for comamnds that should be sent immediately
                         var command = getUrlParam("command");
