@@ -39,7 +39,7 @@
         <script src="./peerjsmin.js"></script>
         <script type="text/javascript">
              var clientPlayerName = "Host";
-             var players = {"host":{"playerName": clientPlayerName, "inPlay" : true}};
+             var players = {"host":{"playerName": clientPlayerName, "inPlay" : true, "role": "NA"}};
 
             (function () {
 
@@ -161,6 +161,7 @@
                 function setPlayerData(playerID, newName, inPlay) {
                     players[playerID]["inPlay"] = inPlay;
                     players[playerID]["playerName"] = newName;
+                    players[playerID]["role"] = "NA";
                     return;
                 }
 
@@ -271,7 +272,7 @@
             }
         </script>
 
-        <script src="./mimicGameLogic.js?v=0.71">
+        <script src="./mimicGameLogic.js?v=0.72">
         </script>
 <style type="text/css" id="dark-mode-custom-color">
 :root{

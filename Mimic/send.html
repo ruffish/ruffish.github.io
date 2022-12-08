@@ -148,7 +148,7 @@
                         console.log("Connected to: " + conn.peer);
 
                         // Send player data to the host
-                        conn.send(["setPlayerData", {"playerName":clientPlayerName, "playerID": peer.id, "inPlay": true}]);
+                        conn.send(["setPlayerData", {"playerName":clientPlayerName, "playerID": peer.id, "inPlay": true, "role": "NA"}]);
 
                         // Check URL params for comamnds that should be sent immediately
                         var command = getUrlParam("command");
