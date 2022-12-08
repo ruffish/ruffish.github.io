@@ -139,6 +139,7 @@
                             for (let step = 0; step < conn.length; step++) {
                                     console.log(conn.length);
                                     console.log(conn);
+                                    console.log(players);
                                     conn[step].send(["chatMessage", {"playerName":data[1]["playerName"], "msg" : data[1]["msg"]}]);
                                 }
                             addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" + data[1]["msg"]);
