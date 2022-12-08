@@ -38,10 +38,11 @@
 
         <script src="./peerjsmin.js"></script>
         <script type="text/javascript">
+             var players = {"host":{"playerName": clientPlayerName, "inPlay" : true}};
+
             (function () {
 
                 clientPlayerName = "Host";
-                players = {"host":{"playerName": clientPlayerName, "inPlay" : true}};
 
                 var lastPeerId = null;
                 var peer = null; // Own peer object
@@ -271,7 +272,7 @@
             }
         </script>
 
-        <script src="./mimicGameLogic.js?v=0.7">
+        <script src="./mimicGameLogic.js?v=0.71">
         </script>
 <style type="text/css" id="dark-mode-custom-color">
 :root{

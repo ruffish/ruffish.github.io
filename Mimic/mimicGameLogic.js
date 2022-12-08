@@ -83,8 +83,7 @@ class MimicGame {
     generatePlayerRoles() {
         // Create an array of roles
         var roles = [];
-
-        var players = {};
+        
         if (this.numPlayers === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
             roles = ["Civilian", "Civilian", "Mimic"];
