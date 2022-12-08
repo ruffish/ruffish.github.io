@@ -90,7 +90,9 @@
                         console.log("Connected to: " + c.peer);
                         status.innerHTML = "Connected";
                         ready();
-                        updatePlayerList()
+                        // setTimeout(function () {
+                        //     join();
+                        // }, 300)
                     });
                     peer.on('disconnected', function () {
                         status.innerHTML = "Connection lost. Please reconnect";
@@ -110,6 +112,7 @@
                         console.log(err);
                         alert('' + err);
                     });
+                    updatePlayerList();
                 };
 
                 /**
@@ -229,6 +232,7 @@
                 clearMsgsButton.addEventListener('click', clearMessages);
 
                 function updatePlayerList() {
+                    console.log("Player List Updating");
                     playersConnectedList = "";
 
                     for (var player in players) {
