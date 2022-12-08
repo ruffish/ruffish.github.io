@@ -81,17 +81,15 @@ class MimicGame {
     // Generate the player roles
     generatePlayerRoles() {
         // Create an array of roles
-        var roles = "";
+        var roles = [];
         if (this.numPlayers === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
             roles = ["Civilian", "Civilian", "Mimic"];
         } else if (this.numPlayers === 4 || this.numPlayers === 5) {
             const stringifiedArray = JSON.stringify(['Civilian']);
             // In a 4 or 5 player game, there will be 1 or 2 mimics
-            roles = stringifiedArray.repeat(this.numPlayers - 1).concat(["Mimic"].repeat(this.numPlayers % 2));
-            roles = JSON.parse(roles);
+            roles = roles.concat(JSON.parse(stringifiedArray.repeat(this.numPlayers - 1))).concat(["Mimic"].repeat(this.numPlayers % 2));
         } else {
-            const roles = [];
             // Add the appropriate number of Civilian roles
             for (let i = 0; i < this.numPlayers - 2; i++) {
                 roles.push('Civilian');
@@ -108,10 +106,10 @@ class MimicGame {
                 roles.push('Blind Mimic');
             }
         }
-        
+
         // Shuffle the roles to randomize the order
         roles.sort(() => Math.random() - 0.5);
-        
+
         // Assign each player a role
         for (const playerId in players) {
             players[playerId].role = roles.pop();
