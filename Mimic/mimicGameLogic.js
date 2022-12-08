@@ -121,8 +121,8 @@ class MimicGame {
     // Check if the game is over
     gameOver() {
         let mimicInGame = false;
-        for (let step = 0; step < this.playersInGame.length; step++) {
-            if (players[this.playersInGame[step]]["role"] == "Mimic") {
+        for (playerID in players) {
+            if (players[players[playerID]]["role"] == "Mimic") {
                 mimicInGame = true;
             }
         }
