@@ -41,7 +41,6 @@ class MimicGame {
       this.numPlayers = 0;
       this.secretWord = "";
       this.mimicWord = "";
-      this.players = [];
     }
   
     // Set the number of players in the game
@@ -79,28 +78,28 @@ class MimicGame {
   
     // Generate the player roles
     generatePlayerRoles() {
-      // Calculate the number of mimics and civilians
-      const numMimics = Math.floor(this.numPlayers / 2);
-      const numCivilians = this.numPlayers - numMimics;
-  
-      // Create the players array
-      for (let i = 0; i < numCivilians; i++) {
-        this.players.push(new CivilianPlayer());
-      }
-      for (let i = 0; i < numMimics; i++) {
-        this.players.push(new MimicPlayer());
-      }
-  
-      // If there are more than 6 players, add a blind mimic
-      if (this.numPlayers > 6) {
-        this.players.push(new BlindMimicPlayer());
-      }
-  
-      // Shuffle the players array to randomize the roles
-      this.players = this.shuffleArray(this.players);
+        // Create an array of roles
+        let roles = [];
+        if (numPlayers === 3) {
+            // In a 3 player game, there will be 2 civilians and 1 mimic
+            roles = ["Civilian", "Civilian", "Mimic"];
+        } else if (numPlayers === 4 || numPlayers === 5) {
+            // In a 4 or 5 player game, there will be 1 or 2 mimics
+            roles = ["Civilian"].repeat(numPlayers - 1).concat(["Mimic"].repeat(numPlayers % 2));
+        } else {
+            // In a game with 6 or more players, there will be 1 or 2 mimics and 0 or 1 blind mimics
+            roles = ["Civilian"].repeat(numPlayers - 2).concat(["Mimic", "Mimic"], ["Blind Mimic"].repeat(numPlayers % 2));
+        }
+        
+        // Shuffle the roles to randomize the order
+        roles.sort(() => Math.random() - 0.5);
+        
+        // Assign each player a role
+        for (const playerId in players) {
+            players[playerId].role = roles.pop();
+        }
 
-      console.log("this.players BELOW \n\n\n\n")
-      console.log(this.players);
+        console.log(players);
     }
   
     // Shuffle an array in place
@@ -160,107 +159,11 @@ class MimicGame {
 
     // Announce the winner of the game
     announceWinner() {
-        mimicInGame = false;
-
         if (this.players.length === 1) {
             console.log("The winner is ${this.players[0].name}!");
         } else {
             console.log("The game ended in a tie.");
         }
-    }
-}
-
-// Base player class
-class Player {
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    // Give a clue
-    giveClue() {
-        console.log("${this.name}: I can\'t give a clue.")
-    }
-
-    // Choose a player to vote for
-    choosePlayerToVoteFor() {
-        console.log("${this.name}: I can't vote.");
-    }
-}
-
-// Civilian player class
-class CivilianPlayer extends Player {
-    constructor(secretWord) {
-        super("Civilian");
-    }
-
-    // Give a clue
-    giveClue() {
-        console.log("${this.name}: My secret word is a type of ${this.secretWord}.");
-    }
-
-    // Choose a player to vote for
-    choosePlayerToVoteFor(players) {
-        // Choose a random player to vote for
-        const index = Math.floor(Math.random() * players.length);
-        return players[index];
-    }
-}
-
-// Mimic player class
-class MimicPlayer extends Player {
-    constructor(mimicWord) {
-        super("Mimic");
-    }
-
-    // Give a clue
-    giveClue() {
-        // Use a while loop to pause the code until the button is clicked
-        while (paused) {
-            
-        }
-        paused = true;
-    }
-
-    // Choose a player to vote for
-    choosePlayerToVoteFor(players) {
-        // Choose a random player to vote for, except for another mimic
-        let index = Math.floor(Math.random() * players.length);
-        while (players[index] instanceof MimicPlayer) {
-            index = Math.floor(Math.random() * players.length);
-        }
-        return players[index];
-    }
-}
-
-// Blind mimic player class
-class BlindMimicPlayer extends Player {
-    constructor() {
-        super("Blind Mimic");
-    }
-
-    // Give a clue
-    giveClue(guess) {
-        // Guess the secret word and win the game.
-        
-    }
-
-    // Choose a player to vote for
-    choosePlayerToVoteFor(players) {
-        // Choose a random player to vote for, except for another mimic
-        let index = Math.floor(Math.random() * players.length);
-        while (players[index] instanceof MimicPlayer) {
-            index = Math.floor(Math.random() * players.length);
-        }
-        return players[index];
-    }
-
-    // Guess the secret word
-    guessSecretWord(secretWord) {
-    if (this.secretWord === secretWord) {
-        return true;
-    }
-        return false;
     }
 }
 
