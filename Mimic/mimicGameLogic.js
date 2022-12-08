@@ -3,9 +3,6 @@ pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], 
 
 console.log(pairs[1]);
 
-// Create a new game
-const game = new MimicGame();
-
 function activateGame(numPlayers) {
     // Set the number of players in the game
     game.setNumPlayers(numPlayers);
@@ -246,6 +243,9 @@ class BlindMimicPlayer extends Player {
         return false;
     }
 }
+
+// Create a new game
+const game = new MimicGame();
 
 // In this code, the `MimicGame` class represents the game and contains the main game loop. It has methods for setting the number of players, secret and mimic words, starting the game, and announcing the winner.
 
