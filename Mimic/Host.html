@@ -235,10 +235,11 @@
                     playersConnectedList = "";
 
                     for (var player in players) {
-                        if (playersConnectedList != "") {
+                        if (playersConnectedList == "") {
                             playersConnectedList = playersConnectedList + players[player]["playerName"];
+                        } else {
+                            playersConnectedList = playersConnectedList + ", " + players[player]["playerName"];
                         }
-                        playersConnectedList = playersConnectedList + ", " + players[player]["playerName"];
                     }
 
                     playerListElement.innerHTML = playersConnectedList;
