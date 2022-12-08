@@ -127,7 +127,7 @@ class MimicGame {
             }
         }
         // The game is over if there is only two players remaining
-        return this.players.length <= 2 || mimicInGame == false;
+        return players.length <= 2 || mimicInGame == false;
     }
   
     // Give clues
