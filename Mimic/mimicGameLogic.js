@@ -91,10 +91,22 @@ class MimicGame {
             roles = stringifiedArray.repeat(this.numPlayers - 1).concat(["Mimic"].repeat(this.numPlayers % 2));
             roles = JSON.parse(roles);
         } else {
-            const stringifiedArray = JSON.stringify(['Civilian']);
-            // In a game with 6 or more players, there will be 1 or 2 mimics and 0 or 1 blind mimics
-            roles = stringifiedArray.repeat(this.numPlayers - 2).concat("[\"Mimic", "Mimic\"]").concat(", [\"Blind Mimic\"]").repeat(this.numPlayers % 2);
-            roles = JSON.parse(roles);
+            const roles = [];
+            // Add the appropriate number of Civilian roles
+            for (let i = 0; i < this.numPlayers - 2; i++) {
+                roles.push('Civilian');
+            }
+
+            // Add 1 or 2 Mimic roles, depending on the number of players
+            if (this.numPlayers >= 6) {
+                roles.push('Mimic');
+                roles.push('Mimic');
+            }
+
+            // Add a Blind Mimic role if there are an odd number of players
+            if (this.numPlayers % 2 === 1) {
+                roles.push('Blind Mimic');
+            }
         }
         
         // Shuffle the roles to randomize the order
