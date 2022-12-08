@@ -8,14 +8,17 @@ paused = true;
 console.log(players);
 console.log("original player array above \n \n");
 
+function generateRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 function activateGame(numPlayers) {
     // Set the number of players in the game
     game.setNumPlayers(numPlayers);
 
     // Choose random word pair and choose random secret word from the pair.
-    min = 0;
     max = pairs.length;
-    randomPairIndex = Math.floor(Math.random() * (max - min + 1) + min);
+    randomPairIndex = generateRandomNumber(0, max);
     randomSecretWordIndex = generateRandomNumber(0, 1);
     if (randomSecretWordIndex = 1) {
         mimicWord = 1;

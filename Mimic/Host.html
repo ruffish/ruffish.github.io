@@ -55,9 +55,6 @@
                 var clearMsgsButton = document.getElementById("clearMsgsButton");
                 var playerListElement = document.getElementById("player-list");
 
-                console.log("\n\n");
-                console.log(playerListElement);
-
                 /**
                  * Create the Peer object for our end of the connection.
                  *
@@ -154,7 +151,6 @@
 
                 function changePlayerName(newName) {
                     players[cPlayerID]["playerName"] = newName;
-                    console.log(players);
                     return;
                 };
 
@@ -258,7 +254,7 @@
             }
         </script>
 
-        <script src="./mimicGameLogic.js?v=0.26">
+        <script src="./mimicGameLogic.js?v=0.27">
         </script>
 <style type="text/css" id="dark-mode-custom-color">
 :root{
