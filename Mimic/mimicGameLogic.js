@@ -122,7 +122,7 @@ class MimicGame {
     gameOver() {
         let mimicInGame = false;
         for (playerID in players) {
-            if (players[players[playerID]]["role"] == "Mimic") {
+            if (players[playerID]["role"] == "Mimic") {
                 mimicInGame = true;
             }
         }
