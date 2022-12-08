@@ -6,6 +6,7 @@ pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], 
 paused = true;
 
 console.log(players);
+console.log(players.length);
 console.log("original player array above \n \n");
 
 function generateRandomNumber(min, max) {
