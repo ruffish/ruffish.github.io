@@ -232,15 +232,10 @@
                     playersConnectedList = "";
 
                     for (var player in players) {
-                        console.log(player)
-                        console.log("NEXT")
-                        console.log(players["playerName"])
-                        console.log("NEXT2")
-                        console.log(players)
                         if (playersConnectedList != "") {
                             playersConnectedList = playersConnectedList + ", ";
                         }
-                        playersConnectedList = playersConnectedList + ", " + players["playerName"];
+                        playersConnectedList = playersConnectedList + ", " + player["playerName"];
                     }
 
                     playerListElement.innerHTML = playersConnectedList;
