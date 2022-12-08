@@ -115,7 +115,7 @@ class MimicGame {
         roles.sort(() => Math.random() - 0.5);
 
         // Assign each player a role
-        for (const playerId in players) {
+        for (let playerId in players) {
             console.log(roles.pop());
             players[playerId]['role'] = roles.pop();
         }
