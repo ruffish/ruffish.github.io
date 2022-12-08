@@ -132,7 +132,7 @@ class MimicGame {
   
     // Give clues
     giveClues() {
-        for (playerID in players) {
+        for (let playerID in players) {
             while (pasued) {
 
             }
@@ -145,7 +145,7 @@ class MimicGame {
         while (paused) {
             paused = false;
             // Check if all players have voted.
-            for (playerID in players) {
+            for (let playerID in players) {
                 if (players[playerID]["vote"] == "NA") {
                     paused = true;
                 }
@@ -158,13 +158,13 @@ class MimicGame {
     announceWinner() {
         let winners = []
         if (mimicInGame == true) {
-            for (playerID in players) {
+            for (let playerID in players) {
                 if (players[playerID]["role"] == "Mimic") {
                     winners.push(players[playerID]["playerName"]);
                 }
             }
         } else {
-            for (playerID in players) {
+            for (let playerID in players) {
                 if (players[playerID]["role"] == "Civilian") {
                     winners.push(players[playerID]["playerName"]);
                 }
