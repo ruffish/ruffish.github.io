@@ -38,11 +38,10 @@
 
         <script src="./peerjsmin.js"></script>
         <script type="text/javascript">
+             var clientPlayerName = "Host";
              var players = {"host":{"playerName": clientPlayerName, "inPlay" : true}};
 
             (function () {
-
-                clientPlayerName = "Host";
 
                 var lastPeerId = null;
                 var peer = null; // Own peer object
