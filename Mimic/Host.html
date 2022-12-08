@@ -124,7 +124,7 @@
                     var playerVote = "<span class=\"cueMsg\">" + data[0] + ": </span>";
                     switch (data[0]) {
                         case 'setPlayerData':
-                            setPlayerData(data[1]["playerID"], data[1]["playerName"]);
+                            setPlayerData(data[1]["playerID"], data[1]["playerName"], data[1]["inPlay"]);
                             updatePlayerList();
                         case 'setPlayerName':
                             changePlayerName(data[1]["playerID"], data[1]["playerName"]);
