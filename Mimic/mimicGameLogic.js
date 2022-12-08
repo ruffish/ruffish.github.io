@@ -1,24 +1,33 @@
 // List of word pairs
 pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], ['Sun', 'Moon'], ['Water', 'Fire'], ['Big', 'Small'], ['Up', 'Down'], ['Fast', 'Slow'], ['Happy', 'Sad'], ['Book', 'Movie'], ['Chair', 'Table'], ['Apple', 'Orange'], ['Piano', 'Guitar'], ['Pen', 'Pencil'], ['Jacket', 'Coat'], ['Hat', 'Cap'], ['Carpet', 'Floor'], ['Bed', 'Sofa'], ['Bread', 'Butter'], ['Shoes', 'Boots'], ['Glass', 'Plastic'], ['Paper', 'Cardboard'], ['Door', 'Window'], ['House', 'Building'], ['Shirt', 'Sweater'], ['Fish', 'Bird'], ['Fruit', 'Vegetable'], ['Tree', 'Bush'], ['Tooth', 'Nail'], ['Gold', 'Silver'], ['Winter', 'Summer'], ['Salt', 'Pepper'], ['Paper', 'Plastic'], ['Glass', 'Cup'], ['Car', 'Truck'], ['Fish', 'Shark'], ['Shark', 'Dolphin'], ['Tree', 'Bush'], ['Bread', 'Pasta'], ['Mountain', 'Hill'], ['Snake', 'Lizard'], ['Coffee', 'Tea'], ['Hot', 'Cold'], ['Black', 'White'], ['Loud', 'Quiet'], ['Elephant', 'Tiger'], ['Diamond', 'Emerald'], ['Castle', 'Fortress'], ['King', 'Queen'], ['Astronaut', 'Cosmonaut'], ['Piano', 'Violin'], ['Garden', 'Jungle'], ['Ocean', 'Galaxy'], ['Moon', 'Mars'], ['Robot', 'Alien'], ['Butterfly', 'Dragonfly'], ['Sunflower', 'Daisy'], ['Shark', 'Whale'], ['Forest', 'Desert'], ['Computer', 'Laptop'], ['Baseball', 'Basketball'], ['Glasses', 'Sunglasses'], ['Movie', 'Television'], ['Music', 'Art'], ['Train', 'Airplane'], ['House', 'Mansion'], ['Ship', 'Submarine'], ['Rainbow', 'Unicorn'], ['Dragon', 'Phoenix'], ['Castle', 'Palace'], ['Butterfly', 'Moth'], ['Rose', 'Lily'], ['Ocean', 'Desert'], ['Star', 'Meteor'], ['Ghost', 'Zombie'], ['Gold', 'Platinum'], ['Elephant', 'Giraffe'], ['Castle', 'Tower'], ['King', 'Emperor'], ['Sun', 'Supernova'], ['Piano', 'Harp'], ['Garden', 'Oasis'], ['Ocean', 'Sea'], ['Moon', 'Saturn'], ['Robot', 'Cyborg'], ['Rainbow', 'Pot of Gold'], ['Dragon', 'Kraken'], ['Castle', 'Ice Palace'], ['Butterfly', 'Peacock'], ['Rose', 'Sunflower'], ['Ocean', 'Underwater City'], ['Star', 'Comet'], ['Ghost', 'Poltergeist'], ['Unicorn', 'Centaur'], ['Mermaid', 'Siren'], ['Phoenix', 'Kirin'], ['Chimera', 'Griffin'], ['Crystal Palace', 'Jade Palace'], ['Peacock', 'Swan'], ['Sunflower', 'Lotus'], ['Comet', 'Asteroid'], ['Poltergeist', 'Wraith'], ['Centaur', 'Minotaur'], ['Whale', 'Dolphin'], ['Lighthouse', 'Beacon'], ['Forest', 'Jungle'], ['Night', 'Evening'], ['Waterfall', 'Rapids'], ['Cloud', 'Fog'], ['Sunrise', 'Sunset'], ['Hammer', 'Wrench'], ['Kettle', 'Teapot'], ['Raven', 'Crow'], ['Tree', 'Shrub'], ['Pillow', 'Cushion'], ['Clock', 'Watch'], ['Skyscraper', 'Tower'], ['Sword', 'Dagger'], ['Glass', 'Vase'], ['Mirror', 'Window'], ['Bottle', 'Can'], ['Table', 'Chair'], ['Lamp', 'Light'], ['Key', 'Lock'], ['Book', 'Journal'], ['Television', 'Computer'], ['Cup', 'Mug'], ['Cat', 'Kitten'], ['Dog', 'Puppy'], ['Elephant', 'Giraffe'], ['Horse', 'Donkey'], ['Tiger', 'Lion'], ['Shark', 'Dolphin'], ['Fish', 'Octopus'], ['Bird', 'Owl'], ['Snake', 'Lizard'], ['Frog', 'Toad'], ['Mother', 'Grandmother'], ['Teacher', 'Student'], ['Doctor', 'Nurse'], ['Artist', 'Musician'], ['Chef', 'Baker'], ['Policeman', 'Fireman'], ['King', 'Queen'], ['Doctor', 'Dentist'], ['Teacher', 'Principal'], ['Artist', 'Designer'], ['Chef', 'Waitress'], ['Policeman', 'Security Guard'], ['Pilot', 'Flight Attendant'], ['Writer', 'Editor'], ['Engineer', 'Architect'], ['Heaven', 'Hell'], ['Earth', 'Sky'], ['Mind', 'Soul'], ['Maths', 'Science']];
 
-console.log(pairs[1]);
+console.log(players);
+console.log("original player array above \n \n");
 
 function activateGame(numPlayers) {
     // Set the number of players in the game
     game.setNumPlayers(numPlayers);
 
-    // Choose random word pair
+    // Choose random word pair and choose random secret word from the pair.
+    min = 0;
+    max = pairs.length();
+    randomPairIndex = Math.floor(Math.random() * (max - min + 1) + min);
+    randomSecretWordIndex = generateRandomNumber(0, 1);
+    if (randomSecretWordIndex = 1) {
+        mimicWord = 1;
+    } else {
+        mimicWord = 0;
+    }
 
     // Set the secret word for the civilians
-    game.setSecretWord("Dog");
+    game.setSecretWord(pairs[randomPairIndex][randomSecretWordIndex]);
     // Set the mimic word for the mimics
-    game.setMimicWord("Cat");
+    game.setMimicWord(pairs[randomPairIndex][mimicWord]);
     // Start the game
     game.start();
 }
 
 // The game will now run until a player wins or all players have been eliminated.
-
 class MimicGame {
     constructor() {
       this.numPlayers = 0;
@@ -68,10 +77,10 @@ class MimicGame {
   
       // Create the players array
       for (let i = 0; i < numCivilians; i++) {
-        this.players.push(new CivilianPlayer(this.secretWord));
+        this.players.push(new CivilianPlayer());
       }
       for (let i = 0; i < numMimics; i++) {
-        this.players.push(new MimicPlayer(this.mimicWord));
+        this.players.push(new MimicPlayer());
       }
   
       // If there are more than 6 players, add a blind mimic
@@ -81,6 +90,8 @@ class MimicGame {
   
       // Shuffle the players array to randomize the roles
       this.players = this.shuffleArray(this.players);
+
+      console.log(this.players);
     }
   
     // Shuffle an array in place
@@ -141,8 +152,6 @@ class MimicGame {
     // Announce the winner of the game
     announceWinner() {
         mimicInGame = false;
-
-
 
         if (this.players.length === 1) {
             console.log("The winner is ${this.players[0].name}!");
