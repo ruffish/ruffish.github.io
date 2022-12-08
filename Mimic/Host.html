@@ -90,9 +90,9 @@
                         console.log("Connected to: " + c.peer);
                         status.innerHTML = "Connected";
                         ready();
-                        // setTimeout(function () {
-                        //     join();
-                        // }, 300)
+                        setTimeout(function () {
+                            updatePlayerList();
+                        }, 500)
                     });
                     peer.on('disconnected', function () {
                         status.innerHTML = "Connection lost. Please reconnect";
@@ -112,7 +112,6 @@
                         console.log(err);
                         alert('' + err);
                     });
-                    updatePlayerList();
                 };
 
                 /**
