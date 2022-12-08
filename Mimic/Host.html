@@ -146,23 +146,16 @@
                         };
                     });
                     currentConn.on('close', function () { // Execute code when user disconnects.
-                        checkDisconnects();
-                    });
-                }
-
-                // Check for disconnects and deal with them appopriately
-                function checkDisconnects() {
-                    for (let step = 0; step < conn.length; step++) {
+                        for (let step = 0; step < conn.length; step++) {
                             if (conn[step]["_open"] == false) {
                                 delete players[conn[step]['peer']];
                                 conn.splice(step, 1);
                             }
                         }
-                    updatePlayerList();
+                        updatePlayerList();
+                    });
                 }
 
-                // execute the callback function every 5 seconds
-                setInterval(checkDisconnects, 5000);
 
                 function setPlayerData(playerID, newName, inPlay) {
                     players[playerID]["inPlay"] = inPlay;
