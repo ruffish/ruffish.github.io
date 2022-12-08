@@ -25,6 +25,9 @@
                 <td><div id="status" class="status">Connected</div></td>
                 <td><div class="message" id="message"><br><span class="msg-time">11:36:27</span>  -  Msgs cleared</div></td>
             </tr>
+            <tr>
+                <td><button onclick="activateGame(players.length)">Start Game</button></td>
+            </tr>
         </tbody></table>
 
         <script src="./peerjsmin.js"></script>
@@ -32,7 +35,7 @@
             (function () {
 
                 clientPlayerName = "Host";
-                players = {};
+                players = {"host":{"playerName": clientPlayerName}};
 
                 var lastPeerId = null;
                 var peer = null; // Own peer object
