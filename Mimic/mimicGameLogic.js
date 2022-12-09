@@ -129,19 +129,25 @@ class MimicGame {
     giveClues() {
         // Use Object.keys() to get an array of the keys in the dictionary
         let playersArray = Object.keys(players);
-        // Use Array.sort() to sort the array of keys
-        playersArray.sort();
-
+        // Use Array.sort() to sort the array of keys and shuffle the order.
+        playersArray.sort(() => Math.random() - 0.5);
+        // Set variable to count interations
         let numIterations = 0;
+        let signalSent = false;
 
         // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
         const interval = setInterval(() => {
-            console.log(playersArray[numIterations]["playerName"]);
-            console.log(playersArray);
-            console.log("HERE HERE")
+            // Send Signal to others players on who turn it is to give a clue
+            if (!signalSent) {
+                for (let step = 0; step < conn.length; step++) {
+                    conn[step].send(["giveClue", {"playerID": playersArray[numIterations]}]);
+                }
+                signalSent = true;
+            }
             // Check the value of the paused variable
             if (!paused) {
                 numIterations++;
+                signalSent = false;
 
                 // Clear the interval
                 clearInterval(interval);
