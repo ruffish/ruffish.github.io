@@ -136,30 +136,42 @@ class MimicGame {
     }
   
     // Give clues
-    async giveClues() {
-        for (let playerID in players) {
-            while (paused) {
-                console.log("Game is paused in Clues");
-                await new Promise(resolve => setTimeout(resolve, 1000));
+    giveClues() {
+        // Use Object.keys() to get an array of the keys in the dictionary
+        let playersArray = Object.keys(players);
+        // Use Array.sort() to sort the array of keys
+        playersArray.sort();
+
+        let numIterations = 0;
+
+        // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
+        const interval = setInterval(() => {
+
+            console.log(playersArray[numIterations]["playerName"])
+            console.log("HERE HERE")
+            // Check the value of the paused variable
+            if (!paused) {
+                numIterations++;
+
+                // Clear the interval
+                clearInterval(interval);
             }
-            paused = true;
-        }
+        }, 1000);
     }
     
     // Take a vote to eliminate a player
-    async takeVote() {
-        while (paused) {
-            paused = false;
-            console.log("Game is paused in takeVote");
-            // Check if all players have voted.
-            for (let playerID in players) {
-                if (players[playerID]["vote"] == "NA") {
-                    paused = true;
-                }
-            }
-            await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-        paused = true;
+    takeVote() {
+        // while (paused) {
+        //     paused = false;
+        //     console.log("Game is paused in takeVote");
+        //     // Check if all players have voted.
+        //     for (let playerID in players) {
+        //         if (players[playerID]["vote"] == "NA") {
+        //             paused = true;
+        //         }
+        //     }
+        // }
+        // paused = true;
     }
 
     // Announce the winner of the game
