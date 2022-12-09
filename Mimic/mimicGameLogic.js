@@ -136,8 +136,8 @@ class MimicGame {
 
         // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
         const interval = setInterval(() => {
-
-            console.log(playersArray[numIterations]["playerName"])
+            console.log(playersArray[numIterations]["playerName"]);
+            console.log(playersArray);
             console.log("HERE HERE")
             // Check the value of the paused variable
             if (!paused) {
