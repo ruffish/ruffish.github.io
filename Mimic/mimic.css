@@ -8,7 +8,8 @@ body {
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: 40px 30px;
+    border-radius: 12px;
     background-color: rgb(70, 31, 163);
     width: 400px;
 }
