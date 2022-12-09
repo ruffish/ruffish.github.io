@@ -1,4 +1,13 @@
 body {
-    background-color: rgb(70, 7, 216);
+    background-color: rgb(35, 0, 117);
 }
 
+.Main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: rgb(70, 31, 163);
+}
