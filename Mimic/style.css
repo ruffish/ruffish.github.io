@@ -197,6 +197,7 @@ footer {
 .message {
     overflow-y: auto;
     height: 100%;
+    padding: 0 10px;
 }
 
 .send-message-container {
@@ -214,6 +215,7 @@ footer {
     background-color: #514670;
     color:rgb(211, 211, 211);
     border: none;
+    border-radius:  0 0 8px 8px;
     border-top: 1px solid rgba(143, 143, 143, 0.075);
     outline: none;
 }
@@ -225,6 +227,7 @@ footer {
     right: 0;
     padding: 5px 20px;
     border: none;
+    border-radius:  0 0 8px 0;
     outline: none;
 }
 
@@ -233,8 +236,10 @@ footer {
     color: rgb(153, 153, 153);
     position: absolute;
     right: 0;
-    top 0;
-    padding: 5px 20px;
+    top: 0;
+    padding: 10px 28px;
     border: none;
+    border-radius:  0 8px 0 0;
     outline: none;
+    cursor: pointer;
 }
