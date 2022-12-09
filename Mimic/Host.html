@@ -69,7 +69,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="message" id="message"><br><span class="msg-time">11:36:27</span> - Msgs cleared</div>
+                            <div class="message" id="message"></div>
                         </td>
                     </tr>
                     <tr>
@@ -255,7 +255,6 @@
                 var now = new Date();
                 var h = now.getHours();
                 var m = addZero(now.getMinutes());
-                var s = addZero(now.getSeconds());
 
                 if (h > 12)
                     h -= 12;
@@ -268,7 +267,7 @@
                     return t;
                 };
 
-                message.innerHTML = "<br><span class=\"msg-time\">" + h + ":" + m + ":" + s + "</span>  -  " + msg +
+                message.innerHTML = "<br><span class=\"msg-time\">" + h + ":" + m + ":" + "</span>  -  " + msg +
                     message.innerHTML;
             }
 
@@ -296,7 +295,7 @@
                         }]);
                     }
                     console.log("Sent: " + msg)
-                    addMessage("<span class=\"selfMsg\">Self: </span>" + msg);
+                    addMessage("<span class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
                 } else {
                     console.log('Connection is closed');
                 }

@@ -40,12 +40,33 @@ h3 {
     display: none;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #2a1764;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #372768;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #261166
+}
+
 .message {
-    height: 125px;
-    max-height: 125px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid black;
-    overflow: auto;
+    height: 100px;
+    max-height: 100px;
+    margin: 10px 0;
+    overflow-y: auto;
+    background-color: #514670;
+    border-radius: 8px;
 }
 
 #share-link {
@@ -174,5 +195,5 @@ footer {
 .footer-container {
     max-width: 500px;
     margin: 0 auto;
-    padding: 20px 10px;
+    padding: 5px;
 }
