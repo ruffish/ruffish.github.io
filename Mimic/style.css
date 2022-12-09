@@ -36,10 +36,6 @@ h3 {
     visibility: hidden;
 }
 
-.no-display {
-    display: none;
-}
-
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
@@ -58,15 +54,6 @@ h3 {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #261166
-}
-
-.message {
-    height: 100px;
-    max-height: 100px;
-    margin: 10px 0;
-    overflow-y: auto;
-    background-color: #514670;
-    border-radius: 8px;
 }
 
 #share-link {
@@ -195,5 +182,59 @@ footer {
 .footer-container {
     max-width: 500px;
     margin: 0 auto;
+}
+
+.chat-table {
+    width: 100%;
+    position: relative;
+    height: 150px;
+    max-height: 150px;
+    margin: 10px 0;
+    background-color: #514670;
+    border-radius: 8px;
+}
+
+.message {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.send-message-container {
+    position: absolute;
+    bottom: 0px;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.send-message-container > input {
+    width: 500px;
     padding: 5px;
+    background-color: #514670;
+    color:rgb(211, 211, 211);
+    border: none;
+    border-top: 1px solid rgba(143, 143, 143, 0.075);
+    outline: none;
+}
+
+#sendButton {
+    background-color: #4a3c72;
+    color: rgb(153, 153, 153);
+    position: absolute;
+    right: 0;
+    padding: 5px 20px;
+    border: none;
+    outline: none;
+}
+
+#clearMsgsButton {
+    background-color: #4a3c72;
+    color: rgb(153, 153, 153);
+    position: absolute;
+    right: 0;
+    top 0;
+    padding: 5px 20px;
+    border: none;
+    outline: none;
 }

@@ -18,7 +18,7 @@
     </script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic revanced - Host</title>
-    <link rel="stylesheet" href="./style.css?v=0.35">
+    <link rel="stylesheet" href="./style.css?v=0.36">
 </head>
 
 <body>
@@ -52,31 +52,17 @@
             <button onclick="activateGame(Object.keys(players).length)">Start Game</button>
         </div>
     </div>
-    
+
     <footer>
         <div class="footer-container">
-            <table class="display">
-                <tbody>
-                    <tr>
-                        <td class="title">Messages:</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" id="sendMessageBox" placeholder="Enter a message...">
-                            <button type="button" id="sendButton">Send</button>
-                            <button type="button" id="clearMsgsButton">Clear Msgs (Local)</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="message" id="message"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><button onclick="activateGame(Object.keys(players).length)">Start Game</button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="chat-table">
+                <i id="clearMsgsButton" class="fa-solid fa-eraser"></i>
+                <div class="message" id="message"></div>
+                <div class="send-message-container">
+                    <input type="text" id="sendMessageBox" placeholder="Enter a message...">
+                    <button type="button" id="sendButton">Send</button>
+                </div>
+            </div>
         </div>
     </footer>
 
