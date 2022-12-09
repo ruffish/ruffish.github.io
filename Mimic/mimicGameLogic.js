@@ -140,6 +140,7 @@ class MimicGame {
         for (let playerID in players) {
             while (paused) {
                 console.log("Game is paused in Clues");
+                await new Promise(resolve => setTimeout(resolve, 0));
             }
             paused = true;
         }
@@ -156,6 +157,7 @@ class MimicGame {
                     paused = true;
                 }
             }
+            await new Promise(resolve => setTimeout(resolve, 0));
         }
         paused = true;
     }
