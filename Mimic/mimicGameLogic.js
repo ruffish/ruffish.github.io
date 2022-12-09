@@ -136,7 +136,7 @@ class MimicGame {
     }
   
     // Give clues
-    giveClues() {
+    async giveClues() {
         for (let playerID in players) {
             while (paused) {
                 console.log("Game is paused in Clues");
@@ -146,7 +146,7 @@ class MimicGame {
     }
     
     // Take a vote to eliminate a player
-    takeVote() {
+    async takeVote() {
         while (paused) {
             paused = false;
             console.log("Game is paused in takeVote");
