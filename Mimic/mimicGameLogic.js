@@ -139,7 +139,7 @@ class MimicGame {
     giveClues() {
         for (let playerID in players) {
             while (paused) {
-
+                console.log("Game is paused in Clues");
             }
             paused = true;
         }
@@ -149,6 +149,7 @@ class MimicGame {
     takeVote() {
         while (paused) {
             paused = false;
+            console.log("Game is paused in takeVote");
             // Check if all players have voted.
             for (let playerID in players) {
                 if (players[playerID]["vote"] == "NA") {
