@@ -62,21 +62,11 @@ class MimicGame {
   
     // Start the game
     start() {
-      // Generate the player roles
-      this.generatePlayerRoles(players);
+        // Generate the player roles
+        this.generatePlayerRoles(players);
   
-      // Start the game loop
-      while (!this.gameOver()) {
         // Take turns giving clues
         this.giveClues();
-  
-        // Take a vote to eliminate a player
-        this.takeVote();
-        this.round++;
-      }
-  
-      // Announce the winner
-      this.announceWinner();
     }
   
     // Generate the player roles
