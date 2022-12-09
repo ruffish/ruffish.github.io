@@ -103,6 +103,10 @@ header {
     font-size: 0.9rem;
 }
 
+.status {
+    text-align: center;
+}
+
 .Main {
     position: relative;
     margin: 150px auto 190px auto;
@@ -198,6 +202,7 @@ footer {
     overflow-y: auto;
     height: 100%;
     padding: 0 10px;
+    margin-bottom: 35px;
 }
 
 .send-message-container {
