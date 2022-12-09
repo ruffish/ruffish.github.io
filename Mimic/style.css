@@ -1,9 +1,35 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
 h2 {
     font-size: 1.5rem;
 }
 
 h3 {
     font-size: 1.2rem;
+}
+
+.unselectable {
+    /* If you want to implement it in very old browser-versions */
+    -webkit-user-select: none;
+    /* Chrome/Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+ */
+
+    /* The rule below is not implemented in browsers yet */
+    -o-user-select: none;
+
+    /* The rule below is implemented in most browsers by now */
+    user-select: none;
 }
 
 .hidden {
@@ -24,12 +50,12 @@ h3 {
 
 #share-link {
     cursor: pointer;
-    font-weight: bold; 
-    color: rgb(219, 33, 8);
+    font-weight: bold;
+    color: rgb(235, 235, 235);
 }
 
 #share-link:hover {
-    color: rgb(182, 26, 5);
+    color: rgb(180, 137, 132);
 }
 
 #share-link:active {
@@ -38,44 +64,115 @@ h3 {
 
 /* New CSS Styling */
 body {
-    background-color: #282828;
+    background-color: #4e4e4e;
     color: rgb(240, 240, 240);
-    height: 100%;
 }
 
 header {
     background-color: #2a1764;
     height: 130px;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .top-container {
     max-width: 500px;
     margin: 0 auto;
+    padding: 20px 10px;
+}
+
+.share-link-prompt-text {
+    font-size: 0.8rem;
+    padding: 5px 0;
+}
+
+#receiver-id {
+    padding: 5px 20px;
+    background-color: #473b6b;
+    overflow: hidden;
+    height: 30px;
+    font-size: 0.9rem;
 }
 
 .Main {
-    margin: 20px auto;
+    position: relative;
+    margin: 150px auto 190px auto;
     border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: rgb(70, 31, 163);
     max-width: 500px;
-    height: calc(100% - 40px);
+    height: calc(100vh - 340px);
 }
 
 .Main-top-container {
     border-radius: 8px 8px 0 0;
     text-align: center;
-    padding: 40px;
-    height: 150px;
+    padding: 25px;
+    height: 80px;
     background-color: #2a1764;
+}
+
+.game-title {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 .Main-mid-container {
     padding: 20px;
 }
 
-.game-title {
-    padding: 0 0 40px 0;
+.player-container {
+    background-color: #362664;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.player-name-text {
+    padding: 5px 20px;
+}
+
+.changeName-button {
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.changeName-button:hover {
+    background-color: #443963;
+}
+
+.Main-bottom-container {
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 8px 8px;
+    background-color: #443963;
+    height: 80px;
+    width: 100%;
+}
+
+.Main-bottom-container>button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #3500D3;
     color: white;
-    font-size: 1.5rem;
-    text-align: center;
+    width: 70%;
+    margin: 17px auto;
+    border: none;
+    border-radius: 8px;
+}
+
+footer {
+    background-color: #2a1764;
+    height: 170px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.footer-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px 10px;
 }
