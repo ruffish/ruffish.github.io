@@ -45,15 +45,12 @@ header {
 }
 
 .Main {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    margin: auto;
     padding: 40px 20px;
     border-radius: 12px;
     background-color: rgb(70, 31, 163);
     width: 350px;
+    height: calc(100% - 40px);
     text-align: center;
 }
 
