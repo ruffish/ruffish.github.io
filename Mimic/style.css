@@ -1,3 +1,11 @@
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -30,33 +38,44 @@
 
 /* New CSS Styling */
 body {
-    background-color: rgb(35, 0, 117);
+    background-color: #282828;
     color: rgb(240, 240, 240);
     height: 100%;
 }
 
 header {
-    background-color: #0C0032;
+    background-color: #2a1764;
+    height: 130px;
 }
 
 .top-container {
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
 }
 
 .Main {
-    margin: auto;
-    padding: 40px 20px;
-    border-radius: 12px;
+    margin: 20px auto;
+    border-radius: 8px;
     background-color: rgb(70, 31, 163);
-    width: 350px;
+    max-width: 500px;
     height: calc(100% - 40px);
+}
+
+.Main-top-container {
+    border-radius: 8px 8px 0 0;
     text-align: center;
+    padding: 40px;
+    height: 150px;
+    background-color: #2a1764;
+}
+
+.Main-mid-container {
+    padding: 20px;
 }
 
 .game-title {
     padding: 0 0 40px 0;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     text-align: center;
 }
