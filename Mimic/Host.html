@@ -1,19 +1,52 @@
 <!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link type="text/css" id="dark-mode" rel="stylesheet">
-        
-        <meta name="viewport" content="width=device-width">
-        <title>Mimic revanced - Host</title>
-        <link rel="stylesheet" href="./style.css?v=0.1">
-    </head>
-    <body>
-        <table class="display">
-            <tbody><tr>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" id="dark-mode" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <title>Mimic revanced - Host</title>
+    <link rel="stylesheet" href="./style.css?v=0.2">
+</head>
+
+<body>
+    <div class="Main">
+        <h2 class="game-title">Mimic Revanced</h2>
+
+        <div>
+            <p>Host a room?</p>
+            <button onclick='window.location.href="https://" + window.location.hostname + "/Mimic/Host.html"'
+                id="create-room-button">Create</button>
+            <br><br>
+        </div>
+        <div>
+            <p>Join a room?</p>
+            <input type="text">
+            <button>Join</button>
+        </div>
+    </div>
+
+    <table class="display">
+        <tbody>
+            <tr>
                 <td class="title">Status:</td>
                 <td class="title">Messages:</td>
             </tr>
             <tr>
                 <td>
-                    <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">Share link: f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
+                    <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">
+                        Share link: f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
                 </td>
                 <td>
                     <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true">
@@ -22,8 +55,12 @@
                 </td>
             </tr>
             <tr>
-                <td><div id="status" class="status">Connected</div></td>
-                <td><div class="message" id="message"><br><span class="msg-time">11:36:27</span>  -  Msgs cleared</div></td>
+                <td>
+                    <div id="status" class="status">Connected</div>
+                </td>
+                <td>
+                    <div class="message" id="message"><br><span class="msg-time">11:36:27</span> - Msgs cleared</div>
+                </td>
             </tr>
             <tr>
                 <td><button onclick="activateGame(Object.keys(players).length)">Start Game</button></td>
@@ -32,94 +69,106 @@
                 <td>Players Connected:</td>
             </tr>
             <tr>
-                <td><p id="player-list"></p></td>
+                <td>
+                    <p id="player-list"></p>
+                </td>
             </tr>
-        </tbody></table>
+        </tbody>
+    </table>
 
-        <script src="./peerjsmin.js"></script>
-        <script type="text/javascript">
-             var clientPlayerName = "Host";
-             var players = {"host":{"playerName": clientPlayerName, "inPlay" : true, "role": "NA"}};
+    <script src="./peerjsmin.js"></script>
+    <script type="text/javascript">
+        var clientPlayerName = "Host";
+        var players = {
+            "host": {
+                "playerName": clientPlayerName,
+                "inPlay": true,
+                "role": "NA"
+            }
+        };
 
-            (function () {
+        (function () {
 
-                var lastPeerId = null;
-                var peer = null; // Own peer object
-                var peerId = null;
-                var conn = [];
-                var recvId = document.getElementById("receiver-id");
-                var status = document.getElementById("status");
-                var message = document.getElementById("message");
-                var sendMessageBox = document.getElementById("sendMessageBox");
-                var sendButton = document.getElementById("sendButton");
-                var clearMsgsButton = document.getElementById("clearMsgsButton");
-                var playerListElement = document.getElementById("player-list");
+            var lastPeerId = null;
+            var peer = null; // Own peer object
+            var peerId = null;
+            var conn = [];
+            var recvId = document.getElementById("receiver-id");
+            var status = document.getElementById("status");
+            var message = document.getElementById("message");
+            var sendMessageBox = document.getElementById("sendMessageBox");
+            var sendButton = document.getElementById("sendButton");
+            var clearMsgsButton = document.getElementById("clearMsgsButton");
+            var playerListElement = document.getElementById("player-list");
 
-                /**
-                 * Create the Peer object for our end of the connection.
-                 *
-                 * Sets up callbacks that handle any events related to our
-                 * peer object.
-                 */
-                 function initialize() {
-                    // Create own peer object with connection to shared PeerJS server
-                    peer = new Peer(null, {
-                        debug: 2
-                    });
+            /**
+             * Create the Peer object for our end of the connection.
+             *
+             * Sets up callbacks that handle any events related to our
+             * peer object.
+             */
+            function initialize() {
+                // Create own peer object with connection to shared PeerJS server
+                peer = new Peer(null, {
+                    debug: 2
+                });
 
-                    peer.on('open', function (id) {
-                        // Workaround for peer.reconnect deleting previous id
-                        if (peer.id === null) {
-                            console.log('Received null id from peer open');
-                            peer.id = lastPeerId;
-                        } else {
-                            lastPeerId = peer.id;
-                        }
-
-                        console.log("TEST: " + peer.clientPlayerName)
-                        console.log('ID: ' + peer.id);
-                        recvId.innerHTML = "Share link: <span id=\"share-link\">https://" + window.location.hostname + "/Mimic/send.html?hostid=" + peer.id + "</span>";
-                        status.innerHTML = "Awaiting connection...";
-                    });
-                    peer.on('connection', function (c) {
-                        conn.push(c);
-                        console.log("TEST: " + conn);
-                        cPlayerID = c.peer
-                        players[cPlayerID] = {playerName : "unknown"};
-                        currentConn = c
-                        console.log("Connected to: " + c.peer);
-                        status.innerHTML = "Connected";
-                        ready();
-                        setTimeout(function () {
-                            updatePlayerList();
-                        }, 500)
-                    });
-                    peer.on('disconnected', function () {
-                        status.innerHTML = "Connection lost. Please reconnect";
-                        console.log('Connection lost. Please reconnect');
-
-                        // Workaround for peer.reconnect deleting previous id
+                peer.on('open', function (id) {
+                    // Workaround for peer.reconnect deleting previous id
+                    if (peer.id === null) {
+                        console.log('Received null id from peer open');
                         peer.id = lastPeerId;
-                        peer._lastServerId = lastPeerId;
-                        peer.reconnect();
-                    });
-                    peer.on('close', function() {
-                        // conn = [];
-                        status.innerHTML = "Connection destroyed. Please refresh";
-                        console.log('Connection destroyed');
-                    });
-                    peer.on('error', function (err) {
-                        console.log(err);
-                        alert('' + err);
-                    });
-                };
+                    } else {
+                        lastPeerId = peer.id;
+                    }
 
-                /**
-                 * Triggered once a connection has been achieved.
-                 * Defines callbacks to handle incoming data and connection events.
-                 */
-                function ready() {
-                    currentConn.on('data', function (data) {
+                    console.log("TEST: " + peer.clientPlayerName)
+                    console.log('ID: ' + peer.id);
+                    recvId.innerHTML = "Share link: <span id=\"share-link\">https://" + window.location
+                        .hostname + "/Mimic/send.html?hostid=" + peer.id + "</span>";
+                    status.innerHTML = "Awaiting connection...";
+                });
+                peer.on('connection', function (c) {
+                    conn.push(c);
+                    console.log("TEST: " + conn);
+                    cPlayerID = c.peer
+                    players[cPlayerID] = {
+                        playerName: "unknown"
+                    };
+                    currentConn = c
+                    console.log("Connected to: " + c.peer);
+                    status.innerHTML = "Connected";
+                    ready();
+                    setTimeout(function () {
+                        updatePlayerList();
+                    }, 500)
+                });
+                peer.on('disconnected', function () {
+                    status.innerHTML = "Connection lost. Please reconnect";
+                    console.log('Connection lost. Please reconnect');
+
+                    // Workaround for peer.reconnect deleting previous id
+                    peer.id = lastPeerId;
+                    peer._lastServerId = lastPeerId;
+                    peer.reconnect();
+                });
+                peer.on('close', function () {
+                    // conn = [];
+                    status.innerHTML = "Connection destroyed. Please refresh";
+                    console.log('Connection destroyed');
+                });
+                peer.on('error', function (err) {
+                    console.log(err);
+                    alert('' + err);
+                });
+            };
+
+            /**
+             * Triggered once a connection has been achieved.
+             * Defines callbacks to handle incoming data and connection events.
+             */
+            function ready() {
+                currentConn.on('data', function (data) {
                     console.log("Data recieved");
                     var playerVote = "<span class=\"cueMsg\">" + data[0] + ": </span>";
                     switch (data[0]) {
@@ -137,157 +186,168 @@
                             break;
                         default:
                             for (let step = 0; step < conn.length; step++) {
-                                    console.log(conn.length);
-                                    console.log(conn);
-                                    console.log(players);
-                                    conn[step].send(["chatMessage", {"playerName":data[1]["playerName"], "msg" : data[1]["msg"]}]);
-                                }
-                            addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" + data[1]["msg"]);
-                            break;
-                        };
-                    });
-                    currentConn.on('close', function () { // Execute code when user disconnects.
-                        for (let step = 0; step < conn.length; step++) {
-                            if (conn[step]["_open"] == false) {
-                                delete players[conn[step]['peer']];
-                                conn.splice(step, 1);
+                                console.log(conn.length);
+                                console.log(conn);
+                                console.log(players);
+                                conn[step].send(["chatMessage", {
+                                    "playerName": data[1]["playerName"],
+                                    "msg": data[1]["msg"]
+                                }]);
                             }
-                        }
-                        updatePlayerList();
-                    });
-                }
-
-
-                function setPlayerData(playerID, newName, inPlay) {
-                    players[playerID]["inPlay"] = inPlay;
-                    players[playerID]["playerName"] = newName;
-                    players[playerID]["role"] = "NA";
-                    return;
-                }
-
-                function changePlayerName(playerID, newName) {
-                    players[playerID]["playerName"] = newName;
-                    return;
-                };
-
-                function fade() {
-                    standbyBox.className = "display-box hidden";
-                    goBox.className = "display-box hidden";
-                    fadeBox.className = "display-box fade";
-                    offBox.className = "display-box hidden";
-                    return;
-                };
-
-                function off() {
-                    standbyBox.className = "display-box hidden";
-                    goBox.className = "display-box hidden";
-                    fadeBox.className = "display-box hidden";
-                    offBox.className = "display-box off";
-                    return;
-                }
-
-                function reset() {
-                    standbyBox.className = "display-box standby";
-                    goBox.className = "display-box hidden";
-                    fadeBox.className = "display-box hidden";
-                    offBox.className = "display-box hidden";
-                    return;
-                };
-
-                function addMessage(msg) {
-                    var now = new Date();
-                    var h = now.getHours();
-                    var m = addZero(now.getMinutes());
-                    var s = addZero(now.getSeconds());
-
-                    if (h > 12)
-                        h -= 12;
-                    else if (h === 0)
-                        h = 12;
-
-                    function addZero(t) {
-                        if (t < 10)
-                            t = "0" + t;
-                        return t;
+                            addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
+                                data[1]["msg"]);
+                            break;
                     };
-
-                    message.innerHTML = "<br><span class=\"msg-time\">" + h + ":" + m + ":" + s + "</span>  -  " + msg + message.innerHTML;
-                }
-
-                function clearMessages() {
-                    message.innerHTML = "";
-                    addMessage("Msgs cleared");
-                }
-
-                // Listen for enter in message box
-                sendMessageBox.addEventListener('keypress', function (e) {
-                    var event = e || window.event;
-                    var char = event.which || event.keyCode;
-                    if (char == '13')
-                        sendButton.click();
                 });
-                // Send message
-                sendButton.addEventListener('click', function () {
-                    if (conn[0] && conn[0].open) {
-                        var msg = sendMessageBox.value;
-                        sendMessageBox.value = "";
-                        for (let step = 0; step < conn.length; step++) {
-                          conn[step].send(["chatMessage", {"playerName":clientPlayerName, "msg" : msg}]);
-                        }
-                        console.log("Sent: " + msg)
-                        addMessage("<span class=\"selfMsg\">Self: </span>" + msg);
-                    } else {
-                        console.log('Connection is closed');
-                    }
-                });
-
-                // Clear messages box
-                clearMsgsButton.addEventListener('click', clearMessages);
-
-                function updatePlayerList() {
-                    console.log("Player List Updating");
-                    playersConnectedList = "";
-
-                    for (var player in players) {
-                        if (playersConnectedList == "") {
-                            playersConnectedList = playersConnectedList + players[player]["playerName"];
-                        } else {
-                            playersConnectedList = playersConnectedList + ", " + players[player]["playerName"];
+                currentConn.on('close', function () { // Execute code when user disconnects.
+                    for (let step = 0; step < conn.length; step++) {
+                        if (conn[step]["_open"] == false) {
+                            delete players[conn[step]['peer']];
+                            conn.splice(step, 1);
                         }
                     }
-
-                    playerListElement.innerHTML = playersConnectedList;
-                }
-
-                initialize();
-            })();
-
-            // My functions
-            function copyShareLink() {
-                // Get the link
-                var copyText = document.getElementById("share-link");
-
-                // Copy the text in the share link element
-                navigator.clipboard.writeText(copyText.innerText);
+                    updatePlayerList();
+                });
             }
-        </script>
 
-        <script src="./mimicGameLogic.js?v=0.27">
-        </script>
 
-        <script>
-            console.log("length of players: " + Object.keys(players).length);
-        </script>
-<style type="text/css" id="dark-mode-custom-color">
-:root{
-    --bg-color:rgba(26,26,26,1);
-    --text-color:rgba(255,200,0,1);
-    --a-color:rgba(76,200,200,1);
-    --a-visited-color:rgba(225,115,25,1);
-    --a-hover-color:rgba(211,211,211,1);
-    --input-border-color:rgba(211,211,211,0.2);
-    --input-placeholder-color:rgba(111,174,195,1);
-    --dialog-bg-color:rgba(36,36,36,0.95);
-    --bg-image:linear-gradient(rgba(26,26,26,1),rgba(26,26,26,1));
-}
-</style></body></html>
+            function setPlayerData(playerID, newName, inPlay) {
+                players[playerID]["inPlay"] = inPlay;
+                players[playerID]["playerName"] = newName;
+                players[playerID]["role"] = "NA";
+                return;
+            }
+
+            function changePlayerName(playerID, newName) {
+                players[playerID]["playerName"] = newName;
+                return;
+            };
+
+            function fade() {
+                standbyBox.className = "display-box hidden";
+                goBox.className = "display-box hidden";
+                fadeBox.className = "display-box fade";
+                offBox.className = "display-box hidden";
+                return;
+            };
+
+            function off() {
+                standbyBox.className = "display-box hidden";
+                goBox.className = "display-box hidden";
+                fadeBox.className = "display-box hidden";
+                offBox.className = "display-box off";
+                return;
+            }
+
+            function reset() {
+                standbyBox.className = "display-box standby";
+                goBox.className = "display-box hidden";
+                fadeBox.className = "display-box hidden";
+                offBox.className = "display-box hidden";
+                return;
+            };
+
+            function addMessage(msg) {
+                var now = new Date();
+                var h = now.getHours();
+                var m = addZero(now.getMinutes());
+                var s = addZero(now.getSeconds());
+
+                if (h > 12)
+                    h -= 12;
+                else if (h === 0)
+                    h = 12;
+
+                function addZero(t) {
+                    if (t < 10)
+                        t = "0" + t;
+                    return t;
+                };
+
+                message.innerHTML = "<br><span class=\"msg-time\">" + h + ":" + m + ":" + s + "</span>  -  " + msg +
+                    message.innerHTML;
+            }
+
+            function clearMessages() {
+                message.innerHTML = "";
+                addMessage("Msgs cleared");
+            }
+
+            // Listen for enter in message box
+            sendMessageBox.addEventListener('keypress', function (e) {
+                var event = e || window.event;
+                var char = event.which || event.keyCode;
+                if (char == '13')
+                    sendButton.click();
+            });
+            // Send message
+            sendButton.addEventListener('click', function () {
+                if (conn[0] && conn[0].open) {
+                    var msg = sendMessageBox.value;
+                    sendMessageBox.value = "";
+                    for (let step = 0; step < conn.length; step++) {
+                        conn[step].send(["chatMessage", {
+                            "playerName": clientPlayerName,
+                            "msg": msg
+                        }]);
+                    }
+                    console.log("Sent: " + msg)
+                    addMessage("<span class=\"selfMsg\">Self: </span>" + msg);
+                } else {
+                    console.log('Connection is closed');
+                }
+            });
+
+            // Clear messages box
+            clearMsgsButton.addEventListener('click', clearMessages);
+
+            function updatePlayerList() {
+                console.log("Player List Updating");
+                playersConnectedList = "";
+
+                for (var player in players) {
+                    if (playersConnectedList == "") {
+                        playersConnectedList = playersConnectedList + players[player]["playerName"];
+                    } else {
+                        playersConnectedList = playersConnectedList + ", " + players[player]["playerName"];
+                    }
+                }
+
+                playerListElement.innerHTML = playersConnectedList;
+            }
+
+            initialize();
+        })();
+
+        // My functions
+        function copyShareLink() {
+            // Get the link
+            var copyText = document.getElementById("share-link");
+
+            // Copy the text in the share link element
+            navigator.clipboard.writeText(copyText.innerText);
+        }
+    </script>
+
+    <script src="./mimicGameLogic.js?v=0.27">
+    </script>
+
+    <script>
+        console.log("length of players: " + Object.keys(players).length);
+    </script>
+    <style type="text/css" id="dark-mode-custom-color">
+        :root {
+            --bg-color: rgba(26, 26, 26, 1);
+            --text-color: rgba(255, 200, 0, 1);
+            --a-color: rgba(76, 200, 200, 1);
+            --a-visited-color: rgba(225, 115, 25, 1);
+            --a-hover-color: rgba(211, 211, 211, 1);
+            --input-border-color: rgba(211, 211, 211, 0.2);
+            --input-placeholder-color: rgba(111, 174, 195, 1);
+            --dialog-bg-color: rgba(36, 36, 36, 0.95);
+            --bg-image: linear-gradient(rgba(26, 26, 26, 1), rgba(26, 26, 26, 1));
+        }
+    </style>
+</body>
+
+</html>

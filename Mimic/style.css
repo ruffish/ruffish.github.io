@@ -1,7 +1,5 @@
 body {
     font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
-    background-color: white;
-	min-width: 450px;
 }
 
 h1 {
@@ -119,4 +117,29 @@ a:visited{
 
 #share-link:active {
     color: rgb(129, 15, 0);
+}
+
+/* New CSS Styling */
+body {
+    background-color: rgb(35, 0, 117);
+    color: rgb(240, 240, 240);
+}
+
+.Main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 40px 20px;
+    border-radius: 12px;
+    background-color: rgb(70, 31, 163);
+    width: 350px;
+    text-align: center;
+}
+
+.game-title {
+    padding: 0 0 40px 0;
+    color: white;
+    text-align: center;
 }
