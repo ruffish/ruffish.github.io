@@ -130,10 +130,11 @@
                     conn.push(c);
                     console.log("TEST: " + conn);
                     cPlayerID = c.peer
-                    players[cPlayerID] = {
-                        playerName: "unknown"
-                    };
+                    // players[cPlayerID] = {
+                    //     playerName: "unknown"
+                    // };
                     c.send(["playersData", players]);
+                    console.log("HERE")
                     currentConn = c
                     console.log("Connected to: " + c.peer);
                     status.innerHTML = "Connected";
@@ -357,6 +358,7 @@
             // Send players data to everyone connected, so they can update their player lists
             for (let step = 0; step < conn.length; step++) {
                 conn[step].send(["playersData", players]);
+                console.log("Sent: playersData " + step)
             }
             playerListElement.innerHTML = playersConnectedList;
         }
