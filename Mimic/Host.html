@@ -118,6 +118,12 @@
                         lastPeerId = peer.id;
                     }
 
+                    players[peer.id] = {
+                        "playerName": clientPlayerName,
+                        "inPlay": true,
+                        "role": "NA"
+                    }
+
                     console.log("TEST: " + peer.clientPlayerName)
                     console.log('ID: ' + peer.id);
                     recvId.innerHTML = "<span id=\"share-link\">https://" + window.location
@@ -336,23 +342,6 @@
 
     <script src="./mimicGameLogic.js?v=0.27">
     </script>
-
-    <script>
-        console.log("length of players: " + Object.keys(players).length);
-    </script>
-    <style type="text/css" id="dark-mode-custom-color">
-        :root {
-            --bg-color: rgba(26, 26, 26, 1);
-            --text-color: rgba(255, 200, 0, 1);
-            --a-color: rgba(76, 200, 200, 1);
-            --a-visited-color: rgba(225, 115, 25, 1);
-            --a-hover-color: rgba(211, 211, 211, 1);
-            --input-border-color: rgba(211, 211, 211, 0.2);
-            --input-placeholder-color: rgba(111, 174, 195, 1);
-            --dialog-bg-color: rgba(36, 36, 36, 0.95);
-            --bg-image: linear-gradient(rgba(26, 26, 26, 1), rgba(26, 26, 26, 1));
-        }
-    </style>
 </body>
 
 </html>
