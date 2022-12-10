@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <div id="changeName-container" class="changeName-container">
+                    <div id="changeName-container" class="changeName-container no-display">
                         <input type="text" id="changeName-input" placeholder="Enter a name...">
                         <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)"
                             class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
@@ -90,7 +90,7 @@
         var sendButton = document.getElementById("sendButton");
         var clearMsgsButton = document.getElementById("clearMsgsButton");
         var playerListElement = document.getElementById("player-list");
-        changeNameInput = document.getElementById('changeName-input');
+        var changeNameInput = document.getElementById('changeName-input');
 
         (function () {
 
@@ -288,12 +288,14 @@
             var event = e || window.event;
             var char = event.which || event.keyCode;
             console.log(char);
-            if (char == '13')
+            if (char == '13') {
                 console.log("Enter pressed for changing name input");
                 changeOwnName(changeNameInput, peer.id, changeNameInput.value);
+            }
         });
 
         function showChangeName(e) {
+            var changeNameInput = document.getElementById('changeName-input');
             let showNameContainer = e.parentElement;
             let changeNameContainer = showNameContainer.parentElement.lastElementChild;
             showNameContainer.classList.add('no-display');
