@@ -244,6 +244,7 @@
                             players = data[1];
                             updatePlayerList();
                         default:
+                            console.log(data)
                             addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
                                 data[1]["msg"]);
                             break;
