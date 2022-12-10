@@ -301,8 +301,7 @@
                     return t;
                 };
 
-                message.innerHTML = "<br><span class=\"msg-time\">" + h + ":" + m + ":" + "</span>  -  " + msg +
-                    message.innerHTML;
+                message.innerHTML = message.innerHTML + "<br><span class=\"msg-time\">" + h + ":" + m + ":" + "</span>  -  " + msg;
             };
 
             function clearMessages() {
