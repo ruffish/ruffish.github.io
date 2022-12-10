@@ -85,7 +85,6 @@
         var conn = [];
 
         var recvId = document.getElementById("receiver-id");
-        var status = document.getElementById("status");
         var message = document.getElementById("message");
         var sendMessageBox = document.getElementById("sendMessageBox");
         var sendButton = document.getElementById("sendButton");
@@ -93,6 +92,8 @@
         var playerListElement = document.getElementById("player-list");
 
         (function () {
+
+            var status = document.getElementById("status");
             /**
              * Create the Peer object for our end of the connection.
              *
@@ -122,10 +123,8 @@
 
                     recvId.innerHTML = "<span id=\"share-link\">https://" + window.location
                         .hostname + "/Mimic/send.html?hostid=" + peer.id + "</span>";
-                    console.log("TEST1");
-                    console.log(status)
-                    status.innerHTML = "Awaiting connection...";
-                    console.log("TEST2");
+                    
+                    status.innerText = "Awaiting connection...";
                 });
                 peer.on('connection', function (c) {
                     conn.push(c);
