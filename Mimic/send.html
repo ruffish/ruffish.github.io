@@ -302,6 +302,7 @@
                 };
 
                 message.innerHTML = message.innerHTML + "<br><span class=\"msg-time\">" + h + ":" + m + ":" + "</span>  -  " + msg;
+                message.scrollTop = message.scrollHeight;
             };
 
             function clearMessages() {
