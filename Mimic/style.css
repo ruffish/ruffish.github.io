@@ -33,11 +33,11 @@ h3 {
 }
 
 .hidden {
-    visibility: hidden;
+    visibility: hidden !important;
 }
 
 .no-display {
-    display: none;
+    display: none !important;
 }
 
 /* width */
@@ -76,7 +76,7 @@ h3 {
 
 /* New CSS Styling */
 body {
-    background-color: #4e4e4e;
+    background-color: #6a46d8;
     color: rgb(240, 240, 240);
 }
 
@@ -141,10 +141,13 @@ header {
 
 .player-container {
     background-color: #362664;
+}
+
+.showName-container {
     display: flex;
     justify-content: space-between;
-    vertical-align: middle;
     text-align: left;
+    align-items: center;
 }
 
 .player-name-text {
@@ -157,6 +160,30 @@ header {
 }
 
 .changeName-button:hover {
+    background-color: #443963;
+}
+
+.changeName-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#changeName-input {
+    background-color: #362664;
+    color: rgb(224, 224, 224);
+    width: 90%;
+    outline: none;
+    border: none;
+    padding: 5px 20px;
+}
+
+.confirm-ChangeName-button {
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.confirm-ChangeName-button:hover {
     background-color: #443963;
 }
 
@@ -181,7 +208,7 @@ header {
 }
 
 footer {
-    background-color: #2a1764;
+    background-color: #3b2e63;
     height: 170px;
     width: 100%;
     position: fixed;
