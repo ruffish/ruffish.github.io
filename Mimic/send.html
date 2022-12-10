@@ -338,18 +338,6 @@
                 }
             });
 
-            // Change name
-            changeNameButton.addEventListener('click', function () {
-                clientPlayerName = changeNameBox.value;
-                if (conn && conn.open) {
-                    conn.send(["setPlayerName", {
-                        "playerName": clientPlayerName,
-                        "playerID": peer.id
-                    }]);
-                }
-                changeNameBox.value = "";
-            })
-
             // Clear messages box
             clearMsgsButton.addEventListener('click', clearMessages);
             // Start peer connection on click
@@ -402,7 +390,12 @@
         }
 
         function changePlayerName(playerID, newName) {
-            players[playerID]["playerName"] = newName;
+            if (conn && conn.open) {
+                conn.send(["setPlayerName", {
+                    "playerName": clientPlayerName,
+                    "playerID": peer.id
+                }]);
+            }
             updatePlayerList();
             return;
         };
