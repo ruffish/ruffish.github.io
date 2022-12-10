@@ -320,12 +320,12 @@
         }
 
         function changeOwnName(e, playerID, newName) {
-            let changeNameContainer = e.parentElement
-            let showNameContainer = changeNameContainer.parentElement.firstChild;
+            let changeNameContainer = e.parentElement;
+            let showNameContainer = changeNameContainer.parentElement.firstElementChild;
             changeNameContainer.classList.add("no-display");
             showNameContainer.classList.remove("no-display");
 
-            changePlayerName(playerID, newMame);
+            changePlayerName(playerID, newName);
         }
 
         function changePlayerName(playerID, newName) {
