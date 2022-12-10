@@ -354,6 +354,7 @@
                     "</p></div></div>"
                 }
             }
+            // Send players data to everyone connected, so they can update their player lists
             for (let step = 0; step < conn.length; step++) {
                 conn[step].send(["playersData", players]);
             }

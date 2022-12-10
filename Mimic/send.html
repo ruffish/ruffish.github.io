@@ -107,34 +107,34 @@
 
     <script src="./peerjsmin.js"></script>
     <script type="text/javascript">
+        // Generate a random number between 0 and 1
+        let randomNumber = Math.random();
+        // Multiply the result by 10 to get a number between 0 and 10
+        randomNumber = randomNumber * 100;
+        // Use Math.floor() to round the number down to the nearest integer
+        randomNumber = Math.floor(randomNumber);
+        // Add 1 to the result to get a number between 1 and 10 (instead of between 0 and 9)
+        randomNumber = randomNumber + 1;
+        let clientPlayerName = "player " + randomNumber.toString();
+        document.getElementById('player-name-text').innerText = clientPlayerName;
+
+        players = {};
+        var lastPeerId = null;
+        var peer = null; // own peer object
+        var hostID = null;
+        var conn = null;
+        var recvIdInput = document.getElementById("receiver-id");
+
+        var message = document.getElementById("message");
+        var sendMessageBox = document.getElementById("sendMessageBox");
+        var sendButton = document.getElementById("sendButton");
+        var changeNameBox = document.getElementById("changeNameBox");
+        var changeNameButton = document.getElementById("changeNameButton");
+        var clearMsgsButton = document.getElementById("clearMsgsButton");
+        var connectButton = document.getElementById("connect-button");
+
         (function () {
-            players = {};
-
-            // Generate a random number between 0 and 1
-            let randomNumber = Math.random();
-            // Multiply the result by 10 to get a number between 0 and 10
-            randomNumber = randomNumber * 100;
-            // Use Math.floor() to round the number down to the nearest integer
-            randomNumber = Math.floor(randomNumber);
-            // Add 1 to the result to get a number between 1 and 10 (instead of between 0 and 9)
-            randomNumber = randomNumber + 1;
-            let clientPlayerName = "player " + randomNumber.toString();
-            document.getElementById('player-name-text').innerText = clientPlayerName;
-
-            var lastPeerId = null;
-            var peer = null; // own peer object
-            var hostID = null;
-            var conn = null;
-            var recvIdInput = document.getElementById("receiver-id");
             var status = document.getElementById("status");
-            var message = document.getElementById("message");
-            var sendMessageBox = document.getElementById("sendMessageBox");
-            var sendButton = document.getElementById("sendButton");
-            var changeNameBox = document.getElementById("changeNameBox");
-            var changeNameButton = document.getElementById("changeNameButton");
-            var clearMsgsButton = document.getElementById("clearMsgsButton");
-            var connectButton = document.getElementById("connect-button");
-            var cueString = "<span class=\"cueMsg\">Cue: </span>";
 
             /**
              * Create the Peer object for our end of the connection.
