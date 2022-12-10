@@ -41,16 +41,16 @@
             <br>
             <div id="player-list">
                 <div class="player-container">
-                    <div class="showName-container no-display">
+                    <div id="showName-container" class="showName-container no-display">
                         <p class="player-name-text">Host</p>
                         <div class="changeName-button-container">
                             <i class="fa-solid fa-pen changeName-button"></i>
                         </div>
                     </div>
 
-                    <div class="changeName-container">
+                    <div id="changeName-container" class="changeName-container">
                         <input type="text" id="changeName-input" placeholder="Enter a name...">
-                        <i onclick="changePlayerName(peer.id, document.getElementById('changeName-input').value)" class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
+                        <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)" class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
                     </div>
                 </div>
             </div>
@@ -317,6 +317,15 @@
 
             // Copy the text in the share link element
             navigator.clipboard.writeText(copyText.innerText);
+        }
+
+        function changeOwnName(e, playerID, newName) {
+            let changeNameContainer = e.parentElement
+            let showNameContainer = changeNameContainer.parentElement.firstChild;
+            changeNameContainer.classList.add("no-display");
+            showNameContainer.classList.remove("no-display");
+
+            changePlayerName(playerID, newMame);
         }
 
         function changePlayerName(playerID, newName) {
