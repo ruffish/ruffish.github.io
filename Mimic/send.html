@@ -243,14 +243,6 @@
                         case 'playersData':
                             players = data[1];
                             updatePlayerList();
-                        case 'setPlayerName':
-                            changePlayerName(data[1]["playerName"]);
-                            console.log(data[1]["playerID"] + " changed to" + data[1]["playerName"]);
-                            break;
-                        case 'F':
-                            fade();
-                            addMessage(playerVote + data[1]);
-                            break;
                         default:
                             addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
                                 data[1]["msg"]);
