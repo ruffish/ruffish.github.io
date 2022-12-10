@@ -90,6 +90,7 @@
         var sendButton = document.getElementById("sendButton");
         var clearMsgsButton = document.getElementById("clearMsgsButton");
         var playerListElement = document.getElementById("player-list");
+        changeNameInput = document.getElementById('changeName-input');
 
         (function () {
 
@@ -283,11 +284,10 @@
         }
 
         // Listen for enter in change name box
-        changeNameInput = document.getElementById('changeName-input');
         changeNameInput.addEventListener('keypress', function (e) {
             var event = e || window.event;
             var char = event.which || event.keyCode;
-            console.log("CHAR: " + char);
+            console.log(char);
             if (char == '13')
                 console.log("Enter pressed for changing name input");
                 changeOwnName(changeNameInput, peer.id, changeNameInput.value);
