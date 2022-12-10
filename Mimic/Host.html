@@ -216,30 +216,6 @@
                 return;
             }
 
-            function fade() {
-                standbyBox.className = "display-box hidden";
-                goBox.className = "display-box hidden";
-                fadeBox.className = "display-box fade";
-                offBox.className = "display-box hidden";
-                return;
-            };
-
-            function off() {
-                standbyBox.className = "display-box hidden";
-                goBox.className = "display-box hidden";
-                fadeBox.className = "display-box hidden";
-                offBox.className = "display-box off";
-                return;
-            }
-
-            function reset() {
-                standbyBox.className = "display-box standby";
-                goBox.className = "display-box hidden";
-                fadeBox.className = "display-box hidden";
-                offBox.className = "display-box hidden";
-                return;
-            };
-
             function addMessage(msg) {
                 var now = new Date();
                 var h = now.getHours();
@@ -312,6 +288,7 @@
             var event = e || window.event;
             var char = event.which || event.keyCode;
             if (char == '13')
+                console.log("Enter pressed for changing name input");
                 changeOwnName(changeNameInput, peer.id, changeNameInput.value);
         });
 
