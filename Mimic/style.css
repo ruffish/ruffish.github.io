@@ -141,6 +141,7 @@ header {
 
 .player-container {
     background-color: #362664;
+    margin-bottom: 10px;
 }
 
 .showName-container {

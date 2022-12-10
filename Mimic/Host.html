@@ -41,16 +41,18 @@
             <br>
             <div id="player-list">
                 <div class="player-container">
-                    <div id="showName-container" class="showName-container no-display">
+                    <div id="showName-container" class="showName-container">
                         <p class="player-name-text">Host</p>
-                        <div class="changeName-button-container">
+                        <div onclick="showChangeName(this)" id="changeName-button-container"
+                            class="changeName-button-container">
                             <i class="fa-solid fa-pen changeName-button"></i>
                         </div>
                     </div>
 
-                    <div id="changeName-container" class="changeName-container">
+                    <div id="changeName-container" class="changeName-container no-display">
                         <input type="text" id="changeName-input" placeholder="Enter a name...">
-                        <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)" class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
+                        <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)"
+                            class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
                     </div>
                 </div>
             </div>
@@ -76,27 +78,21 @@
     <script src="./peerjsmin.js"></script>
     <script type="text/javascript">
         var clientPlayerName = "Host";
-        var players = {
-            "host": {
-                "playerName": clientPlayerName,
-                "inPlay": true,
-                "role": "NA"
-            }
-        };
+        var players = {};
         var lastPeerId = null;
         var peer = null; // Own peer object
         var peerId = null;
         var conn = [];
 
-        (function () {
-            var recvId = document.getElementById("receiver-id");
-            var status = document.getElementById("status");
-            var message = document.getElementById("message");
-            var sendMessageBox = document.getElementById("sendMessageBox");
-            var sendButton = document.getElementById("sendButton");
-            var clearMsgsButton = document.getElementById("clearMsgsButton");
-            var playerListElement = document.getElementById("player-list");
+        var recvId = document.getElementById("receiver-id");
+        var status = document.getElementById("status");
+        var message = document.getElementById("message");
+        var sendMessageBox = document.getElementById("sendMessageBox");
+        var sendButton = document.getElementById("sendButton");
+        var clearMsgsButton = document.getElementById("clearMsgsButton");
+        var playerListElement = document.getElementById("player-list");
 
+        (function () {
             /**
              * Create the Peer object for our end of the connection.
              *
@@ -298,21 +294,6 @@
             // Clear messages box
             clearMsgsButton.addEventListener('click', clearMessages);
 
-            function updatePlayerList() {
-                console.log("Player List Updating");
-                playersConnectedList = "";
-
-                for (var player in players) {
-                    if (playersConnectedList == "") {
-                        playersConnectedList = playersConnectedList + players[player]["playerName"];
-                    } else {
-                        playersConnectedList = playersConnectedList + ", " + players[player]["playerName"];
-                    }
-                }
-
-                playerListElement.innerHTML = playersConnectedList;
-            }
-
             initialize();
         })();
 
@@ -323,6 +304,13 @@
 
             // Copy the text in the share link element
             navigator.clipboard.writeText(copyText.innerText);
+        }
+
+        function showChangeName(e) {
+            let showNameContainer = e.parentElement;
+            let changeNameContainer = showNameContainer.parentElement.lastElementChild;
+            showNameContainer.classList.add('no-display');
+            changeNameContainer.classList.remove('no-display');
         }
 
         function changeOwnName(e, playerID, newName) {
@@ -336,8 +324,26 @@
 
         function changePlayerName(playerID, newName) {
             players[playerID]["playerName"] = newName;
+            updatePlayerList();
             return;
         };
+
+        function updatePlayerList() {
+            console.log("Player List Updating");
+            playersConnectedList = "";
+
+            for (var player in players) {
+                if (peer.id == player) {
+                    console.log("MATCH")
+                }
+                playersConnectedList = playersConnectedList +
+                    "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                    players[player]["playerName"] +
+                    "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div></div>"
+            }
+
+            playerListElement.innerHTML = playersConnectedList;
+        }
     </script>
 
     <script src="./mimicGameLogic.js?v=0.27">
