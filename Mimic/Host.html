@@ -83,13 +83,12 @@
                 "role": "NA"
             }
         };
+        var lastPeerId = null;
+        var peer = null; // Own peer object
+        var peerId = null;
         var conn = [];
 
         (function () {
-
-            var lastPeerId = null;
-            var peer = null; // Own peer object
-            var peerId = null;
             var recvId = document.getElementById("receiver-id");
             var status = document.getElementById("status");
             var message = document.getElementById("message");
