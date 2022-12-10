@@ -18,7 +18,7 @@
     </script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic Revanced - Host</title>
-    <link rel="stylesheet" href="./style.css?v=0.5">
+    <link rel="stylesheet" href="./style.css?v=0.6">
 </head>
 
 <body>
@@ -133,6 +133,7 @@
                     players[cPlayerID] = {
                         playerName: "unknown"
                     };
+                    c.send(["playersData", players]);
                     currentConn = c
                     console.log("Connected to: " + c.peer);
                     status.innerHTML = "Connected";

@@ -107,6 +107,8 @@
 
     <script src="./peerjsmin.js"></script>
     <script type="text/javascript">
+        players = {}
+
         (function () {
             // Generate a random number between 0 and 1
             let randomNumber = Math.random();
@@ -237,6 +239,8 @@
                 // Handle incoming data (messages only since this is the signal sender)
                 conn.on('data', function (data) {
                     switch (data[0]) {
+                        case 'playersData':
+                            players = data[1];
                         case 'setPlayerName':
                             changePlayerName(data[1]["playerName"]);
                             console.log(data[1]["playerID"] + " changed to" + data[1]["playerName"]);
@@ -358,6 +362,28 @@
                 join();
             }, 4000)
         })();
+
+        // My Functions (Global)
+        function updatePlayerList() {
+            console.log("Player List Updating");
+            playersConnectedList = "";
+
+            for (var player in players) {
+                if (peer.id == player) {
+                    playersConnectedList = playersConnectedList +
+                    "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                    players[player]["playerName"] +
+                    "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div></div>"
+                } else {
+                    playersConnectedList = playersConnectedList +
+                    "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                    players[player]["playerName"] +
+                    "</p></div></div>"
+                }
+            }
+
+            playerListElement.innerHTML = playersConnectedList;
+        }
     </script>
 </body>
 
