@@ -310,9 +310,8 @@
         changeNameInput.addEventListener('keypress', function (e) {
             var event = e || window.event;
             var char = event.which || event.keyCode;
-            if (char == '13') {
+            if (char == '13')
                 changeOwnName(changeNameInput, peer.id, changeOwnInput.value);
-            }
         });
 
         function showChangeName(e) {
