@@ -287,6 +287,7 @@
         changeNameInput.addEventListener('keypress', function (e) {
             var event = e || window.event;
             var char = event.which || event.keyCode;
+            console.log("CHAR: " + char);
             if (char == '13')
                 console.log("Enter pressed for changing name input");
                 changeOwnName(changeNameInput, peer.id, changeNameInput.value);
