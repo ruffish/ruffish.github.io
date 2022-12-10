@@ -241,6 +241,7 @@
                     switch (data[0]) {
                         case 'playersData':
                             players = data[1];
+                            updatePlayerList();
                         case 'setPlayerName':
                             changePlayerName(data[1]["playerName"]);
                             console.log(data[1]["playerID"] + " changed to" + data[1]["playerName"]);
@@ -396,7 +397,6 @@
                     "playerID": peer.id
                 }]);
             }
-            updatePlayerList();
             return;
         };
     </script>
