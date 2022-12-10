@@ -319,7 +319,8 @@
             changeNameContainer.classList.add("no-display");
             showNameContainer.classList.remove("no-display");
 
-            changePlayerName(playerID, newName);
+            clientPlayerName = newName;
+            changePlayerName(playerID, clientPlayerName);
         }
 
         function changePlayerName(playerID, newName) {
