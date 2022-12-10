@@ -128,13 +128,11 @@
                 });
                 peer.on('connection', function (c) {
                     conn.push(c);
-                    console.log("TEST: " + conn);
                     cPlayerID = c.peer
                     players[cPlayerID] = {
                         playerName: "unknown"
                     };
                     c.send(["playersData", players]);
-                    console.log("HERE")
                     currentConn = c
                     console.log("Connected to: " + c.peer);
                     status.innerHTML = "Connected";
