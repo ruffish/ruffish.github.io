@@ -334,12 +334,16 @@
 
             for (var player in players) {
                 if (peer.id == player) {
-                    console.log("MATCH")
-                }
-                playersConnectedList = playersConnectedList +
+                    playersConnectedList = playersConnectedList +
                     "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
                     players[player]["playerName"] +
                     "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div></div>"
+                } else {
+                    playersConnectedList = playersConnectedList +
+                    "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                    players[player]["playerName"] +
+                    "</p></div></div>"
+                }
             }
 
             playerListElement.innerHTML = playersConnectedList;
