@@ -128,9 +128,11 @@
                 });
                 peer.on('connection', function (c) {
                     conn.push(c);
-                    cPlayerID = c.peer
                     players[cPlayerID] = {
-                        playerName: "unknown"
+                        "playerID": c.peer,
+                        "playerName": "unknown",
+                        "inPlay": true,
+                        "role": "NA"
                     };
                     c.send(["playersData", players]);
                     currentConn = c
