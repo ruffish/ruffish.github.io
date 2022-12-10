@@ -176,6 +176,7 @@
                             setPlayerData(data[1]["playerID"], data[1]["playerName"], data[1]["inPlay"]);
                             console.log("ACTIVATED");
                             updatePlayerList();
+                            break;
                         case 'setPlayerName':
                             changePlayerName(data[1]["playerID"], data[1]["playerName"]);
                             console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
