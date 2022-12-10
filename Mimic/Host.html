@@ -306,6 +306,16 @@
             navigator.clipboard.writeText(copyText.innerText);
         }
 
+        // Listen for enter in change name box
+        changeNameInput = document.getElementById('changeName-input');
+        changeNameInput.addEventListener('keypress', function (e) {
+            var event = e || window.event;
+            var char = event.which || event.keyCode;
+            if (char == '13') {
+                changeOwnName(changeNameInput, peer.id, changeOwnInput.value);
+            }
+        });
+
         function showChangeName(e) {
             let showNameContainer = e.parentElement;
             let changeNameContainer = showNameContainer.parentElement.lastElementChild;

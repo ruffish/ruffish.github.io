@@ -20,6 +20,59 @@
 </head>
 
 <body>
+    <header>
+        <div class="top-container unselectable">
+            <p class="share-link-prompt-text">Share this link to invite others. (click to copy)</p>
+            <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">
+                f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
+            <br>
+            <div id="status" class="status">. . .</div>
+        </div>
+    </header>
+
+    <div class="Main">
+        <div class="Main-top-container">
+            <h2 class="game-title">Mimic Revanced</h2>
+        </div>
+        <div class="Main-mid-container">
+            <h3>Players:</h3>
+            <br>
+            <div id="player-list">
+                <div class="player-container">
+                    <div id="showName-container" class="showName-container">
+                        <p id="player-name-text" class="player-name-text"></p>
+                        <div onclick="showChangeName(this)" id="changeName-button-container"
+                            class="changeName-button-container">
+                            <i class="fa-solid fa-pen changeName-button"></i>
+                        </div>
+                    </div>
+
+                    <div id="changeName-container" class="changeName-container no-display">
+                        <input type="text" id="changeName-input" placeholder="Enter a name...">
+                        <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)"
+                            class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Main-bottom-container">
+            <button onclick="activateGame(Object.keys(players).length)">Start Game</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="chat-table">
+                <i id="clearMsgsButton" class="fa-solid fa-eraser"></i>
+                <div class="message" id="message"></div>
+                <div class="send-message-container">
+                    <input type="text" id="sendMessageBox" placeholder="Enter a message...">
+                    <button type="button" id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <table class="control">
         <tr>
             <td class="title">Status:</td>
@@ -62,7 +115,8 @@
             randomNumber = Math.floor(randomNumber);
             // Add 1 to the result to get a number between 1 and 10 (instead of between 0 and 9)
             randomNumber = randomNumber + 1;
-            let clientPlayerName = "player" + randomNumber.toString();
+            let clientPlayerName = "player " + randomNumber.toString();
+            document.getElementById('player-name-text').innerText = clientPlayerName;
 
             var lastPeerId = null;
             var peer = null; // own peer object
