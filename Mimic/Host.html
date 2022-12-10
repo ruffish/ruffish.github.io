@@ -28,7 +28,7 @@
             <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">
                 f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
             <br>
-            <div id="status" class="status">Connected</div>
+            <div id="status" class="status">. . .</div>
         </div>
     </header>
 
@@ -120,8 +120,6 @@
                         "role": "NA"
                     }
 
-                    console.log("TEST: " + peer.clientPlayerName)
-                    console.log('ID: ' + peer.id);
                     recvId.innerHTML = "<span id=\"share-link\">https://" + window.location
                         .hostname + "/Mimic/send.html?hostid=" + peer.id + "</span>";
                     status.innerHTML = "Awaiting connection...";
