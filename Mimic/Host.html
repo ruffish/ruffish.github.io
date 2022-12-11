@@ -283,20 +283,21 @@
             navigator.clipboard.writeText(copyText.innerText);
         }
 
-        // Listen for enter in change name box
-        changeNameInput.addEventListener('keypress', (event) => {
-            if (event.keyCode === 13) {
-                console.log("Enter pressed for changing name input");
-                changeOwnName(changeNameInput, peer.id, changeNameInput.value);
-            }
-        });
-
         function showChangeName(e) {
             let showNameContainer = e.parentElement;
             let changeNameContainer = showNameContainer.parentElement.lastElementChild;
             showNameContainer.classList.add('no-display');
             changeNameContainer.classList.remove('no-display');
+
+            // Listen for enter in change name box
             changeNameInput = document.getElementById('changeName-input');
+            changeNameInput.focus();
+            changeNameInput.addEventListener('keypress', (event) => {
+                if (event.keyCode === 13) {
+                    console.log("Enter pressed for changing name input");
+                    changeOwnName(changeNameInput, peer.id, changeNameInput.value);
+                }
+            });
         }
 
         function changeOwnName(e, playerID, newName) {
