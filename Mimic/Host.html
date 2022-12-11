@@ -18,7 +18,7 @@
     </script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic Revanced - Host</title>
-    <link rel="stylesheet" href="./style.css?v=0.6">
+    <link rel="stylesheet" href="./style.css?v=0.61">
 </head>
 
 <body>
@@ -90,7 +90,6 @@
         var sendButton = document.getElementById("sendButton");
         var clearMsgsButton = document.getElementById("clearMsgsButton");
         var playerListElement = document.getElementById("player-list");
-        var changeNameInput = document.getElementById('changeName-input');
 
         (function () {
 
@@ -290,7 +289,7 @@
             changeNameContainer.classList.remove('no-display');
 
             // Listen for enter in change name box
-            changeNameInput = document.getElementById('changeName-input');
+            let changeNameInput = document.getElementById('changeName-input');
             changeNameInput.focus();
             changeNameInput.addEventListener('keypress', (event) => {
                 if (event.keyCode === 13) {

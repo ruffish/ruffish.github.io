@@ -17,7 +17,7 @@
     </script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic revanced</title>
-    <link rel="stylesheet" href="./style.css?v=0.3">
+    <link rel="stylesheet" href="./style.css?v=0.31">
 </head>
 
 <body>
@@ -303,7 +303,8 @@
                     return t;
                 };
 
-                message.innerHTML = message.innerHTML + "<br><span class=\"msg-time\">" + h + ":" + m + ":" + "</span>  -  " + msg;
+                message.innerHTML = message.innerHTML + "<br><span class=\"msg-time\">" + h + ":" + m + ":" +
+                    "</span>  -  " + msg;
                 message.scrollTop = message.scrollHeight;
             };
 
@@ -373,6 +374,16 @@
             let changeNameContainer = showNameContainer.parentElement.lastElementChild;
             showNameContainer.classList.add('no-display');
             changeNameContainer.classList.remove('no-display');
+
+            // Listen for enter in change name box
+            let changeNameInput = document.getElementById('changeName-input');
+            changeNameInput.focus();
+            changeNameInput.addEventListener('keypress', (event) => {
+                if (event.keyCode === 13) {
+                    console.log("Enter pressed for changing name input");
+                    changeOwnName(changeNameInput, peer.id, changeNameInput.value);
+                }
+            });
         }
 
         function changeOwnName(e, playerID, newName) {
