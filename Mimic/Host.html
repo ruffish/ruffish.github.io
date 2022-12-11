@@ -124,7 +124,7 @@
 
                     recvId.innerHTML = "<span id=\"share-link\">https://" + window.location
                         .hostname + "/Mimic/send.html?hostid=" + peer.id + "</span>";
-                    
+
                     status.innerText = "Awaiting connection...";
                 });
                 peer.on('connection', function (c) {
@@ -284,18 +284,15 @@
         }
 
         // Listen for enter in change name box
-        changeNameInput.addEventListener('keypress', function (e) {
-            var event = e || window.event;
-            var char = event.which || event.keyCode;
-            console.log(char);
-            if (char == '13') {
+        changeNameInput.addEventListener('keypress', (event) => {
+            if (event.keyCode === 13) {
                 console.log("Enter pressed for changing name input");
                 changeOwnName(changeNameInput, peer.id, changeNameInput.value);
             }
         });
 
         function showChangeName(e) {
-            var changeNameInput = document.getElementById('changeName-input');
+            changeNameInput = document.getElementById('changeName-input');
             let showNameContainer = e.parentElement;
             let changeNameContainer = showNameContainer.parentElement.lastElementChild;
             showNameContainer.classList.add('no-display');
@@ -325,14 +322,14 @@
             for (var player in players) {
                 if (peer.id == player) {
                     playersConnectedList = playersConnectedList +
-                    "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
-                    players[player]["playerName"] +
-                    "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div></div>"
+                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                        players[player]["playerName"] +
+                        "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div></div>"
                 } else {
                     playersConnectedList = playersConnectedList +
-                    "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
-                    players[player]["playerName"] +
-                    "</p></div></div>"
+                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                        players[player]["playerName"] +
+                        "</p></div></div>"
                 }
             }
             // Send players data to everyone connected, so they can update their player lists
