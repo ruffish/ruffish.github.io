@@ -292,11 +292,11 @@
         });
 
         function showChangeName(e) {
-            changeNameInput = document.getElementById('changeName-input');
             let showNameContainer = e.parentElement;
             let changeNameContainer = showNameContainer.parentElement.lastElementChild;
             showNameContainer.classList.add('no-display');
             changeNameContainer.classList.remove('no-display');
+            changeNameInput = document.getElementById('changeName-input');
         }
 
         function changeOwnName(e, playerID, newName) {
