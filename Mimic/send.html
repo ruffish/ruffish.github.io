@@ -273,20 +273,6 @@
                     return results[1];
             };
 
-            /**
-             * Send a signal via the peer connection and add it to the log.
-             * This will only occur if the connection is still alive.
-             */
-            function signal(voteChosen) {
-                if (conn && conn.open) {
-                    conn.send([clientPlayerName, voteChosen]);
-                    console.log(sigName + " signal sent");
-                    addMessage(cueString + sigName);
-                } else {
-                    console.log('Connection is closed');
-                }
-            }
-
             function addMessage(msg) {
                 var now = new Date();
                 var h = now.getHours();

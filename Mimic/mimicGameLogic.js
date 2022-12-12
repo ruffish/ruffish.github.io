@@ -5,18 +5,23 @@ pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], 
 
 var mimicInGame = false;
 paused = true;
-
-console.log(players);
-console.log(players.length);
-console.log("original player array above \n \n");
+let playerInGame = {};
 
 function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function activateGame(numPlayers) {
-    // Set the number of players in the game
-    game.setNumPlayers(numPlayers);
+function activateGame(numplayersInGame) {
+    // Assign players that want to play to the game.
+    for (let playerId in players) {
+        let player = players[playerId];
+        if (player.inPlay) {
+            playerInGame[playerId] = player;
+        }
+    }
+
+    // Set the number of playersInGame in the game
+    game.setNumplayersInGame(numplayersInGame);
 
     // Choose random word pair and choose random secret word from the pair.
     max = pairs.length;
@@ -36,18 +41,18 @@ function activateGame(numPlayers) {
     game.start();
 }
 
-// The game will now run until a player wins or all players have been eliminated.
+// The game will now run until a player wins or all playersInGame have been eliminated.
 class MimicGame {
     constructor() {
-      this.numPlayers = 0;
+      this.numplayersInGame = 0;
       this.secretWord = "";
       this.mimicWord = "";
       this.round = 1;
     }
   
-    // Set the number of players in the game
-    setNumPlayers(num) {
-      this.numPlayers = num;
+    // Set the number of playersInGame in the game
+    setNumplayersInGame(num) {
+      this.numplayersInGame = num;
     }
   
     // Set the secret word for the civilians
@@ -63,7 +68,7 @@ class MimicGame {
     // Start the game
     start() {
         // Generate the player roles
-        this.generatePlayerRoles(players);
+        this.generatePlayerRoles();
   
         // Take turns giving clues
         this.giveClues();
@@ -74,30 +79,30 @@ class MimicGame {
         // Create an array of roles
         var roles = [];
 
-        console.log(this.numPlayers)
-        console.log(players.length);
+        console.log(this.numplayersInGame)
+        console.log(playersInGame.length);
 
-        if (this.numPlayers === 3) {
+        if (this.numplayersInGame === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
             roles = ["Civilian", "Civilian", "Mimic"];
-        } else if (this.numPlayers === 4 || this.numPlayers === 5) {
+        } else if (this.numplayersInGame === 4 || this.numplayersInGame === 5) {
             const stringifiedArray = JSON.stringify(['Civilian']);
             // In a 4 or 5 player game, there will be 1 or 2 mimics
-            roles = roles.concat(JSON.parse(stringifiedArray.repeat(this.numPlayers - 1))).concat(["Mimic"].repeat(this.numPlayers % 2));
+            roles = roles.concat(JSON.parse(stringifiedArray.repeat(this.numplayersInGame - 1))).concat(["Mimic"].repeat(this.numplayersInGame % 2));
         } else {
             // Add the appropriate number of Civilian roles
-            for (let i = 0; i < this.numPlayers - 2; i++) {
+            for (let i = 0; i < this.numplayersInGame - 2; i++) {
                 roles.push('Civilian');
             }
 
-            // Add 1 or 2 Mimic roles, depending on the number of players
-            if (this.numPlayers >= 6) {
+            // Add 1 or 2 Mimic roles, depending on the number of playersInGame
+            if (this.numplayersInGame >= 6) {
                 roles.push('Mimic');
                 roles.push('Mimic');
             }
 
-            // Add a Blind Mimic role if there are an odd number of players
-            if (this.numPlayers % 2 === 1) {
+            // Add a Blind Mimic role if there are an odd number of playersInGame
+            if (this.numplayersInGame % 2 === 1) {
                 roles.push('Blind Mimic');
             }
         }
@@ -106,41 +111,41 @@ class MimicGame {
         roles.sort(() => Math.random() - 0.5);
 
         // Assign each player a role
-        for (let playerId in players) {
+        for (let playerId in playersInGame) {
             console.log(roles);
-            players[playerId]['role'] = roles.pop();
+            playersInGame[playerId]['role'] = roles.pop();
         }
 
-        console.log(players);
+        console.log(playersInGame);
     }
   
     // Check if the game is over
     gameOver() {
-        for (let playerId in players) {
-            if (players[playerId]["role"] == "Mimic") {
+        for (let playerId in playersInGame) {
+            if (playersInGame[playerId]["role"] == "Mimic") {
                 mimicInGame = true;
             }
         }
-        // The game is over if there is only two players remaining
-        return players.length <= 2 || mimicInGame == false;
+        // The game is over if there is only two playersInGame remaining
+        return playersInGame.length <= 2 || mimicInGame == false;
     }
   
     // Give clues
     giveClues() {
         // Use Object.keys() to get an array of the keys in the dictionary
-        let playersArray = Object.keys(players);
+        let playersInGameArray = Object.keys(playersInGame);
         // Use Array.sort() to sort the array of keys and shuffle the order.
-        playersArray.sort(() => Math.random() - 0.5);
+        playersInGameArray.sort(() => Math.random() - 0.5);
         // Set variable to count interations
         let numIterations = 0;
         let signalSent = false;
 
         // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
         const interval = setInterval(() => {
-            // Send Signal to others players on who turn it is to give a clue
+            // Send Signal to others playersInGame on who turn it is to give a clue
             if (!signalSent) {
                 for (let step = 0; step < conn.length; step++) {
-                    conn[step].send(["giveClue", {"playerID": playersArray[numIterations]}]);
+                    conn[step].send(["giveClue", {"playerID": playersInGameArray[numIterations]}]);
                 }
                 signalSent = true;
             }
@@ -160,9 +165,9 @@ class MimicGame {
         // while (paused) {
         //     paused = false;
         //     console.log("Game is paused in takeVote");
-        //     // Check if all players have voted.
-        //     for (let playerID in players) {
-        //         if (players[playerID]["vote"] == "NA") {
+        //     // Check if all playersInGame have voted.
+        //     for (let playerID in playersInGame) {
+        //         if (playersInGame[playerID]["vote"] == "NA") {
         //             paused = true;
         //         }
         //     }
@@ -174,15 +179,15 @@ class MimicGame {
     announceWinner() {
         let winners = []
         if (mimicInGame == true) {
-            for (let playerID in players) {
-                if (players[playerID]["role"] == "Mimic") {
-                    winners.push(players[playerID]["playerName"]);
+            for (let playerID in playersInGame) {
+                if (playersInGame[playerID]["role"] == "Mimic") {
+                    winners.push(playersInGame[playerID]["playerName"]);
                 }
             }
         } else {
-            for (let playerID in players) {
-                if (players[playerID]["role"] == "Civilian") {
-                    winners.push(players[playerID]["playerName"]);
+            for (let playerID in playersInGame) {
+                if (playersInGame[playerID]["role"] == "Civilian") {
+                    winners.push(playersInGame[playerID]["playerName"]);
                 }
             }
         }
@@ -193,7 +198,7 @@ class MimicGame {
 // Create a new game
 const game = new MimicGame();
 
-// In this code, the `MimicGame` class represents the game and contains the main game loop. It has methods for setting the number of players, secret and mimic words, starting the game, and announcing the winner.
+// In this code, the `MimicGame` class represents the game and contains the main game loop. It has methods for setting the number of playersInGame, secret and mimic words, starting the game, and announcing the winner.
 
 // The `Player` class is the base class for the different player types (civilians, mimics, and blind mimics). It contains a `name` property and default implementations of the `giveClue()` and `choosePlayerToVoteFor()` methods.
 

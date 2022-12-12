@@ -174,16 +174,11 @@
                     switch (data[0]) {
                         case 'setPlayerData':
                             setPlayerData(data[1]["playerID"], data[1]["playerName"], data[1]["inPlay"]);
-                            console.log("ACTIVATED");
                             updatePlayerList();
                             break;
                         case 'setPlayerName':
                             changePlayerName(data[1]["playerID"], data[1]["playerName"]);
                             console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
-                            break;
-                        case 'F':
-                            fade();
-                            addMessage(playerVote + data[1]);
                             break;
                         default:
                             for (let step = 0; step < conn.length; step++) {
