@@ -428,8 +428,12 @@
         function triggerCurrentRound() {
             $('player-secret-word').text(playersInGame[peer.id]["word"]);
 
-            $('#starting-slide').fadeToggle(500);
-            $('#your-word-slide').fadeToggle(500);
+            $('#starting-slide')
+                .fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#your-word-slide').fadeIn(500);
+            });
         }
     </script>
 </body>
