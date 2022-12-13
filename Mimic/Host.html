@@ -426,21 +426,18 @@
                     .promise()
                     .then(function () {
                         $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
-                            .promuse()
-                            .then(function () {
-                                $('#give-clue-slide').fadeIn(500);
-                            });
+                        $('#give-clue-slide').fadeIn(500);
                     });
             } else {
-                $('#give-clue-slide').fadeOut(500);
-                if (peer.id == playerID) {
-                    $('#confirm-clue-button').removeClass('no-display');
-                } else {
-                    $('#confirm-clue-button').addClass('no-display');
-                }
-                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
-                    .promuse()
+                $('#give-clue-slide').fadeOut(500)
+                    .promise()
                     .then(function () {
+                        if (peer.id == playerID) {
+                            $('#confirm-clue-button').removeClass('no-display');
+                        } else {
+                            $('#confirm-clue-button').addClass('no-display');
+                        }
+                        $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
                         $('#give-clue-slide').fadeIn(500);
                     });
             }
