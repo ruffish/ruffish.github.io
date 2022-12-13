@@ -94,6 +94,20 @@
                         onclick="imReady(this)">I'm Done</button>
                 </div>
             </div>
+            <div id="take-vote-slide" class="no-display">
+                <div class="Main-mid-container">
+                    <div id="vote-player-list">
+                        <div class="player-container">
+                            <div id="vote-showName-container" class="showName-container">
+                                <p class="player-name-text">Host</p>
+                                <div onclick="castVote()" id="vote-button-container" class="vote-button-container">
+                                    <button class="vote-button">Vote</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -460,6 +474,24 @@
                         $('#give-clue-slide').fadeIn(500);
                     });
             }
+        }
+
+        function triggerTakeVote() {
+            updatePlayersInGameList();
+            $('#give-clue-slide').fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#take-vote-slide').fadeIn(500);
+                });
+        }
+
+        function castVote(e, playerID) {
+            if (e != null) {
+                // Fade out the ready button
+                $(e).fadeOut(500);
+            }
+            // Set the player's ready status to true
+            playersInGame[playerID]['votes'] = playersInGame[playerID]['votes'] + 1;
         }
 
         function updatePlayersInGameList() {

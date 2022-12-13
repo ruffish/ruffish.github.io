@@ -453,8 +453,13 @@
                 });
         }
 
-        function castVote(playerID) {
-            
+        function castVote(e, playerID) {
+            if (e != null) {
+                // Fade out the ready button
+                $(e).fadeOut(500);
+            }
+            // Set the player's ready status to true
+            playersInGame[playerID]['votes'] = playersInGame[playerID]['votes'] + 1;
         }
 
         function updatePlayersInGameList() {
