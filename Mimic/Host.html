@@ -460,6 +460,7 @@
             $('.vote-button-container').fadeOut();
             // Set the player's ready status to true
             playersInGame[playerID]['votes'] = playersInGame[playerID]['votes'] + 1;
+            playersInGame[playerID]['ready'] = true;
         }
 
         function updatePlayersInGameList() {
