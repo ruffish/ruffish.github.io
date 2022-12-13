@@ -176,6 +176,7 @@ class MimicGame {
         playersInGameArray.sort(() => Math.random() - 0.5);
         // Set variable to count interations
         let signalSent = false;
+        paused = true;
 
         // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
         const interval = setInterval(() => {
