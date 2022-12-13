@@ -24,10 +24,11 @@ function activateGame() {
     game.setNumplayersInGame(Object.keys(playersInGame).length);
 
     // Choose random word pair and choose random secret word from the pair.
+    let mimicWord = 0;
     max = pairs.length;
     randomPairIndex = generateRandomNumber(0, max);
     randomSecretWordIndex = generateRandomNumber(0, 1);
-    if (randomSecretWordIndex = 1) {
+    if (randomSecretWordIndex == 1) {
         mimicWord = 1;
     } else {
         mimicWord = 0;
