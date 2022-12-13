@@ -424,7 +424,10 @@ class MimicGame {
                 }
                 // If there is a tie, make the other playersInGame vote again
                 if (mostVotedPlayer.length > 1) {
-                    this.takeVote();
+                    // Randomly select a player from the mostVotedPlayer array
+                    let randomPlayer = mostVotedPlayer[Math.floor(Math.random() * mostVotedPlayer.length)];
+                    // Eliminate the randomly selected player
+                    this.eliminatePlayer(randomPlayer);
                 } else {
                     // If not, eliminate the player with the most votes
                     this.eliminatePlayer(mostVotedPlayer[0]);
@@ -479,6 +482,7 @@ class MimicGame {
                 }
             }
         }
+        console.log(winner);
         return winners;
     }
 }
