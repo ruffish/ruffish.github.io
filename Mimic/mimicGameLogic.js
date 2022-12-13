@@ -214,7 +214,7 @@ class MimicGame {
                 }
                 this.takeVote();
             }
-        }, 1000);
+        }, 200);
     }
     
     // Take a vote to eliminate a player
