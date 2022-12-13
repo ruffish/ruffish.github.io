@@ -138,6 +138,7 @@
         var changeNameButton = document.getElementById("changeNameButton");
         var clearMsgsButton = document.getElementById("clearMsgsButton");
         var playerListElement = document.getElementById("player-list");
+        var votePlayerListElement = document.getElementById("vote-player-list");
 
         (function () {
             var status = document.getElementById("status");
@@ -258,6 +259,9 @@
                             break;
                         case 'giveClue':
                             triggerGiveClue(data[1]["playerID"], data[1]["iteration"]);
+                            break;
+                        case 'takeVote':
+                            triggerTakeVote();
                             break;
                         default:
                             console.log(data)
@@ -456,6 +460,22 @@
                         $('#give-clue-slide').fadeIn(500);
                     });
             }
+        }
+
+        function updatePlayersInGameList() {
+            console.log("PlayersInGame List Updating");
+            playersInGameList = "";
+
+            for (var player in playersInGame) {
+                if (peer.id == player) {
+                    playersInGameList = playersInGameList +
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote(" + playersInGame[player]["playerID"] + ")\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
+                } else {
+                    playersInGameList = playersInGameList +
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote(" + playersInGame[player]["playerID"] + ")\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
+                }
+            }
+            votePlayerListElement.innerHTML = playersInGameList;
         }
     </script>
 </body>

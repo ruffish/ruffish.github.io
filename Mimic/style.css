@@ -296,6 +296,16 @@ footer {
     
 }
 
+.vote-button {
+    cursor: pointer;
+    padding: 5px 20px;
+    background-color: #450cf1;
+    color: white;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}
+
 /* Extra class options */
 .hidden {
     visibility: hidden;

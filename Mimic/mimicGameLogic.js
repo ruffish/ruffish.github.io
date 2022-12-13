@@ -1,7 +1,164 @@
 // GAME SETUP
 
 // List of word pairs
-pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], ['Sun', 'Moon'], ['Water', 'Fire'], ['Big', 'Small'], ['Up', 'Down'], ['Fast', 'Slow'], ['Happy', 'Sad'], ['Book', 'Movie'], ['Chair', 'Table'], ['Apple', 'Orange'], ['Piano', 'Guitar'], ['Pen', 'Pencil'], ['Jacket', 'Coat'], ['Hat', 'Cap'], ['Carpet', 'Floor'], ['Bed', 'Sofa'], ['Bread', 'Butter'], ['Shoes', 'Boots'], ['Glass', 'Plastic'], ['Paper', 'Cardboard'], ['Door', 'Window'], ['House', 'Building'], ['Shirt', 'Sweater'], ['Fish', 'Bird'], ['Fruit', 'Vegetable'], ['Tree', 'Bush'], ['Tooth', 'Nail'], ['Gold', 'Silver'], ['Winter', 'Summer'], ['Salt', 'Pepper'], ['Paper', 'Plastic'], ['Glass', 'Cup'], ['Car', 'Truck'], ['Fish', 'Shark'], ['Shark', 'Dolphin'], ['Tree', 'Bush'], ['Bread', 'Pasta'], ['Mountain', 'Hill'], ['Snake', 'Lizard'], ['Coffee', 'Tea'], ['Hot', 'Cold'], ['Black', 'White'], ['Loud', 'Quiet'], ['Elephant', 'Tiger'], ['Diamond', 'Emerald'], ['Castle', 'Fortress'], ['King', 'Queen'], ['Astronaut', 'Cosmonaut'], ['Piano', 'Violin'], ['Garden', 'Jungle'], ['Ocean', 'Galaxy'], ['Moon', 'Mars'], ['Robot', 'Alien'], ['Butterfly', 'Dragonfly'], ['Sunflower', 'Daisy'], ['Shark', 'Whale'], ['Forest', 'Desert'], ['Computer', 'Laptop'], ['Baseball', 'Basketball'], ['Glasses', 'Sunglasses'], ['Movie', 'Television'], ['Music', 'Art'], ['Train', 'Airplane'], ['House', 'Mansion'], ['Ship', 'Submarine'], ['Rainbow', 'Unicorn'], ['Dragon', 'Phoenix'], ['Castle', 'Palace'], ['Butterfly', 'Moth'], ['Rose', 'Lily'], ['Ocean', 'Desert'], ['Star', 'Meteor'], ['Ghost', 'Zombie'], ['Gold', 'Platinum'], ['Elephant', 'Giraffe'], ['Castle', 'Tower'], ['King', 'Emperor'], ['Sun', 'Supernova'], ['Piano', 'Harp'], ['Garden', 'Oasis'], ['Ocean', 'Sea'], ['Moon', 'Saturn'], ['Robot', 'Cyborg'], ['Rainbow', 'Pot of Gold'], ['Dragon', 'Kraken'], ['Castle', 'Ice Palace'], ['Butterfly', 'Peacock'], ['Rose', 'Sunflower'], ['Ocean', 'Underwater City'], ['Star', 'Comet'], ['Ghost', 'Poltergeist'], ['Unicorn', 'Centaur'], ['Mermaid', 'Siren'], ['Phoenix', 'Kirin'], ['Chimera', 'Griffin'], ['Peacock', 'Swan'], ['Sunflower', 'Lotus'], ['Comet', 'Asteroid'], ['Poltergeist', 'Wraith'], ['Centaur', 'Minotaur'], ['Whale', 'Dolphin'], ['Lighthouse', 'Beacon'], ['Forest', 'Jungle'], ['Night', 'Evening'], ['Waterfall', 'Rapids'], ['Cloud', 'Fog'], ['Sunrise', 'Sunset'], ['Hammer', 'Wrench'], ['Kettle', 'Teapot'], ['Raven', 'Crow'], ['Tree', 'Shrub'], ['Pillow', 'Cushion'], ['Clock', 'Watch'], ['Skyscraper', 'Tower'], ['Sword', 'Dagger'], ['Glass', 'Vase'], ['Mirror', 'Window'], ['Bottle', 'Can'], ['Table', 'Chair'], ['Lamp', 'Light'], ['Key', 'Lock'], ['Book', 'Journal'], ['Television', 'Computer'], ['Cup', 'Mug'], ['Cat', 'Kitten'], ['Dog', 'Puppy'], ['Elephant', 'Giraffe'], ['Horse', 'Donkey'], ['Tiger', 'Lion'], ['Shark', 'Dolphin'], ['Fish', 'Octopus'], ['Bird', 'Owl'], ['Snake', 'Lizard'], ['Frog', 'Toad'], ['Mother', 'Grandmother'], ['Teacher', 'Student'], ['Doctor', 'Nurse'], ['Artist', 'Musician'], ['Chef', 'Baker'], ['Policeman', 'Fireman'], ['King', 'Queen'], ['Doctor', 'Dentist'], ['Teacher', 'Principal'], ['Artist', 'Designer'], ['Chef', 'Waitress'], ['Policeman', 'Security Guard'], ['Pilot', 'Flight Attendant'], ['Writer', 'Editor'], ['Engineer', 'Architect'], ['Heaven', 'Hell'], ['Earth', 'Sky'], ['Mind', 'Soul'], ['Maths', 'Science']];
+pairs = [
+    ['Dog', 'Cat'],
+    ['Tree', 'Flower'],
+    ['Car', 'Bike'],
+    ['Night', 'Day'],
+    ['Sun', 'Moon'],
+    ['Water', 'Fire'],
+    ['Big', 'Small'],
+    ['Up', 'Down'],
+    ['Fast', 'Slow'],
+    ['Happy', 'Sad'],
+    ['Book', 'Movie'],
+    ['Chair', 'Table'],
+    ['Apple', 'Orange'],
+    ['Piano', 'Guitar'],
+    ['Pen', 'Pencil'],
+    ['Jacket', 'Coat'],
+    ['Hat', 'Cap'],
+    ['Carpet', 'Floor'],
+    ['Bed', 'Sofa'],
+    ['Bread', 'Butter'],
+    ['Shoes', 'Boots'],
+    ['Glass', 'Plastic'],
+    ['Paper', 'Cardboard'],
+    ['Door', 'Window'],
+    ['House', 'Building'],
+    ['Shirt', 'Sweater'],
+    ['Fish', 'Bird'],
+    ['Fruit', 'Vegetable'],
+    ['Tree', 'Bush'],
+    ['Tooth', 'Nail'],
+    ['Gold', 'Silver'],
+    ['Winter', 'Summer'],
+    ['Salt', 'Pepper'],
+    ['Paper', 'Plastic'],
+    ['Glass', 'Cup'],
+    ['Car', 'Truck'],
+    ['Fish', 'Shark'],
+    ['Shark', 'Dolphin'],
+    ['Tree', 'Bush'],
+    ['Bread', 'Pasta'],
+    ['Mountain', 'Hill'],
+    ['Snake', 'Lizard'],
+    ['Coffee', 'Tea'],
+    ['Hot', 'Cold'],
+    ['Black', 'White'],
+    ['Loud', 'Quiet'],
+    ['Elephant', 'Tiger'],
+    ['Diamond', 'Emerald'],
+    ['Castle', 'Fortress'],
+    ['King', 'Queen'],
+    ['Astronaut', 'Cosmonaut'],
+    ['Piano', 'Violin'],
+    ['Garden', 'Jungle'],
+    ['Ocean', 'Galaxy'],
+    ['Moon', 'Mars'],
+    ['Robot', 'Alien'],
+    ['Butterfly', 'Dragonfly'],
+    ['Sunflower', 'Daisy'],
+    ['Shark', 'Whale'],
+    ['Forest', 'Desert'],
+    ['Computer', 'Laptop'],
+    ['Baseball', 'Basketball'],
+    ['Glasses', 'Sunglasses'],
+    ['Movie', 'Television'],
+    ['Music', 'Art'],
+    ['Train', 'Airplane'],
+    ['House', 'Mansion'],
+    ['Ship', 'Submarine'],
+    ['Rainbow', 'Unicorn'],
+    ['Dragon', 'Phoenix'],
+    ['Castle', 'Palace'],
+    ['Butterfly', 'Moth'],
+    ['Rose', 'Lily'],
+    ['Ocean', 'Desert'],
+    ['Star', 'Meteor'],
+    ['Ghost', 'Zombie'],
+    ['Gold', 'Platinum'],
+    ['Elephant', 'Giraffe'],
+    ['Castle', 'Tower'],
+    ['King', 'Emperor'],
+    ['Sun', 'Supernova'],
+    ['Piano', 'Harp'],
+    ['Garden', 'Oasis'],
+    ['Ocean', 'Sea'],
+    ['Moon', 'Saturn'],
+    ['Robot', 'Cyborg'],
+    ['Rainbow', 'Pot of Gold'],
+    ['Dragon', 'Kraken'],
+    ['Castle', 'Ice Palace'],
+    ['Butterfly', 'Peacock'],
+    ['Rose', 'Sunflower'],
+    ['Ocean', 'Underwater City'],
+    ['Star', 'Comet'],
+    ['Ghost', 'Poltergeist'],
+    ['Unicorn', 'Centaur'],
+    ['Mermaid', 'Siren'],
+    ['Phoenix', 'Kirin'],
+    ['Chimera', 'Griffin'],
+    ['Peacock', 'Swan'],
+    ['Sunflower', 'Lotus'],
+    ['Comet', 'Asteroid'],
+    ['Poltergeist', 'Wraith'],
+    ['Centaur', 'Minotaur'],
+    ['Whale', 'Dolphin'],
+    ['Lighthouse', 'Beacon'],
+    ['Forest', 'Jungle'],
+    ['Night', 'Evening'],
+    ['Waterfall', 'Rapids'],
+    ['Cloud', 'Fog'],
+    ['Sunrise', 'Sunset'],
+    ['Hammer', 'Wrench'],
+    ['Kettle', 'Teapot'],
+    ['Raven', 'Crow'],
+    ['Tree', 'Shrub'],
+    ['Pillow', 'Cushion'],
+    ['Clock', 'Watch'],
+    ['Skyscraper', 'Tower'],
+    ['Sword', 'Dagger'],
+    ['Glass', 'Vase'],
+    ['Mirror', 'Window'],
+    ['Bottle', 'Can'],
+    ['Table', 'Chair'],
+    ['Lamp', 'Light'],
+    ['Key', 'Lock'],
+    ['Book', 'Journal'],
+    ['Television', 'Computer'],
+    ['Cup', 'Mug'],
+    ['Cat', 'Kitten'],
+    ['Dog', 'Puppy'],
+    ['Elephant', 'Giraffe'],
+    ['Horse', 'Donkey'],
+    ['Tiger', 'Lion'],
+    ['Shark', 'Dolphin'],
+    ['Fish', 'Octopus'],
+    ['Bird', 'Owl'],
+    ['Snake', 'Lizard'],
+    ['Frog', 'Toad'],
+    ['Mother', 'Grandmother'],
+    ['Teacher', 'Student'],
+    ['Doctor', 'Nurse'],
+    ['Artist', 'Musician'],
+    ['Chef', 'Baker'],
+    ['Policeman', 'Fireman'],
+    ['King', 'Queen'],
+    ['Doctor', 'Dentist'],
+    ['Teacher', 'Principal'],
+    ['Artist', 'Designer'],
+    ['Chef', 'Waitress'],
+    ['Policeman', 'Security Guard'],
+    ['Pilot', 'Flight Attendant'],
+    ['Writer', 'Editor'],
+    ['Engineer', 'Architect'],
+    ['Heaven', 'Hell'],
+    ['Earth', 'Sky'],
+    ['Mind', 'Soul'],
+    ['Maths', 'Science']
+];
 
 var mimicInGame = false;
 paused = true;
@@ -46,27 +203,27 @@ function activateGame() {
 // The game will now run until a player wins or all playersInGame have been eliminated.
 class MimicGame {
     constructor() {
-      this.numplayersInGame = 0;
-      this.secretWord = "";
-      this.mimicWord = "";
-      this.round = 1;
+        this.numplayersInGame = 0;
+        this.secretWord = "";
+        this.mimicWord = "";
+        this.round = 1;
     }
-  
+
     // Set the number of playersInGame in the game
     setNumplayersInGame(num) {
-      this.numplayersInGame = num;
+        this.numplayersInGame = num;
     }
-  
+
     // Set the secret word for the civilians
     setSecretWord(word) {
-      this.secretWord = word;
+        this.secretWord = word;
     }
-  
+
     // Set the mimic word for the mimics
     setMimicWord(word) {
-      this.mimicWord = word;
+        this.mimicWord = word;
     }
-  
+
     // Start the game
     start() {
         // Generate the player roles
@@ -78,7 +235,7 @@ class MimicGame {
         // Trigger the first round
         this.triggerRound();
     }
-  
+
     // Generate the player roles
     generatePlayerRoles() {
         // Create an array of roles
@@ -114,6 +271,7 @@ class MimicGame {
 
         // Assign each player a role and set their word
         for (var playerId in playersInGame) {
+            playersInGame[playerId]['votes'] = 0;
             playersInGame[playerId]['ready'] = false;
             playersInGame[playerId]['role'] = roles.pop();
             if (playersInGame[playerId]['role'] == "Civilian") {
@@ -167,7 +325,7 @@ class MimicGame {
             }
         }, 200);
     }
-  
+
     // Give clues
     giveClues() {
         // Use Object.keys() to get an array of the keys in the dictionary
@@ -185,7 +343,10 @@ class MimicGame {
                 console.log("giveCluse activated");
                 triggerGiveClue(playersInGameArray[numIterations]);
                 for (let step = 0; step < conn.length; step++) {
-                    conn[step].send(["giveClue", {"playerID": playersInGameArray[numIterations], "iteration": numIterations}]);
+                    conn[step].send(["giveClue", {
+                        "playerID": playersInGameArray[numIterations],
+                        "iteration": numIterations
+                    }]);
                 }
                 signalSent = true;
             }
@@ -216,10 +377,41 @@ class MimicGame {
             }
         }, 200);
     }
-    
+
     // Take a vote to eliminate a player
     takeVote() {
+        let signalSent = false;
+        paused = true;
 
+        const interval = setInterval(() => {
+            // Send Signal to others playersInGame that its time to vote
+            if (!signalSent) {
+                triggerTakeVote();
+                for (let step = 0; step < conn.length; step++) {
+                    conn[step].send(["takeVote"]);
+                }
+                signalSent = true;
+            }
+            // Check if all playersInGame are done voting
+            for (let player in playersInGame) {
+                if (!playersInGame[player].ready) {
+                    // If not, set paused to true and break out of the for loop
+                    paused = true;
+                    break;
+                } else {
+                    // If so, set paused to fakse
+                    paused = false;
+                }
+            }
+            // Move on to next stage if all playersInGame are done voting (paused = false)
+            if (!paused) {
+                // Clear the interval
+                clearInterval(interval);
+                for (let player in playersInGame) {
+                    playersInGame[player]["ready"] = false;
+                }
+            }
+        }, 200);
     }
 
     // Check if the game is over

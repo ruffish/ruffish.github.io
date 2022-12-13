@@ -101,11 +101,11 @@
             <div id="take-vote-slide" class="no-display">
                 <div class="Main-mid-container">
                     <div id="vote-player-list">
-                        <div class="vote-player-container">
+                        <div class="player-container">
                             <div id="vote-showName-container" class="showName-container">
-                                <p class="vote-player-name-text">Host</p>
+                                <p class="player-name-text">Host</p>
                                 <div onclick="castVote()" id="vote-button-container" class="vote-button-container">
-                                    <button class="vote-button">VOTE</button>
+                                    <button class="vote-button">Vote</button>
                                 </div>
                             </div>
                         </div>
@@ -143,6 +143,7 @@
         var sendButton = document.getElementById("sendButton");
         var clearMsgsButton = document.getElementById("clearMsgsButton");
         var playerListElement = document.getElementById("player-list");
+        var votePlayerListElement = document.getElementById("vote-player-list");
 
         (function () {
 
@@ -444,30 +445,34 @@
         }
 
         function triggerTakeVote() {
-
+            updatePlayersInGameList();
+            $('#give-clue-slide').fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#take-vote-slide').fadeIn(500);
+                });
         }
 
-        function updatePlayerInGameList() {
+        function castVote(playerID) {
+            
+        }
+
+        function updatePlayersInGameList() {
             console.log("PlayersInGame List Updating");
             playersInGameList = "";
 
             for (var player in playersInGame) {
                 if (peer.id == player) {
                     playersInGameList = playersInGameList +
-                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
-                        players[player]["playerName"] +
-                        "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div></div>"
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 } else {
                     playersInGameList = playersInGameList +
-                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
-                        players[player]["playerName"] +
-                        "</p></div></div>"
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote(" + playersInGame[player]["playerID"] + ")\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
                 }
             }
             // Send players data to everyone connected, so they can update their player lists
             for (let step = 0; step < conn.length; step++) {
-                conn[step].send(["playersData", players]);
-                console.log("Sent: playersData " + step)
+                conn[step].send(["playersInGameData", players]);
             }
             votePlayerListElement.innerHTML = playersInGameList;
         }
