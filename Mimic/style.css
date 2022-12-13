@@ -16,6 +16,18 @@ h3 {
     font-size: 1.2rem;
 }
 
+.regular-button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #3500D3;
+    color: white;
+    font-weight: bold;
+    width: 70%;
+    margin: 17px auto;
+    border: none;
+    border-radius: 8px;
+}
+
 .unselectable {
     /* If you want to implement it in very old browser-versions */
     -webkit-user-select: none;
@@ -191,14 +203,6 @@ header {
 }
 
 .Main-bottom-container>button {
-    display: block;
-    padding: 10px 20px;
-    background-color: #3500D3;
-    color: white;
-    width: 70%;
-    margin: 17px auto;
-    border: none;
-    border-radius: 8px;
 }
 
 footer {
@@ -289,15 +293,7 @@ footer {
 }
 
 .im-ready-button {
-    display: block;
-    padding: 10px 20px;
-    background-color: #3500D3;
-    color: white;
-    font-weight: bold;
-    width: 70%;
-    margin: 17px auto;
-    border: none;
-    border-radius: 8px;
+    
 }
 
 /* Extra class options */

@@ -18,7 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic revanced</title>
-    <link rel="stylesheet" href="./style.css?v=0.42.3">
+    <link rel="stylesheet" href="./style.css?v=0.42.5">
 </head>
 
 <body>
@@ -67,7 +67,7 @@
                 <p>Your secret word is:</p>
                 <h2 id="player-secret-word">Tree</h2>
             </div>
-            <div id="rules slide">
+            <div id="rules-slide">
                 <div class="Main-mid-container">
                     <p>
                         <span style="font-size: 1.2rem; font-weight: bold;">Rules:</span><br>
@@ -84,6 +84,14 @@
                     </p>
                     <br><br>
                     <button class="im-ready-button" onclick="imReady()">I'm Ready</button>
+                </div>
+            </div>
+            <div id="give-clue-slide" class="no-display">
+                <div class="give-clur-container">
+                    <h3 id="give-clue-player-name"></h3><br>
+                    <p>Give a clue to the other players.</p>
+                    <button id="confirm-clue-button" class="confirm-clue-button regular-button no-display"
+                        onclick="setPlayerReady(peer.id, true)">I'm Done</button>
                 </div>
             </div>
         </div>
@@ -248,6 +256,9 @@
                         case 'triggerRound':
                             triggerCurrentRound();
                             break;
+                        case 'giveClue':
+                            triggerGiveClue(data[1]["playerID"]);
+                            break;
                         default:
                             console.log(data)
                             addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
@@ -394,6 +405,15 @@
             return;
         };
 
+        function imReady() {
+            if (conn && conn.open) {
+                conn.send(["setPlayerReady", {
+                    "playerID": peer.id,
+                    "ready": true
+                }]);
+            }
+        }
+
         // Game Started Functions
         function triggerCurrentRound() {
             $('#player-secret-word').text(playersInGame[peer.id]["word"]);
@@ -406,12 +426,29 @@
             });
         }
 
-        function imReady() {
-            if (conn && conn.open) {
-                conn.send(["setPlayerReady", {
-                    "playerID": peer.id,
-                    "ready": true
-                }]);
+        function triggerGiveClue(playerID) {
+            if (numIterations == 0) {
+                if (peer.id == playerID) {
+                    $('#give-clue-button').removeClass('no-display');
+                } else {
+                    $('#give-clue-button').addClass('no-display');
+                }
+                $('give-clue-player-name').text(playersInGame[playerID]["playerName"]);
+                $('#rules-slide')
+                    .fadeOut(500)
+                    .promise()
+                    .then(function () {
+                        $('#give-clue-slide').fadeIn(500);
+                    });
+            } else {
+                $('#give-clue-slide').fadeOut(500);
+                if (peer.id == playerID) {
+                    $('#give-clue-button').removeClass('no-display');
+                } else {
+                    $('#give-clue-button').addClass('no-display');
+                }
+                $('give-clue-player-name').text(playersInGame[playerID]["playerName"]);
+                $('#give-clue-slide').fadeIn(500);
             }
         }
     </script>

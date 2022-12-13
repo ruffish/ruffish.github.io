@@ -5,6 +5,7 @@ pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], 
 
 var mimicInGame = false;
 paused = true;
+var numIterations = 0;
 var playersInGame = {};
 
 function generateRandomNumber(min, max) {
@@ -162,11 +163,9 @@ class MimicGame {
                     playersInGame[player]["ready"] = false;
                 }
 
-                console.log("Everyone is ready!")
-
                 this.giveClues();
             }
-        }, 1000);
+        }, 200);
     }
   
     // Give clues
@@ -176,25 +175,43 @@ class MimicGame {
         // Use Array.sort() to sort the array of keys and shuffle the order.
         playersInGameArray.sort(() => Math.random() - 0.5);
         // Set variable to count interations
-        let numIterations = 0;
         let signalSent = false;
 
         // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
         const interval = setInterval(() => {
             // Send Signal to others playersInGame on who turn it is to give a clue
             if (!signalSent) {
+                console.log("giveCluse activated");
+                triggerGiveClue(playersInGameArray[numIterations]);
                 for (let step = 0; step < conn.length; step++) {
                     conn[step].send(["giveClue", {"playerID": playersInGameArray[numIterations]}]);
                 }
                 signalSent = true;
             }
-            // Check the value of the paused variable
-            if (!paused) {
+            // Check if current playing giving clue is done
+            if (playersInGame[playersInGameArray[numIterations]]["ready"]) {
                 numIterations++;
                 signalSent = false;
-
+                for (let player in playersInGame) {
+                    if (!playersInGame[player].ready) {
+                        // If not, set paused to true and break out of the for loop
+                        paused = true;
+                        break;
+                    } else {
+                        // If so, set paused to fakse
+                        paused = false;
+                    }
+                }
+            }
+            // Move on to next stage if all playersInGame are done giving clues (paused = false)
+            if (!paused) {
+                numIterations = 0;
                 // Clear the interval
                 clearInterval(interval);
+                for (let player in playersInGame) {
+                    playersInGame[player]["ready"] = false;
+                }
+                console.log("giveClues finished");
             }
         }, 1000);
     }

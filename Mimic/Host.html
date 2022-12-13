@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic Revanced - Host</title>
-    <link rel="stylesheet" href="./style.css?v=0.72.3">
+    <link rel="stylesheet" href="./style.css?v=0.72.5">
 </head>
 
 <body>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="Main-bottom-container">
-                <button onclick="activateGame()">Start Game</button>
+                <button class="regular-button" onclick="activateGame()">Start Game</button>
             </div>
         </div>
         <div id="game-slide" class="no-display">
@@ -68,7 +68,7 @@
                 <p>Your secret word is:</p>
                 <h2 id="player-secret-word">Tree</h2>
             </div>
-            <div id="rules slide">
+            <div id="rules-slide">
                 <div class="Main-mid-container">
                     <p>
                         <span style="font-size: 1.2rem; font-weight: bold;">Rules:</span><br>
@@ -78,13 +78,23 @@
                             Civilian:</span><br>
                         1. Work together with who you think the other Civilians are<br>
                         2. Vote off the Mimics<br><br>
-                        <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the Mimic:</span><br>
+                        <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the
+                            Mimic:</span><br>
                         1. Work together with who you think the other Mimics are<br>(You could be the ONLY Mimic)<br>
                         2. Try to act like a Civilian<br>
                         3. Vote off the Civilians
                     </p>
                     <br><br>
-                    <button class="im-ready-button" onclick="setPlayerReady(peer.id, true)">I'm Ready</button>
+                    <button class="im-ready-button regular-button" onclick="setPlayerReady(peer.id, true)">I'm
+                        Ready</button>
+                </div>
+            </div>
+            <div id="give-clue-slide" class="no-display">
+                <div class="give-clur-container">
+                    <h3 id="give-clue-player-name"></h3><br>
+                    <p>Give a clue to the other players.</p>
+                    <button id="confirm-clue-button" class="confirm-clue-button regular-button no-display"
+                        onclick="setPlayerReady(peer.id, true)">I'm Done</button>
                 </div>
             </div>
         </div>
@@ -366,6 +376,10 @@
             playerListElement.innerHTML = playersConnectedList;
         }
 
+        function setPlayerReady(playerID, isReady) {
+            playersInGame[playerID]["ready"] = isReady;
+        }
+
         // Game Started Functions
         function triggerCurrentRound() {
             $('#player-secret-word').text(playersInGame[peer.id]["word"]);
@@ -375,15 +389,43 @@
                 .promise()
                 .then(function () {
                     $('#game-slide').fadeIn(500);
-            });
+                });
         }
 
-        function setPlayerReady(playerID, isReady) {
-            playersInGame[playerID]["ready"] = isReady;
+        function triggerGiveClue(playerID) {
+            console.log("triggerGiveClue")
+            console.log(numIterations)
+            if (numIterations == 0) {
+                if (peer.id == playerID) {
+                    $('#confirm-clue-button').removeClass('no-display');
+                } else {
+                    $('#confirm-clue-buttonn').addClass('no-display');
+                }
+                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"]);
+                $('#rules-slide')
+                    .fadeOut(500)
+                    .promise()
+                    .then(function () {
+                        $('#give-clue-slide').fadeIn(500);
+                    });
+            } else {
+                $('#give-clue-slide').fadeOut(500);
+                if (peer.id == playerID) {
+                    $('#confirm-clue-button').removeClass('no-display');
+                } else {
+                    $('#confirm-clue-button').addClass('no-display');
+                }
+                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"]);
+                $('#give-clue-slide').fadeIn(500);
+            }
+        }
+
+        function triggerTakeVote() {
+
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.35">
+    <script src="./mimicGameLogic.js?v=0.38">
     </script>
 </body>
 
