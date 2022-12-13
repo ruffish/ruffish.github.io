@@ -144,7 +144,7 @@ class MimicGame {
         const checkReady = setInterval(() => {
             // Check if all playersInGame are ready
             for (let player in playersInGame) {
-                if (!playersInGame[player].ready) {
+                if (playersInGame[player]["ready"] == false) {
                     // If not, set paused to true and break out of the for loop
                     paused = true;
                     break;
