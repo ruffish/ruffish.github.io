@@ -77,7 +77,8 @@
                             Civilian:</span><br>
                         1. Work together with who you think the other Civilians are<br>
                         2. Vote off the Mimics<br><br>
-                        <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the Mimic:</span><br>
+                        <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the
+                            Mimic:</span><br>
                         1. Work together with who you think the other Mimics are<br>(You could be the ONLY Mimic)<br>
                         2. Try to act like a Civilian<br>
                         3. Vote off the Civilians
@@ -446,7 +447,7 @@
                 .promise()
                 .then(function () {
                     $('#game-slide').fadeIn(500);
-            });
+                });
         }
 
         function triggerGiveClue(playerID, numIterations) {
@@ -504,6 +505,18 @@
                     $('#eliminated-player-name').text(playersInGame[playerID]["playerName"])
                     $('#eliminated-slide').fadeIn(500);
                 });
+
+            setTimeout(() => {
+                transitionBackToGiveClue();
+            }, 7000);
+        }
+
+        function transitionBackToGiveClue() {
+            $('#eliminated-slide').fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#give-clue-slide').fadeIn(500);
+                });
         }
 
         function updatePlayersInGameList() {
@@ -515,10 +528,16 @@
             for (var player in playersInGame) {
                 if (peer.id == player) {
                     playersInGameList = playersInGameList +
-                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
+                        playersInGame[player]["playerName"] +
+                        "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 } else {
                     playersInGameList = playersInGameList +
-                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote('" + playersInGame[player]['playerID'] + "')\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
+                        playersInGame[player]["playerName"] + "</p><div onclick=\"castVote('" + playersInGame[player][
+                            'playerID'
+                        ] +
+                        "')\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
                 }
             }
             votePlayerListElement.innerHTML = playersInGameList;
