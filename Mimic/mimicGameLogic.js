@@ -11,7 +11,7 @@ function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function activateGame(numplayersInGame) {
+function activateGame() {
     // Assign players that want to play to the game.
     for (let playerId in players) {
         let player = players[playerId];
@@ -21,7 +21,7 @@ function activateGame(numplayersInGame) {
     }
 
     // Set the number of playersInGame in the game
-    game.setNumplayersInGame(numplayersInGame);
+    game.setNumplayersInGame(Object.keys(playersInGame).length);
 
     // Choose random word pair and choose random secret word from the pair.
     max = pairs.length;
@@ -69,9 +69,12 @@ class MimicGame {
     start() {
         // Generate the player roles
         this.generatePlayerRoles();
-  
-        // Take turns giving clues
-        this.giveClues();
+
+        // Send the game data to the connected players
+        this.sendGameData();
+
+        // Trigger the first round
+        this.triggerRound();
     }
   
     // Generate the player roles
@@ -79,8 +82,6 @@ class MimicGame {
         // Create an array of roles
         var roles = [];
 
-        console.log(this.numplayersInGame)
-        console.log(playersInGame.length);
 
         if (this.numplayersInGame === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
@@ -110,24 +111,36 @@ class MimicGame {
         // Shuffle the roles to randomize the order
         roles.sort(() => Math.random() - 0.5);
 
-        // Assign each player a role
+        // Assign each player a role and set their word
         for (let playerId in playersInGame) {
-            console.log(roles);
             playersInGame[playerId]['role'] = roles.pop();
+            if (playersInGame[playerId]['role'] == "Civilian") {
+                playersInGame[playerId]["word"] = this.secretWord;
+            } else if (playersInGame[playerId]['role'] == "Mimic") {
+                playersInGame[playerId]["word"] = this.mimicWord;
+            } else if (playersInGame[playerId]['role'] == "Blind Mimic") {
+                playersInGame[playerId]["word"] = "NA";
+            }
         }
 
         console.log(playersInGame);
     }
-  
-    // Check if the game is over
-    gameOver() {
-        for (let playerId in playersInGame) {
-            if (playersInGame[playerId]["role"] == "Mimic") {
-                mimicInGame = true;
-            }
+
+    sendGameData() {
+        // Send the words to the playersInGame
+        for (let step = 0; step < conn.length; step++) {
+            conn[step].send(["playersInGameData", playersInGame]);
         }
-        // The game is over if there is only two playersInGame remaining
-        return playersInGame.length <= 2 || mimicInGame == false;
+    }
+
+    triggerRound() {
+        // Trigger the current round
+        triggerCurrentRound();
+        for (let step = 0; step < conn.length; step++) {
+            conn[step].send(["triggerRound", this.round]);
+        }
+
+        setTimeout(this.giveClues(), 5000);
     }
   
     // Give clues
@@ -173,6 +186,17 @@ class MimicGame {
         //     }
         // }
         // paused = true;
+    }
+
+    // Check if the game is over
+    gameOver() {
+        for (let playerId in playersInGame) {
+            if (playersInGame[playerId]["role"] == "Mimic") {
+                mimicInGame = true;
+            }
+        }
+        // The game is over if there is only two playersInGame remaining
+        return Object.keys(playersInGame).length <= 2 || mimicInGame == false;
     }
 
     // Announce the winner of the game
