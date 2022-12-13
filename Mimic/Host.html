@@ -85,7 +85,7 @@
                         3. Vote off the Civilians
                     </p>
                     <br><br>
-                    <button class="im-ready-button regular-button" onclick="setPlayerReady(peer.id, true)">I'm
+                    <button id="im-ready-button" class="im-ready-button regular-button" onclick="setPlayerReady(this, peer.id, true)">I'm
                         Ready</button>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     <h3 id="give-clue-player-name"></h3><br>
                     <p>Give a clue to the other players.</p>
                     <button id="confirm-clue-button" class="confirm-clue-button regular-button no-display"
-                        onclick="setPlayerReady(peer.id, true)">I'm Done</button>
+                        onclick="setPlayerReady(this, peer.id, true)">I'm Done</button>
                 </div>
             </div>
         </div>
@@ -376,12 +376,16 @@
             playerListElement.innerHTML = playersConnectedList;
         }
 
-        function setPlayerReady(playerID, isReady) {
+        function setPlayerReady(e, playerID, isReady) {
+            // Fade out the ready button
+            $(e).fadeOut(500);
+            // Set the player's ready status to true
             playersInGame[playerID]["ready"] = isReady;
         }
 
         // Game Started Functions
         function triggerCurrentRound() {
+            $('im-ready-button').show();
             $('#player-secret-word').text(playersInGame[peer.id]["word"]);
 
             $('#starting-slide')
@@ -393,6 +397,7 @@
         }
 
         function triggerGiveClue(playerID) {
+            $('confirm-clue-button').show();
             if (numIterations == 0) {
                 if (peer.id == playerID) {
                     $('#confirm-clue-button').removeClass('no-display');
@@ -423,7 +428,7 @@
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.6">
+    <script src="./mimicGameLogic.js?v=0.61">
     </script>
 </body>
 

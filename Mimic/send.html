@@ -83,7 +83,7 @@
                         3. Vote off the Civilians
                     </p>
                     <br><br>
-                    <button class="im-ready-button" onclick="imReady()">I'm Ready</button>
+                    <button class="im-ready-button" onclick="imReady(this)">I'm Ready</button>
                 </div>
             </div>
             <div id="give-clue-slide" class="no-display">
@@ -91,7 +91,7 @@
                     <h3 id="give-clue-player-name"></h3><br>
                     <p>Give a clue to the other players.</p>
                     <button id="confirm-clue-button" class="confirm-clue-button regular-button no-display"
-                        onclick="imReady()">I'm Done</button>
+                        onclick="imReady(this)">I'm Done</button>
                 </div>
             </div>
         </div>
@@ -405,7 +405,8 @@
             return;
         };
 
-        function imReady() {
+        function imReady(e) {
+            $(e).fadeOut(500);
             if (conn && conn.open) {
                 conn.send(["setPlayerReady", {
                     "playerID": peer.id,
@@ -416,6 +417,7 @@
 
         // Game Started Functions
         function triggerCurrentRound() {
+            $('im-ready-button').show();
             $('#player-secret-word').text(playersInGame[peer.id]["word"]);
 
             $('#starting-slide')
@@ -427,6 +429,7 @@
         }
 
         function triggerGiveClue(playerID, numIterations) {
+            $('confirm-clue-button').show();
             if (numIterations == 0) {
                 if (peer.id == playerID) {
                     $('#confirm-clue-button').removeClass('no-display');
