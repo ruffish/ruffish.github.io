@@ -33,32 +33,34 @@
     </header>
 
     <div class="Main">
-        <div class="Main-top-container">
-            <h2 class="game-title">Mimic Revanced</h2>
-        </div>
-        <div class="Main-mid-container">
-            <h3>Players:</h3>
-            <br>
-            <div id="player-list">
-                <div class="player-container">
-                    <div id="showName-container" class="showName-container">
-                        <p id="player-name-text" class="player-name-text"></p>
-                        <div onclick="showChangeName(this)" id="changeName-button-container"
-                            class="changeName-button-container">
-                            <i class="fa-solid fa-pen changeName-button"></i>
+        <div id="starting-slide">
+            <div class="Main-top-container">
+                <h2 class="game-title">Mimic Revanced</h2>
+            </div>
+            <div class="Main-mid-container">
+                <h3>Players:</h3>
+                <br>
+                <div id="player-list">
+                    <div class="player-container">
+                        <div id="showName-container" class="showName-container">
+                            <p id="player-name-text" class="player-name-text"></p>
+                            <div onclick="showChangeName(this)" id="changeName-button-container"
+                                class="changeName-button-container">
+                                <i class="fa-solid fa-pen changeName-button"></i>
+                            </div>
                         </div>
-                    </div>
-
-                    <div id="changeName-container" class="changeName-container no-display">
-                        <input type="text" id="changeName-input" placeholder="Enter a name...">
-                        <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)"
-                            class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
+    
+                        <div id="changeName-container" class="changeName-container no-display">
+                            <input type="text" id="changeName-input" placeholder="Enter a name...">
+                            <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)"
+                                class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="Main-bottom-container">
-            <p>Waiting for the host to start the game...</p>
+            <div class="Main-bottom-container">
+                <p>Waiting for the host to start the game...</p>
+            </div>
         </div>
     </div>
 
@@ -119,7 +121,8 @@
         let clientPlayerName = "player " + randomNumber.toString();
         document.getElementById('player-name-text').innerText = clientPlayerName;
 
-        players = {};
+        var players = {};
+        var playersInGame = {};
         var lastPeerId = null;
         var peer = null; // own peer object
         var hostID = null;
@@ -244,6 +247,13 @@
                         case 'playersData':
                             players = data[1];
                             updatePlayerList();
+                            break;
+                        case 'setPlayersInGameData':
+                            playersInGame = data[1];
+                            updatePlayerList();
+                            break;
+                        case 'triggerRound':
+                            triggerCurrentRound();
                             break;
                         default:
                             console.log(data)
@@ -392,6 +402,11 @@
             }
             return;
         };
+
+        // Game Started Functions
+        function triggerCurrentRound() {
+            $('#starting-slide').fadeOut(500);
+        }
     </script>
 </body>
 

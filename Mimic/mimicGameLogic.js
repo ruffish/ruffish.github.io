@@ -102,16 +102,14 @@ class MimicGame {
                 roles.push('Mimic');
             }
 
-            // Add a Blind Mimic role if there are an odd number of playersInGame
-            if (this.numplayersInGame % 2 === 1) {
+            // Randomly decide whether to add a Blind Mimic role
+            if (generateRandomNumber(0, 1) === 1) {
                 roles.push('Blind Mimic');
             }
         }
 
         // Shuffle the roles to randomize the order
         roles.sort(() => Math.random() - 0.5);
-
-        console.log(roles);
 
         // Assign each player a role and set their word
         for (var playerId in playersInGame) {
@@ -124,14 +122,12 @@ class MimicGame {
                 playersInGame[playerId]["word"] = "NA";
             }
         }
-
-        console.log(playersInGame);
     }
 
     sendGameData() {
         // Send the words to the playersInGame
         for (let step = 0; step < conn.length; step++) {
-            conn[step].send(["playersInGameData", playersInGame]);
+            conn[step].send(["setPlayersInGameData", playersInGame]);
         }
     }
 
