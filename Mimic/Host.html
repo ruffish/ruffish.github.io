@@ -237,6 +237,9 @@
                         case 'setPlayerReady':
                             setPlayerReady(null, data[1]["playerID"], data[1]["ready"]);
                             break;
+                        case 'castVote':
+                            castVote(data[1]["playerID"]);
+                            break;
                         default:
                             for (let step = 0; step < conn.length; step++) {
                                 conn[step].send(["chatMessage", {
@@ -453,11 +456,8 @@
                 });
         }
 
-        function castVote(e, playerID) {
-            if (e != null) {
-                // Fade out the ready button
-                $(e).fadeOut(500);
-            }
+        function castVote(playerID) {
+            $('.vote-button-container').fadeOut();
             // Set the player's ready status to true
             playersInGame[playerID]['votes'] = playersInGame[playerID]['votes'] + 1;
         }
