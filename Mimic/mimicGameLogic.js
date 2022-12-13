@@ -112,8 +112,9 @@ class MimicGame {
         roles.sort(() => Math.random() - 0.5);
 
         // Assign each player a role and set their word
-        for (let playerId in playersInGame) {
+        for (var playerId in playersInGame) {
             playersInGame[playerId]['role'] = roles.pop();
+            console.log(playersInGame[playerId]['role']);
             if (playersInGame[playerId]['role'] == "Civilian") {
                 playersInGame[playerId]["word"] = this.secretWord;
             } else if (playersInGame[playerId]['role'] == "Mimic") {
