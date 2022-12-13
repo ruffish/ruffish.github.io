@@ -429,7 +429,7 @@
             $('player-secret-word').text(playersInGame[peer.id]["word"]);
 
             $('#starting-slide').fadeOut(500);
-            $('#your-word-slide').fadeIn(500);
+            setTimeout($('#your-word-slide').fadeIn(500), 500);
         }
     </script>
 </body>
