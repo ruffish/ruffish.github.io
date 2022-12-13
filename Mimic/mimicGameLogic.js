@@ -212,7 +212,7 @@ class MimicGame {
                 for (let player in playersInGame) {
                     playersInGame[player]["ready"] = false;
                 }
-                console.log("giveClues finished");
+                this.takeVote();
             }
         }, 1000);
     }

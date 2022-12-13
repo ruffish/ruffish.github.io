@@ -234,7 +234,7 @@
                             console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
                             break;
                         case 'setPlayerReady':
-                            setPlayerReady(data[1]["playerID"], data[1]["ready"]);
+                            setPlayerReady(null, data[1]["playerID"], data[1]["ready"]);
                             break;
                         default:
                             for (let step = 0; step < conn.length; step++) {
@@ -392,9 +392,10 @@
         }
 
         function setPlayerReady(e, playerID, isReady) {
-            // Fade out the ready button
-            $(e).fadeOut(500);
-            console.log(playersInGame[playerID]);
+            if (e == null) {
+                // Fade out the ready button
+                $(e).fadeOut(500);
+            }
             // Set the player's ready status to true
             playersInGame[playerID]['ready'] = isReady;
         }
@@ -469,7 +470,7 @@
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.63">
+    <script src="./mimicGameLogic.js?v=0.64">
     </script>
 </body>
 
