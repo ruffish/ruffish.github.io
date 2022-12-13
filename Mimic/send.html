@@ -91,7 +91,7 @@
                     <h3 id="give-clue-player-name"></h3><br>
                     <p>Give a clue to the other players.</p>
                     <button id="confirm-clue-button" class="confirm-clue-button regular-button no-display"
-                        onclick="setPlayerReady(peer.id, true)">I'm Done</button>
+                        onclick="imReady()">I'm Done</button>
                 </div>
             </div>
         </div>
@@ -429,11 +429,11 @@
         function triggerGiveClue(playerID) {
             if (numIterations == 0) {
                 if (peer.id == playerID) {
-                    $('#give-clue-button').removeClass('no-display');
+                    $('#confirm-clue-button').removeClass('no-display');
                 } else {
-                    $('#give-clue-button').addClass('no-display');
+                    $('#confirm-clue-buttonn').addClass('no-display');
                 }
-                $('give-clue-player-name').text(playersInGame[playerID]["playerName"]);
+                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"]);
                 $('#rules-slide')
                     .fadeOut(500)
                     .promise()
@@ -443,11 +443,11 @@
             } else {
                 $('#give-clue-slide').fadeOut(500);
                 if (peer.id == playerID) {
-                    $('#give-clue-button').removeClass('no-display');
+                    $('#confirm-clue-button').removeClass('no-display');
                 } else {
-                    $('#give-clue-button').addClass('no-display');
+                    $('#confirm-clue-button').addClass('no-display');
                 }
-                $('give-clue-player-name').text(playersInGame[playerID]["playerName"]);
+                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"]);
                 $('#give-clue-slide').fadeIn(500);
             }
         }
