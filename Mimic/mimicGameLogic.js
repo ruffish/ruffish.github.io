@@ -5,7 +5,7 @@ pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], 
 
 var mimicInGame = false;
 paused = true;
-let playersInGame = {};
+var playersInGame = {};
 
 function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -111,10 +111,11 @@ class MimicGame {
         // Shuffle the roles to randomize the order
         roles.sort(() => Math.random() - 0.5);
 
+        console.log(roles);
+
         // Assign each player a role and set their word
         for (var playerId in playersInGame) {
             playersInGame[playerId]['role'] = roles.pop();
-            console.log(playersInGame[playerId]['role']);
             if (playersInGame[playerId]['role'] == "Civilian") {
                 playersInGame[playerId]["word"] = this.secretWord;
             } else if (playersInGame[playerId]['role'] == "Mimic") {
