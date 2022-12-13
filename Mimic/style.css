@@ -291,6 +291,7 @@ footer {
 #your-word-slide {
     visibility: hidden;
     position: absolute;
+    z-index: 12
 }
 
 .word-top-container {
