@@ -82,6 +82,7 @@ class MimicGame {
         // Create an array of roles
         var roles = [];
 
+        console.log(this.numplayersInGame)
 
         if (this.numplayersInGame === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
