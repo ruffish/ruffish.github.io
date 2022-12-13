@@ -178,7 +178,8 @@
                     players[peer.id] = {
                         "playerName": clientPlayerName,
                         "inPlay": true,
-                        "role": "NA"
+                        "role": "NA",
+                        "word": "NA"
                     }
 
                     recvId.innerHTML = "<span id=\"share-link\">https://" + window.location
@@ -488,7 +489,7 @@
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 } else {
                     playersInGameList = playersInGameList +
-                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote(\"" + playersInGame[player]["playerID"] + "\")\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote(\"" + playersInGame[player] + "\")\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
                 }
             }
             // Send players data to everyone connected, so they can update their player lists

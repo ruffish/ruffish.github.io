@@ -510,13 +510,15 @@
             console.log("PlayersInGame List Updating");
             playersInGameList = "";
 
+            playerTest = playersInGame[peer.id]["playerName"];
+
             for (var player in playersInGame) {
                 if (peer.id == player) {
                     playersInGameList = playersInGameList +
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 } else {
                     playersInGameList = playersInGameList +
-                    "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote(\"" + playersInGame[player]["playerID"] + "\")\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" + playersInGame[player]["playerName"] + "</p><div onclick=\"castVote(\"" + playersInGame[player] + "\")\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
                 }
             }
             votePlayerListElement.innerHTML = playersInGameList;
