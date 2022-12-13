@@ -295,3 +295,12 @@ footer {
     height: 110px;
     background-color: #2a1764;
 }
+
+/* Extra class options */
+.hidden {
+    visibility: hidden;
+}
+
+.no-display {
+    display: none;
+}
