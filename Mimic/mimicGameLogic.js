@@ -420,6 +420,7 @@ class MimicGame {
                     } else if (playersInGame[player]["votes"] == mostVotes) {
                         mostVotedPlayer.push(player);
                     }
+                    playersInGame[player]["votes"] = 0;
                 }
                 // If there is a tie, make the other playersInGame vote again
                 if (mostVotedPlayer.length > 1) {
