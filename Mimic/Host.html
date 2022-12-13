@@ -421,12 +421,15 @@
                 } else {
                     $('#confirm-clue-buttonn').addClass('no-display');
                 }
-                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"]);
                 $('#rules-slide')
                     .fadeOut(500)
                     .promise()
                     .then(function () {
-                        $('#give-clue-slide').fadeIn(500);
+                        $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
+                            .promuse()
+                            .then(function () {
+                                $('#give-clue-slide').fadeIn(500);
+                            });
                     });
             } else {
                 $('#give-clue-slide').fadeOut(500);
@@ -435,8 +438,11 @@
                 } else {
                     $('#confirm-clue-button').addClass('no-display');
                 }
-                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"]);
-                $('#give-clue-slide').fadeIn(500);
+                $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
+                    .promuse()
+                    .then(function () {
+                        $('#give-clue-slide').fadeIn(500);
+                    });
             }
         }
 
@@ -470,7 +476,7 @@
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.64">
+    <script src="./mimicGameLogic.js?v=0.65">
     </script>
 </body>
 
