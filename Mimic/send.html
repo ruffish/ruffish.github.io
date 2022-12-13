@@ -129,7 +129,6 @@
         var changeNameBox = document.getElementById("changeNameBox");
         var changeNameButton = document.getElementById("changeNameButton");
         var clearMsgsButton = document.getElementById("clearMsgsButton");
-        var connectButton = document.getElementById("connect-button");
         var playerListElement = document.getElementById("player-list");
 
         (function () {
@@ -328,8 +327,6 @@
 
             // Clear messages box
             clearMsgsButton.addEventListener('click', clearMessages);
-            // Start peer connection on click
-            connectButton.addEventListener('click', join);
 
             // Since all our callbacks are setup, start the process of obtaining an ID
             initialize();
