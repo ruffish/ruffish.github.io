@@ -124,6 +124,8 @@ class MimicGame {
                 playersInGame[playerId]["word"] = "NA";
             }
         }
+
+        console.log(playersInGame)
     }
 
     sendGameData() {
@@ -219,17 +221,7 @@ class MimicGame {
     
     // Take a vote to eliminate a player
     takeVote() {
-        // while (paused) {
-        //     paused = false;
-        //     console.log("Game is paused in takeVote");
-        //     // Check if all playersInGame have voted.
-        //     for (let playerID in playersInGame) {
-        //         if (playersInGame[playerID]["vote"] == "NA") {
-        //             paused = true;
-        //         }
-        //     }
-        // }
-        // paused = true;
+
     }
 
     // Check if the game is over

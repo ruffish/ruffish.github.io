@@ -85,7 +85,8 @@
                         3. Vote off the Civilians
                     </p>
                     <br><br>
-                    <button id="im-ready-button" class="im-ready-button regular-button" onclick="setPlayerReady(this, peer.id, true)">I'm
+                    <button id="im-ready-button" class="im-ready-button regular-button"
+                        onclick="setPlayerReady(this, peer.id, true)">I'm
                         Ready</button>
                 </div>
             </div>
@@ -95,6 +96,20 @@
                     <p>Give a clue to the other players.</p>
                     <button id="confirm-clue-button" class="confirm-clue-button regular-button no-display"
                         onclick="setPlayerReady(this, peer.id, true)">I'm Done</button>
+                </div>
+            </div>
+            <div id="take-vote-slide" class="no-display">
+                <div class="Main-mid-container">
+                    <div id="vote-player-list">
+                        <div class="vote-player-container">
+                            <div id="vote-showName-container" class="showName-container">
+                                <p class="vote-player-name-text">Host</p>
+                                <div onclick="castVote()" id="vote-button-container" class="vote-button-container">
+                                    <button class="vote-button">VOTE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -380,7 +395,7 @@
             // Fade out the ready button
             $(e).fadeOut(500);
             // Set the player's ready status to true
-            playersInGame[playerID]["ready"] = isReady;
+            playersInGame[playerID]['ready'] = isReady;
         }
 
         // Game Started Functions
