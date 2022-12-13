@@ -288,6 +288,18 @@ footer {
     background-color: #2a1764;
 }
 
+.im-ready-button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #3500D3;
+    color: white;
+    font-weight: bold;
+    width: 70%;
+    margin: 17px auto;
+    border: none;
+    border-radius: 8px;
+}
+
 /* Extra class options */
 .hidden {
     visibility: hidden;

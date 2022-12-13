@@ -82,6 +82,8 @@
                         2. Try to act like a Civilian<br>
                         3. Vote off the Civilians
                     </p>
+                    <br><br>
+                    <button class="im-ready-button" onclick="imReady()">I'm Ready</button>
                 </div>
             </div>
         </div>
@@ -99,37 +101,6 @@
             </div>
         </div>
     </footer>
-
-    <table class="control">
-        <tr>
-            <td class="title">Status:</td>
-            <td class="title">Messages:</td>
-        </tr>
-        <tr>
-            <td>
-                <span style="font-weight: bold">ID: </span>
-                <input type="text" id="receiver-id" title="Input the ID from receive.html">
-                <button id="connect-button">Connect</button>
-                <br>
-                <span style="font-weight: bold">Change Name: </span>
-                <input type="text" id="changeNameBox" placeholder="Enter a new name" autofocus="false" />
-                <button type="button" id="changeNameButton">Send</button>
-            </td>
-            <td>
-                <input type="text" id="sendMessageBox" placeholder="Enter a message..." autofocus="true" />
-                <button type="button" id="sendButton">Send</button>
-                <button type="button" id="clearMsgsButton">Clear Msgs (Local)</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div id="status" class="status"></div>
-            </td>
-            <td>
-                <div class="message" id="message"></div>
-            </td>
-        </tr>
-    </table>
 
     <script src="./peerjsmin.js"></script>
     <script type="text/javascript">
@@ -436,6 +407,15 @@
                 .then(function () {
                     $('#game-slide').fadeIn(500);
             });
+        }
+
+        function imReady() {
+            if (conn && conn.open) {
+                conn.send(["setPlayerReady", {
+                    "playerID": peer.id,
+                    "ready": true
+                }]);
+            }
         }
     </script>
 </body>

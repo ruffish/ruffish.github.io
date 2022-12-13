@@ -83,6 +83,8 @@
                         2. Try to act like a Civilian<br>
                         3. Vote off the Civilians
                     </p>
+                    <br><br>
+                    <button class="im-ready-button" onclick="setPlayerReady(peer.id, true)">I'm Ready</button>
                 </div>
             </div>
         </div>
@@ -205,6 +207,9 @@
                         case 'setPlayerName':
                             changePlayerName(data[1]["playerID"], data[1]["playerName"]);
                             console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
+                            break;
+                        case 'setPlayerReady':
+                            setPlayerReady(data[1]["playerID"], data[1]["ready"]);
                             break;
                         default:
                             for (let step = 0; step < conn.length; step++) {
@@ -372,9 +377,13 @@
                     $('#game-slide').fadeIn(500);
             });
         }
+
+        function setPlayerReady(playerID, isReady) {
+            playersInGame[playerID]["ready"] = isReady;
+        }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.34">
+    <script src="./mimicGameLogic.js?v=0.35">
     </script>
 </body>
 

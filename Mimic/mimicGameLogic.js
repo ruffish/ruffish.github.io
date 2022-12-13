@@ -113,6 +113,7 @@ class MimicGame {
 
         // Assign each player a role and set their word
         for (var playerId in playersInGame) {
+            playersInGame[playerId]['ready'] = false;
             playersInGame[playerId]['role'] = roles.pop();
             if (playersInGame[playerId]['role'] == "Civilian") {
                 playersInGame[playerId]["word"] = this.secretWord;
@@ -138,7 +139,34 @@ class MimicGame {
             conn[step].send(["triggerRound", this.round]);
         }
 
-        setTimeout(this.giveClues(), 5000);
+        // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
+        const checkReady = setInterval(() => {
+            // Check if all playersInGame are ready
+            for (let player in playersInGame) {
+                if (!playersInGame[player].ready) {
+                    // If not, set paused to true and break out of the for loop
+                    paused = true;
+                    break;
+                } else {
+                    // If so, set paused to fakse
+                    paused = false;
+                }
+            }
+
+            // Check the value of the paused variable
+            if (!paused) {
+                // Clear the interval
+                clearInterval(checkReady);
+
+                for (let player in playersInGame) {
+                    playersInGame[player]["ready"] = false;
+                }
+
+                console.log("Everyone is ready!")
+
+                this.giveClues();
+            }
+        }, 1000);
     }
   
     // Give clues
