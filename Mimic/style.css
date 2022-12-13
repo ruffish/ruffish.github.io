@@ -32,14 +32,6 @@ h3 {
     user-select: none;
 }
 
-.hidden {
-    visibility: hidden !important;
-}
-
-.no-display {
-    display: none !important;
-}
-
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
