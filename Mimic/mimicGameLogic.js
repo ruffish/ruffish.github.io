@@ -29,15 +29,15 @@ function activateGame() {
     randomPairIndex = generateRandomNumber(0, max);
     randomSecretWordIndex = generateRandomNumber(0, 1);
     if (randomSecretWordIndex == 1) {
-        mimicWord = 1;
+        mimicWordIndex = 0;
     } else {
-        mimicWord = 0;
+        mimicWordIndex = 1;
     }
 
     // Set the secret word for the civilians
     game.setSecretWord(pairs[randomPairIndex][randomSecretWordIndex]);
     // Set the mimic word for the mimics
-    game.setMimicWord(pairs[randomPairIndex][mimicWord]);
+    game.setMimicWord(pairs[randomPairIndex][mimicWordIndex]);
     // Start the game
     game.start();
 }
@@ -82,8 +82,6 @@ class MimicGame {
     generatePlayerRoles() {
         // Create an array of roles
         var roles = [];
-
-        console.log(this.numplayersInGame)
 
         if (this.numplayersInGame === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
