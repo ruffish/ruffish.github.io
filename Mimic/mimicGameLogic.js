@@ -443,7 +443,12 @@ class MimicGame {
             conn[step].send(["setPlayersInGameData", playersInGame]);
         }
 
-        this.gameOver();
+        // Check if the game is over and proceed to the next stage
+        if (this.gameOver()) {
+            this.announceWinner();
+        } else {
+            this.giveClues();
+        }
     }
 
     // Check if the game is over
