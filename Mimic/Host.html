@@ -112,6 +112,12 @@
                     </div>
                 </div>
             </div>
+            <div id="eliminated-slide" class="no-display">
+                <div class="Main-mid-container center-text">
+                    <h3 id="eliminated-player-name"></h3><br>
+                    <p>has been eliminated.</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -463,6 +469,15 @@
             playersInGame[playerID]['ready'] = true;
         }
 
+        function triggerAnnounceElimination(playerID) {
+            $('#take-vote-slide').fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#eliminated-player-name').text(playersInGame[playerID]["playerName"])
+                    $('#eliminated-slide').fadeIn(500);
+                });
+        }
+
         function updatePlayersInGameList() {
             console.log("PlayersInGame List Updating");
             playersInGameList = "";
@@ -484,7 +499,7 @@
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.66">
+    <script src="./mimicGameLogic.js?v=0.67">
     </script>
 </body>
 

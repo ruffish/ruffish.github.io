@@ -382,10 +382,13 @@ class MimicGame {
     takeVote() {
         let signalSent = false;
         paused = true;
+        let mostVotedPlayer = [];
+        let mostVotes = 0;
 
         const interval = setInterval(() => {
             // Send Signal to others playersInGame that its time to vote
             if (!signalSent) {
+                console.log("takeVote activated");
                 triggerTakeVote();
                 for (let step = 0; step < conn.length; step++) {
                     conn[step].send(["takeVote"]);
@@ -407,11 +410,40 @@ class MimicGame {
             if (!paused) {
                 // Clear the interval
                 clearInterval(interval);
+                // Work out who has the most votes
                 for (let player in playersInGame) {
                     playersInGame[player]["ready"] = false;
+                    if (playersInGame[player]["votes"] > mostVotes) {
+                        mostVotedPlayer = [];
+                        mostVotedPlayer.push(player);
+                        mostVotes = playersInGame[player]["votes"];
+                    } else if (playersInGame[player]["votes"] == mostVotes) {
+                        mostVotedPlayer.push(player);
+                    }
+                }
+                // If there is a tie, make the other playersInGame vote again
+                if (mostVotedPlayer.length > 1) {
+                    this.takeVote();
+                } else {
+                    // If not, eliminate the player with the most votes
+                    this.eliminatePlayer(mostVotedPlayer[0]);
                 }
             }
         }, 200);
+    }
+
+    // Eliminate a player
+    eliminatePlayer(playerID) {
+        // Remove the player from the playersInGame dictionary
+        delete playersInGame[playerID];
+        // Announce the elimination of the player
+        triggerAnnounceElimination(playerID);
+        for (let step = 0; step < conn.length; step++) {
+            conn[step].send(["announceElimination", playerID]);
+            conn[step].send(["setPlayersInGameData", playersInGame]);
+        }
+
+        this.gameOver();
     }
 
     // Check if the game is over

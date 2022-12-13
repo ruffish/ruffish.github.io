@@ -277,6 +277,9 @@
                         case 'takeVote':
                             triggerTakeVote();
                             break;
+                        case 'announceElimination':
+                            triggerAnnounceElimination(data[1]);
+                            break;
                         default:
                             console.log(data)
                             addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
@@ -492,6 +495,15 @@
                     "playerID": peer.id,
                 }]);
             }
+        }
+
+        function triggerAnnounceElimination(playerID) {
+            $('#take-vote-slide').fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#eliminated-player-name').text(playersInGame[playerID]["playerName"])
+                    $('#eliminated-slide').fadeIn(500);
+                });
         }
 
         function updatePlayersInGameList() {
