@@ -257,7 +257,7 @@
                             triggerCurrentRound();
                             break;
                         case 'giveClue':
-                            triggerGiveClue(data[1]["playerID"]);
+                            triggerGiveClue(data[1]["playerID"], data[1]["iteration"]);
                             break;
                         default:
                             console.log(data)
@@ -426,7 +426,7 @@
             });
         }
 
-        function triggerGiveClue(playerID) {
+        function triggerGiveClue(playerID, numIterations) {
             if (numIterations == 0) {
                 if (peer.id == playerID) {
                     $('#confirm-clue-button').removeClass('no-display');
