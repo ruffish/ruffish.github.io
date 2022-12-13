@@ -394,6 +394,7 @@
         function setPlayerReady(e, playerID, isReady) {
             // Fade out the ready button
             $(e).fadeOut(500);
+            console.log(playersInGame[playerID]);
             // Set the player's ready status to true
             playersInGame[playerID]['ready'] = isReady;
         }
@@ -441,9 +442,34 @@
         function triggerTakeVote() {
 
         }
+
+        function updatePlayerInGameList() {
+            console.log("PlayersInGame List Updating");
+            playersInGameList = "";
+
+            for (var player in playersInGame) {
+                if (peer.id == player) {
+                    playersInGameList = playersInGameList +
+                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                        players[player]["playerName"] +
+                        "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div></div>"
+                } else {
+                    playersInGameList = playersInGameList +
+                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                        players[player]["playerName"] +
+                        "</p></div></div>"
+                }
+            }
+            // Send players data to everyone connected, so they can update their player lists
+            for (let step = 0; step < conn.length; step++) {
+                conn[step].send(["playersData", players]);
+                console.log("Sent: playersData " + step)
+            }
+            votePlayerListElement.innerHTML = playersInGameList;
+        }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.62">
+    <script src="./mimicGameLogic.js?v=0.63">
     </script>
 </body>
 

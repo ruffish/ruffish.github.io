@@ -124,8 +124,6 @@ class MimicGame {
                 playersInGame[playerId]["word"] = "NA";
             }
         }
-
-        console.log(playersInGame)
     }
 
     sendGameData() {
