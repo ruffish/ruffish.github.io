@@ -5,7 +5,7 @@ pairs = [['Dog', 'Cat'], ['Tree', 'Flower'], ['Car', 'Bike'], ['Night', 'Day'], 
 
 var mimicInGame = false;
 paused = true;
-let playerInGame = {};
+let playersInGame = {};
 
 function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -16,7 +16,7 @@ function activateGame() {
     for (let playerId in players) {
         let player = players[playerId];
         if (player.inPlay) {
-            playerInGame[playerId] = player;
+            playersInGame[playerId] = player;
         }
     }
 
