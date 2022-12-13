@@ -34,7 +34,7 @@
     </header>
 
     <div class="Main">
-        <div id="starting-slide">
+        <div id="starting-slide" class="no-display">
             <div class="Main-top-container">
                 <h2 class="game-title">Mimic Revanced</h2>
             </div>
@@ -61,6 +61,26 @@
             </div>
             <div class="Main-bottom-container">
                 <button onclick="activateGame()">Start Game</button>
+            </div>
+        </div>
+        <div id="your-word-slide">
+            <div class="word-top-container">
+                <p>Your secret word is:</p>
+                <h2 id="player-secret-word">Tree</h2>
+            </div>
+            <div class="Main-mid-container">
+                <p>
+                    <span style="font-size: 1.2rem; font-weight: bold;">Rules:</span><br>
+                    1. Don't tell anyone your word <br>
+                    2. Work out who the Mimic/s are (It might even be you) <br><br>
+                    <span style="color: rgb(2, 233, 2); font-weight: bold;">If you think you are the Civilian:</span><br>
+                    1. Work together with who you think the other Civilians are<br>
+                    2. Vote off the Mimics<br><br>
+                    <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the Mimic:</span><br>
+                    1. Work together with who you think the other Mimics are<br>(You could be the ONLY Mimic)<br>
+                    2. Try to act like a Civilian<br>
+                    3. Vote off the Civilians
+                </p>
             </div>
         </div>
     </div>
@@ -340,11 +360,12 @@
 
         // Game Started Functions
         function triggerCurrentRound() {
+            $('player-secret-word').text(playersInGame[peer.id]["word"]);
             $('#starting-slide').fadeOut(500);
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.33">
+    <script src="./mimicGameLogic.js?v=0.34">
     </script>
 </body>
 

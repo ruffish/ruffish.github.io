@@ -405,6 +405,7 @@
 
         // Game Started Functions
         function triggerCurrentRound() {
+            $('player-secret-word').text(playersInGame[peer.id]["word"]);
             $('#starting-slide').fadeOut(500);
         }
     </script>
