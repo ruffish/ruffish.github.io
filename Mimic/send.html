@@ -18,7 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic revanced</title>
-    <link rel="stylesheet" href="./style.css?v=0.42.1">
+    <link rel="stylesheet" href="./style.css?v=0.42.2">
 </head>
 
 <body>
@@ -62,25 +62,27 @@
                 <p>Waiting for the host to start the game...</p>
             </div>
         </div>
-        <div id="your-word-slide" class="no-display">
+        <div id="game-slide" class="no-display">
             <div class="word-top-container">
                 <p>Your secret word is:</p>
                 <h2 id="player-secret-word">Tree</h2>
             </div>
-            <div class="Main-mid-container">
-                <p>
-                    <span style="font-size: 1.2rem; font-weight: bold;">Rules:</span><br>
-                    1. Don't tell anyone your word <br>
-                    2. Work out who the Mimic/s are (It might even be you) <br><br>
-                    <span style="color: rgb(2, 233, 2); font-weight: bold;">If you think you are the
-                        Civilian:</span><br>
-                    1. Work together with who you think the other Civilians are<br>
-                    2. Vote off the Mimics<br><br>
-                    <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the Mimic:</span><br>
-                    1. Work together with who you think the other Mimics are<br>(You could be the ONLY Mimic)<br>
-                    2. Try to act like a Civilian<br>
-                    3. Vote off the Civilians
-                </p>
+            <div id="rules slide">
+                <div class="Main-mid-container">
+                    <p>
+                        <span style="font-size: 1.2rem; font-weight: bold;">Rules:</span><br>
+                        1. Don't tell anyone your word <br>
+                        2. Work out who the Mimic/s are (It might even be you) <br><br>
+                        <span style="color: rgb(2, 233, 2); font-weight: bold;">If you think you are the
+                            Civilian:</span><br>
+                        1. Work together with who you think the other Civilians are<br>
+                        2. Vote off the Mimics<br><br>
+                        <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the Mimic:</span><br>
+                        1. Work together with who you think the other Mimics are<br>(You could be the ONLY Mimic)<br>
+                        2. Try to act like a Civilian<br>
+                        3. Vote off the Civilians
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -426,13 +428,13 @@
 
         // Game Started Functions
         function triggerCurrentRound() {
-            $('player-secret-word').text(playersInGame[peer.id]["word"]);
+            $('#player-secret-word').text(playersInGame[peer.id]["word"]);
 
             $('#starting-slide')
                 .fadeOut(500)
                 .promise()
                 .then(function () {
-                    $('#your-word-slide').fadeIn(500);
+                    $('#game-slide').fadeIn(500);
             });
         }
     </script>
