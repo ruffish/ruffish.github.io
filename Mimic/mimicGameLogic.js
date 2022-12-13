@@ -440,6 +440,8 @@ class MimicGame {
     eliminatePlayer(playerID) {
         // Remove the player from the playersInGame dictionary
         delete playersInGame[playerID];
+        conslole.log(playersInGame);
+        console.log("eliminatePlayer activated");
         // Announce the elimination of the player
         triggerAnnounceElimination(playerID);
         for (let step = 0; step < conn.length; step++) {
