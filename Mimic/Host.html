@@ -63,7 +63,7 @@
                 <button onclick="activateGame()">Start Game</button>
             </div>
         </div>
-        <div id="your-word-slide">
+        <div id="your-word-slide" class="no-display">
             <div class="word-top-container">
                 <p>Your secret word is:</p>
                 <h2 id="player-secret-word">Tree</h2>
@@ -361,7 +361,7 @@
         // Game Started Functions
         function triggerCurrentRound() {
             $('player-secret-word').text(playersInGame[peer.id]["word"]);
-            
+
             $('#starting-slide').fadeOut(500);
             $('#your-word-slide').fadeIn(500);
         }

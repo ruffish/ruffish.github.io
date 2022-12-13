@@ -49,7 +49,7 @@
                                 <i class="fa-solid fa-pen changeName-button"></i>
                             </div>
                         </div>
-    
+
                         <div id="changeName-container" class="changeName-container no-display">
                             <input type="text" id="changeName-input" placeholder="Enter a name...">
                             <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)"
@@ -60,6 +60,27 @@
             </div>
             <div class="Main-bottom-container">
                 <p>Waiting for the host to start the game...</p>
+            </div>
+        </div>
+        <div id="your-word-slide" class="no-display">
+            <div class="word-top-container">
+                <p>Your secret word is:</p>
+                <h2 id="player-secret-word">Tree</h2>
+            </div>
+            <div class="Main-mid-container">
+                <p>
+                    <span style="font-size: 1.2rem; font-weight: bold;">Rules:</span><br>
+                    1. Don't tell anyone your word <br>
+                    2. Work out who the Mimic/s are (It might even be you) <br><br>
+                    <span style="color: rgb(2, 233, 2); font-weight: bold;">If you think you are the
+                        Civilian:</span><br>
+                    1. Work together with who you think the other Civilians are<br>
+                    2. Vote off the Mimics<br><br>
+                    <span style="color: rgb(255, 38, 0); font-weight: bold;">If you think you are the Mimic:</span><br>
+                    1. Work together with who you think the other Mimics are<br>(You could be the ONLY Mimic)<br>
+                    2. Try to act like a Civilian<br>
+                    3. Vote off the Civilians
+                </p>
             </div>
         </div>
     </div>
