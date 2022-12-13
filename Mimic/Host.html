@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
     <title>Mimic Revanced - Host</title>
-    <link rel="stylesheet" href="./style.css?v=0.67">
+    <link rel="stylesheet" href="./style.css?v=0.68">
 </head>
 
 <body>
@@ -34,7 +34,7 @@
     </header>
 
     <div class="Main">
-        <div id="starting-slide" class="no-display">
+        <div id="starting-slide">
             <div class="Main-top-container">
                 <h2 class="game-title">Mimic Revanced</h2>
             </div>
@@ -361,7 +361,9 @@
         // Game Started Functions
         function triggerCurrentRound() {
             $('player-secret-word').text(playersInGame[peer.id]["word"]);
+            
             $('#starting-slide').fadeOut(500);
+            $('#your-word-slide').fadeIn(500);
         }
     </script>
 
