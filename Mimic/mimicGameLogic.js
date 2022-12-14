@@ -422,6 +422,8 @@ class MimicGame {
                     }
                     playersInGame[player]["votes"] = 0;
                 }
+
+                console.log(mostVotedPlayer);
                 // If there is a tie, make the other playersInGame vote again
                 if (mostVotedPlayer.length > 1) {
                     // Randomly select a player from the mostVotedPlayer array
