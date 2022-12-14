@@ -397,7 +397,7 @@ class MimicGame {
             }
             // Check if all playersInGame are done voting
             for (let player in playersInGame) {
-                if (!playersInGame[player].ready) {
+                if (!playersInGame[player]["ready"]) {
                     // If not, set paused to true and break out of the for loop
                     paused = true;
                     break;
@@ -408,6 +408,7 @@ class MimicGame {
             }
             // Move on to next stage if all playersInGame are done voting (paused = false)
             if (!paused) {
+                console.log("UNPAUSED VOTE")
                 // Clear the interval
                 clearInterval(interval);
                 // Work out who has the most votes
