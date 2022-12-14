@@ -468,6 +468,7 @@
         function castVote(playerID, hostVote) {
             if (hostVote) {
                 $('.vote-button-container').fadeOut();
+                setPlayerReady(null, peer.id, true);
             }
             console.log(playerID);
             // Set the player's ready status to true

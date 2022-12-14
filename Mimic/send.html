@@ -428,7 +428,9 @@
         };
 
         function imReady(e) {
-            $(e).fadeOut(500);
+            if (e != null) {
+                $(e).fadeOut(500);
+            }
             if (conn && conn.open) {
                 conn.send(["setPlayerReady", {
                     "playerID": peer.id,
@@ -489,13 +491,14 @@
                 });
         }
 
-        function castVote() {
+        function castVote(playerID) {
             $('.vote-button-container').fadeOut();
             if (conn && conn.open) {
                 conn.send(["castVote", {
-                    "playerID": peer.id,
+                    "playerID": playerID,
                 }]);
             }
+            imReady(null);
         }
 
         function triggerAnnounceElimination(playerID) {
