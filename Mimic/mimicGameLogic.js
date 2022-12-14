@@ -399,9 +399,13 @@ class MimicGame {
             for (let player in playersInGame) {
                 if (!playersInGame[player]["ready"]) {
                     // If not, set paused to true and break out of the for loop
+                    console.log("players not ready");
+                    console.log(playersInGame);
                     paused = true;
                     break;
                 } else {
+                    console.log("if so, set paused to false");
+                    console.log(playersInGame);
                     // If so, set paused to fakse
                     paused = false;
                 }
@@ -409,8 +413,6 @@ class MimicGame {
 
             // Move on to next stage if all playersInGame are done voting (paused = false)
             if (!paused) {
-                console.log(playersInGame);
-                console.log("UNPAUSED VOTE")
                 // Clear the interval
                 clearInterval(interval);
                 // Work out who has the most votes
