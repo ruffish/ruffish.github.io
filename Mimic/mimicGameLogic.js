@@ -485,7 +485,7 @@ class MimicGame {
                 }
             }
         }
-        console.log(winner);
+        console.log(winners);
         return winners;
     }
 }
