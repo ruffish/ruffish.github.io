@@ -406,8 +406,10 @@ class MimicGame {
                     paused = false;
                 }
             }
+
             // Move on to next stage if all playersInGame are done voting (paused = false)
             if (!paused) {
+                console.log(playersInGame);
                 console.log("UNPAUSED VOTE")
                 // Clear the interval
                 clearInterval(interval);
@@ -424,7 +426,6 @@ class MimicGame {
                     playersInGame[player]["votes"] = 0;
                 }
 
-                console.log(mostVotedPlayer);
                 // If there is a tie, make the other playersInGame vote again
                 if (mostVotedPlayer.length > 1) {
                     // Randomly select a player from the mostVotedPlayer array
@@ -485,6 +486,7 @@ class MimicGame {
                 }
             }
         }
+        console.log("WINNERS:")
         console.log(winners);
         return winners;
     }
