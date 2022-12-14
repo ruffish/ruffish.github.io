@@ -246,7 +246,7 @@
                             setPlayerReady(null, data[1]["playerID"], data[1]["ready"]);
                             break;
                         case 'castVote':
-                            castVote(data[1]["playerID"]);
+                            castVote(data[1]["playerID"], false);
                             break;
                         default:
                             for (let step = 0; step < conn.length; step++) {
@@ -465,8 +465,10 @@
                 });
         }
 
-        function castVote(playerID) {
-            $('.vote-button-container').fadeOut();
+        function castVote(playerID, hostVote) {
+            if (hostVote) {
+                $('.vote-button-container').fadeOut();
+            }
             // Set the player's ready status to true
             playersInGame[playerID]['votes'] = playersInGame[playerID]['votes'] + 1;
             playersInGame[playerID]['ready'] = true;
@@ -509,7 +511,7 @@
                         playersInGame[player]["playerName"] + "</p><div onclick=\"castVote('" + playersInGame[player][
                             'playerID'
                         ] +
-                        "')\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
+                        "', true)\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
                 }
             }
             // Send players data to everyone connected, so they can update their player lists
