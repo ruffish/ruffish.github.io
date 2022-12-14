@@ -502,7 +502,7 @@
         }
 
         function triggerAnnounceElimination(playerID) {
-            $('#eliminated-player-name').text(playersInGame[playerID]["playerName"])
+            $('#eliminated-player-name').text(players[playerID]["playerName"])
             $('#take-vote-slide').fadeOut(500)
                 .promise()
                 .then(function () {
