@@ -469,6 +469,7 @@
             if (hostVote) {
                 $('.vote-button-container').fadeOut();
             }
+            console.log(playerID);
             // Set the player's ready status to true
             playersInGame[playerID]['votes'] = playersInGame[playerID]['votes'] + 1;
             playersInGame[playerID]['ready'] = true;
