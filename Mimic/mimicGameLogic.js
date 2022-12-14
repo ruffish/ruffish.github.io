@@ -397,15 +397,11 @@ class MimicGame {
             }
             // Check if all playersInGame are done voting
             for (let player in playersInGame) {
-                if (!playersInGame[player]["ready"]) {
+                if (!playersInGame[player].ready) {
                     // If not, set paused to true and break out of the for loop
-                    console.log("players not ready");
-                    console.log(playersInGame);
                     paused = true;
                     break;
                 } else {
-                    console.log("if so, set paused to false");
-                    console.log(playersInGame);
                     // If so, set paused to fakse
                     paused = false;
                 }

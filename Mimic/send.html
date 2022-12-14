@@ -499,11 +499,9 @@
 
         function castVote(playerID) {
             $('.vote-button-container').fadeOut();
-            if (conn && conn.open) {
                 conn.send(["castVote", {
                     "playerID": playerID,
                 }]);
-            }
             imReady(null);
         }
 
