@@ -244,25 +244,25 @@ class MimicGame {
         if (this.numplayersInGame === 3) {
             // In a 3 player game, there will be 2 civilians and 1 mimic
             roles = ["Civilian", "Civilian", "Mimic"];
-        } else if (this.numplayersInGame === 4 || this.numplayersInGame === 5) {
-            const stringifiedArray = JSON.stringify(['Civilian']);
-            // In a 4 or 5 player game, there will be 1 or 2 mimics
-            roles = roles.concat(JSON.parse(stringifiedArray.repeat(this.numplayersInGame - 1))).concat(["Mimic"].repeat(this.numplayersInGame % 2));
         } else {
             // Add the appropriate number of Civilian roles
-            for (let i = 0; i < this.numplayersInGame - 2; i++) {
+            for (let i = 0; i < this.numplayersInGame - 1; i++) {
                 roles.push('Civilian');
             }
 
             // Add 1 or 2 Mimic roles, depending on the number of playersInGame
-            if (this.numplayersInGame >= 6) {
+            if (this.numplayersInGame >= 5) {
                 roles.push('Mimic');
+                roles.push('Mimic');
+            } else {
                 roles.push('Mimic');
             }
 
-            // Randomly decide whether to add a Blind Mimic role
-            if (generateRandomNumber(0, 1) === 1) {
-                roles.push('Blind Mimic');
+            if (this.numplayersInGame >= 6) {
+                // Randomly decide whether to add a Blind Mimic role
+                if (generateRandomNumber(0, 1) === 1) {
+                    roles.push('Blind Mimic');
+                }
             }
         }
 
@@ -490,7 +490,10 @@ class MimicGame {
             }
         }
         for (let step = 0; step < conn.length; step++) {
-            conn[step].send(["announceWinner", {"winners": winners, "mimicsWon": mimicsWon}]);
+            conn[step].send(["announceWinner", {
+                "winners": winners,
+                "mimicsWon": mimicsWon
+            }]);
         }
         triggerAnnounceWinner(winners, mimicsWon);
         return winners;
