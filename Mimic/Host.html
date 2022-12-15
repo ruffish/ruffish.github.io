@@ -444,6 +444,7 @@
                     .fadeOut(500)
                     .promise()
                     .then(function () {
+                        $('.slide').hide();
                         $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
                         $('#give-clue-slide').fadeIn(500);
                     });
@@ -457,6 +458,7 @@
                             $('#confirm-clue-button').addClass('no-display');
                         }
                         $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
+                        $('.slide').hide();
                         $('#give-clue-slide').fadeIn(500);
                     });
             }
@@ -467,6 +469,7 @@
             $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
+                    $('.slide').hide();
                     $('#take-vote-slide').fadeIn(500);
                 });
         }
@@ -486,6 +489,7 @@
             $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
+                    $('.slide').hide();
                     $('#eliminated-slide').fadeIn(500);
                 });
         }
@@ -532,6 +536,7 @@
             $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
+                    $('.slide').hide();
                     $('#winner-slide').fadeIn(500);
                 });
         }
