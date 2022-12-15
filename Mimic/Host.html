@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div id="give-clue-slide" class="no-display slide">
-                <div class="give-clur-container">
+                <div class="give-clue-container">
                     <h3 id="give-clue-player-name"></h3><br>
                     <p>Give a clue to the other players.</p>
                     <button id="confirm-clue-button" class="confirm-clue-button regular-button no-display"
@@ -116,6 +116,13 @@
                 <div class="Main-mid-container center-text">
                     <h3 id="eliminated-player-name"></h3><br>
                     <p>has been eliminated.</p>
+                </div>
+            </div>
+            <div id="winner-slide" class="no-display slide">
+                <div class="Main-mid-container">
+                    <h3 id="winning-team" style="text-align: center;"></h3><br>
+                    <div id="winning-player-list">
+                    </div>
                 </div>
             </div>
         </div>
@@ -399,7 +406,6 @@
             // Send players data to everyone connected, so they can update their player lists
             for (let step = 0; step < conn.length; step++) {
                 conn[step].send(["playersData", players]);
-                console.log("Sent: playersData " + step)
             }
             playerListElement.innerHTML = playersConnectedList;
         }
@@ -481,17 +487,39 @@
                 .then(function () {
                     $('#eliminated-slide').fadeIn(500);
                 });
-
-            setTimeout(() => {
-                transitionBackToGiveClue();
-            }, 7000);
         }
 
-        function transitionBackToGiveClue() {
+        function triggerAnnounceWinner(winners, mimicsWon) {
+            winnersList = "";
+
+            // Set the winning player list
+            for (var player in playersInGame) {
+                if (peer.id == player) {
+                    winnersList = winnersList +
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
+                        playersInGame[player]["playerName"] +
+                        "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                } else {
+                    winnersList = winnersList +
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
+                        playersInGame[player]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                }
+            }
+            // Set the winning player list to the element
+            $('#winning-player-list').html(winnersList);
+
+            // Set the winning team text
+            if (mimicsWon) {
+                $('#winning-team').text("Mimics Won!");
+            } else {
+                $('#winning-team').text("Civilians Won!");
+            }
+
+            // Show the winners slide
             $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
-                    $('#give-clue-slide').fadeIn(500);
+                    $('#winner-slide').fadeIn(500);
                 });
         }
 
@@ -514,7 +542,7 @@
                         "', true)\" id=\"vote-button-container\" class=\"vote-button-container\"><button class=\"vote-button\">Vote</button></div></div></div>"
                 }
             }
-            // Send players data to everyone connected, so they can update their player lists
+            // Send playersInGame data to everyone connected, so they can update their player lists
             for (let step = 0; step < conn.length; step++) {
                 conn[step].send(["playersInGameData", players]);
             }

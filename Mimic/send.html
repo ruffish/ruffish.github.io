@@ -115,6 +115,13 @@
                     <p>has been eliminated.</p>
                 </div>
             </div>
+            <div id="winner-slide" class="no-display slide">
+                <div class="Main-mid-container">
+                    <h3 id="winning-team" style="text-align: center;"></h3><br>
+                    <div id="winning-player-list">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -271,7 +278,7 @@
                             players = data[1];
                             updatePlayerList();
                             break;
-                        case 'setPlayersInGameData':
+                        case 'playersInGameData':
                             playersInGame = data[1];
                             updatePlayerList();
                             break;
@@ -517,11 +524,37 @@
             }, 7000);
         }
 
-        function transitionBackToGiveClue() {
+        function triggerAnnounceWinner(winners, mimicsWon) {
+            winnersList = "";
+
+            // Set the winning player list
+            for (var player in playersInGame) {
+                if (peer.id == player) {
+                    winnersList = winnersList +
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
+                        playersInGame[player]["playerName"] +
+                        "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                } else {
+                    winnersList = winnersList +
+                        "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
+                        playersInGame[player]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                }
+            }
+            // Set the winning player list to the element
+            $('#winning-player-list').html(winnersList);
+
+            // Set the winning team text
+            if (mimicsWon) {
+                $('#winning-team').text("Mimics Won!");
+            } else {
+                $('#winning-team').text("Civilians Won!");
+            }
+
+            // Show the winners slide
             $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
-                    $('#give-clue-slide').fadeIn(500);
+                    $('#winner-slide').fadeIn(500);
                 });
         }
 

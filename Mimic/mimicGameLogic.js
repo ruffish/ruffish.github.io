@@ -287,7 +287,7 @@ class MimicGame {
     sendGameData() {
         // Send the words to the playersInGame
         for (let step = 0; step < conn.length; step++) {
-            conn[step].send(["setPlayersInGameData", playersInGame]);
+            conn[step].send(["playersInGameData", playersInGame]);
         }
     }
 
@@ -335,8 +335,6 @@ class MimicGame {
         // Set variable to count interations
         let signalSent = false;
         paused = true;
-
-        console.log(playersInGameArray);
 
         // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
         const interval = setInterval(() => {
@@ -448,14 +446,16 @@ class MimicGame {
         triggerAnnounceElimination(playerID);
         for (let step = 0; step < conn.length; step++) {
             conn[step].send(["announceElimination", playerID]);
-            conn[step].send(["setPlayersInGameData", playersInGame]);
+            conn[step].send(["playersInGameData", playersInGame]);
         }
 
         // Check if the game is over and proceed to the next stage
         if (this.gameOver()) {
             this.announceWinner();
         } else {
-            this.giveClues();
+            setTimeout(() => {
+                this.giveClues();
+            }, 5000);
         }
     }
 
@@ -472,22 +472,25 @@ class MimicGame {
 
     // Announce the winner of the game
     announceWinner() {
+        let mimicsWon = false;
         let winners = []
         if (mimicInGame == true) {
             for (let playerID in playersInGame) {
                 if (playersInGame[playerID]["role"] == "Mimic") {
-                    winners.push(playersInGame[playerID]["playerName"]);
+                    winners.push(playersInGame[playerID]["playerID"]);
                 }
             }
+            mimicsWon = true;
         } else {
             for (let playerID in playersInGame) {
                 if (playersInGame[playerID]["role"] == "Civilian") {
-                    winners.push(playersInGame[playerID]["playerName"]);
+                    winners.push(playersInGame[playerID]["playerID"]);
                 }
             }
         }
         console.log("WINNERS:")
         console.log(winners);
+        triggerAnnounceWinner(winners, mimicsWon);
         return winners;
     }
 }
