@@ -488,7 +488,7 @@
         }
 
         function transitionBackToGiveClue() {
-            $('#eliminated-slide').fadeOut(500)
+            $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
                     $('#give-clue-slide').fadeIn(500);
