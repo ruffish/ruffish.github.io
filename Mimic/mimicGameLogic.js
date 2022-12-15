@@ -274,6 +274,7 @@ class MimicGame {
             playersInGame[playerId]['votes'] = 0;
             playersInGame[playerId]['ready'] = false;
             playersInGame[playerId]['role'] = roles.pop();
+            players[playerId]['role'] = playersInGame[playerId]['role']
             if (playersInGame[playerId]['role'] == "Civilian") {
                 playersInGame[playerId]["word"] = this.secretWord;
             } else if (playersInGame[playerId]['role'] == "Mimic") {
