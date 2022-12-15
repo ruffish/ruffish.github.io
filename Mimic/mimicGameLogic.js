@@ -336,6 +336,8 @@ class MimicGame {
         let signalSent = false;
         paused = true;
 
+        console.log(playersInGameArray);
+
         // Set an interval to check the value of the paused variable every 1000 milliseconds (1 second)
         const interval = setInterval(() => {
             // Send Signal to others playersInGame on who turn it is to give a clue
