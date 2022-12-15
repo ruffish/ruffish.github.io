@@ -68,7 +68,7 @@
                 <p>Your secret word is:</p>
                 <h2 id="player-secret-word" class="no-display">Tree</h2>
             </div>
-            <div id="rules-slide">
+            <div id="rules-slide" class="slide">
                 <div class="Main-mid-container">
                     <p>
                         <span style="font-size: 1.2rem; font-weight: bold;">Rules:</span><br>
@@ -90,7 +90,7 @@
                         Ready</button>
                 </div>
             </div>
-            <div id="give-clue-slide" class="no-display">
+            <div id="give-clue-slide" class="no-display slide">
                 <div class="give-clur-container">
                     <h3 id="give-clue-player-name"></h3><br>
                     <p>Give a clue to the other players.</p>
@@ -98,7 +98,7 @@
                         onclick="setPlayerReady(this, peer.id, true)">I'm Done</button>
                 </div>
             </div>
-            <div id="take-vote-slide" class="no-display">
+            <div id="take-vote-slide" class="no-display slide">
                 <div class="Main-mid-container">
                     <div id="vote-player-list">
                         <div class="player-container">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <div id="eliminated-slide" class="no-display">
+            <div id="eliminated-slide" class="no-display slide">
                 <div class="Main-mid-container center-text">
                     <h3 id="eliminated-player-name"></h3><br>
                     <p>has been eliminated.</p>
@@ -415,7 +415,7 @@
 
         // Game Started Functions
         function triggerCurrentRound() {
-            $('im-ready-button').show();
+            $('#im-ready-button').show();
             $('#player-secret-word').text(playersInGame[peer.id]["word"]);
 
             $('#starting-slide')
@@ -427,14 +427,13 @@
         }
 
         function triggerGiveClue(playerID) {
-            $('confirm-clue-button').show();
             if (numIterations == 0) {
                 if (peer.id == playerID) {
                     $('#confirm-clue-button').removeClass('no-display');
                 } else {
                     $('#confirm-clue-buttonn').addClass('no-display');
                 }
-                $('#rules-slide')
+                $('.slide')
                     .fadeOut(500)
                     .promise()
                     .then(function () {
@@ -458,7 +457,7 @@
 
         function triggerTakeVote() {
             updatePlayersInGameList();
-            $('#give-clue-slide').fadeOut(500)
+            $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
                     $('#take-vote-slide').fadeIn(500);
@@ -477,7 +476,7 @@
 
         function triggerAnnounceElimination(playerID) {
             $('#eliminated-player-name').text(players[playerID]["playerName"])
-            $('#take-vote-slide').fadeOut(500)
+            $('.slide').fadeOut(500)
                 .promise()
                 .then(function () {
                     $('#eliminated-slide').fadeIn(500);
@@ -523,7 +522,7 @@
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.78">
+    <script src="./mimicGameLogic.js?v=0.79">
     </script>
 </body>
 
