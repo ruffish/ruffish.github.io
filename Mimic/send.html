@@ -472,9 +472,9 @@
         function triggerGiveClue(playerID, numIterations) {
             if (numIterations == 0) {
                 if (peer.id == playerID) {
-                    $('#confirm-clue-button').removeClass('no-display');
+                    $('#confirm-clue-button').show();
                 } else {
-                    $('#confirm-clue-buttonn').addClass('no-display');
+                    $('#confirm-clue-button').hide();
                 }
                 $('.slide')
                     .fadeOut(500)
@@ -489,9 +489,9 @@
                     .promise()
                     .then(function () {
                         if (peer.id == playerID) {
-                            $('#confirm-clue-button').removeClass('no-display');
+                            $('#confirm-clue-button').show();
                         } else {
-                            $('#confirm-clue-button').addClass('no-display');
+                            $('#confirm-clue-button').hide();
                         }
                         $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
                         $('.slide').hide();
@@ -502,19 +502,29 @@
 
         function triggerTakeVote() {
             updatePlayersInGameList();
-            $('.slide').fadeOut(500)
-                .promise()
-                .then(function () {
-                    $('.slide').hide();
-                    $('#take-vote-slide').fadeIn(500);
-                });
+            // Check if clientPlayer is still in the game
+            if (playersInGame[peer.id] == null) {
+                $('.slide').fadeOut(500)
+                    .promise()
+                    .then(function () {
+                        $('.slide').hide();
+                        $('#wait-vote-slide').fadeIn(500);
+                    });
+            } else {
+                $('.slide').fadeOut(500)
+                    .promise()
+                    .then(function () {
+                        $('.slide').hide();
+                        $('#take-vote-slide').fadeIn(500);
+                    });
+            }
         }
 
         function castVote(playerID) {
             $('.vote-button-container').fadeOut();
-                conn.send(["castVote", {
-                    "playerID": playerID,
-                }]);
+            conn.send(["castVote", {
+                "playerID": playerID,
+            }]);
             imReady(null);
         }
 
@@ -542,7 +552,8 @@
                 } else {
                     winnersList = winnersList +
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
-                        playersInGame[winners[step]]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                        playersInGame[winners[step]]["playerName"] +
+                        "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 }
             }
             // Set the winning player list to the element
@@ -578,8 +589,6 @@
         function updatePlayersInGameList() {
             console.log("PlayersInGame List Updating");
             playersInGameList = "";
-
-            playerTest = playersInGame[peer.id]["playerName"];
 
             for (var player in playersInGame) {
                 if (peer.id == player) {

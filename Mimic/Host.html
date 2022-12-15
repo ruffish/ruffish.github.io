@@ -112,6 +112,11 @@
                     </div>
                 </div>
             </div>
+            <div id="wait-vote-slide" class="no-display slide">
+                <div class="Main-mid-container">
+                    <h3 style="text-align: center;">Waiting for other players to vote...</h3>
+                </div>
+            </div>
             <div id="eliminated-slide" class="no-display slide">
                 <div class="Main-mid-container center-text">
                     <h3 id="eliminated-player-name"></h3><br>
@@ -436,9 +441,9 @@
         function triggerGiveClue(playerID) {
             if (numIterations == 0) {
                 if (peer.id == playerID) {
-                    $('#confirm-clue-button').removeClass('no-display');
+                    $('#confirm-clue-button').show();
                 } else {
-                    $('#confirm-clue-buttonn').addClass('no-display');
+                    $('#confirm-clue-button').hide();
                 }
                 $('.slide')
                     .fadeOut(500)
@@ -453,9 +458,9 @@
                     .promise()
                     .then(function () {
                         if (peer.id == playerID) {
-                            $('#confirm-clue-button').removeClass('no-display');
+                            $('#confirm-clue-button').show();
                         } else {
-                            $('#confirm-clue-button').addClass('no-display');
+                            $('#confirm-clue-button').hide();
                         }
                         $('#give-clue-player-name').text(playersInGame[playerID]["playerName"])
                         $('.slide').hide();
@@ -466,12 +471,22 @@
 
         function triggerTakeVote() {
             updatePlayersInGameList();
-            $('.slide').fadeOut(500)
-                .promise()
-                .then(function () {
-                    $('.slide').hide();
-                    $('#take-vote-slide').fadeIn(500);
-                });
+            // Check if clientPlayer is still in the game
+            if (playersInGame[peer.id] == null) {
+                $('.slide').fadeOut(500)
+                    .promise()
+                    .then(function () {
+                        $('.slide').hide();
+                        $('#wait-vote-slide').fadeIn(500);
+                    });
+            } else {
+                $('.slide').fadeOut(500)
+                    .promise()
+                    .then(function () {
+                        $('.slide').hide();
+                        $('#take-vote-slide').fadeIn(500);
+                    });
+            }
         }
 
         function castVote(playerID, hostVote) {
@@ -479,7 +494,6 @@
                 $('.vote-button-container').fadeOut();
                 setPlayerReady(null, peer.id, true);
             }
-            console.log(playerID);
             // Set the player's ready status to true
             playersInGame[playerID]['votes'] = playersInGame[playerID]['votes'] + 1;
         }
@@ -508,7 +522,8 @@
                 } else {
                     winnersList = winnersList +
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
-                        playersInGame[winners[step]]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                        playersInGame[winners[step]]["playerName"] +
+                        "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 }
             }
             // Set the winning player list to the element
