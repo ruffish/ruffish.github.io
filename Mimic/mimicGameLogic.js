@@ -289,6 +289,7 @@ class MimicGame {
         // Send the words to the playersInGame
         for (let step = 0; step < conn.length; step++) {
             conn[step].send(["playersInGameData", playersInGame]);
+            conn[step].send(["playersData", players]);
         }
     }
 
