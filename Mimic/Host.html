@@ -470,7 +470,6 @@
         }
 
         function triggerTakeVote() {
-            updatePlayersInGameList();
             // Check if clientPlayer is still in the game
             if (playersInGame[peer.id] == null) {
                 $('.slide').fadeOut(500)
@@ -506,6 +505,7 @@
                     $('.slide').hide();
                     $('#eliminated-slide').fadeIn(500);
                 });
+            updatePlayersInGameList();
         }
 
         function triggerAnnounceWinner(winners, mimicsWon) {
@@ -558,7 +558,7 @@
 
         function updatePlayersInGameList() {
             console.log("PlayersInGame List Updating");
-            playersInGameList = "";
+            let playersInGameList = "";
 
             for (var player in playersInGame) {
                 if (peer.id == player) {
@@ -577,7 +577,7 @@
             }
             // Send playersInGame data to everyone connected, so they can update their player lists
             for (let step = 0; step < conn.length; step++) {
-                conn[step].send(["playersInGameData", players]);
+                conn[step].send(["playersInGameData", playersInGame]);
             }
             votePlayerListElement.innerHTML = playersInGameList;
         }

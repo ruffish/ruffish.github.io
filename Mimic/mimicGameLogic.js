@@ -448,7 +448,6 @@ class MimicGame {
         triggerAnnounceElimination(playerID);
         for (let step = 0; step < conn.length; step++) {
             conn[step].send(["announceElimination", playerID]);
-            conn[step].send(["playersInGameData", playersInGame]);
         }
 
         // Check if the game is over and proceed to the next stage
