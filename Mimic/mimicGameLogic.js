@@ -453,11 +453,13 @@ class MimicGame {
 
         // Check if the game is over and proceed to the next stage
         if (this.gameOver()) {
-            this.announceWinner();
+            setTimeout(() => {
+                this.announceWinner();
+            }, 6000);
         } else {
             setTimeout(() => {
                 this.giveClues();
-            }, 5000);
+            }, 6000);
         }
     }
 
