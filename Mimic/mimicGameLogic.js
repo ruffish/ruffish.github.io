@@ -488,8 +488,9 @@ class MimicGame {
                 }
             }
         }
-        console.log("WINNERS:")
-        console.log(winners);
+        for (let step = 0; step < conn.length; step++) {
+            conn[step].send(["announceWinner", {"winners": winners, "mimicsWon": mimicsWon}]);
+        }
         triggerAnnounceWinner(winners, mimicsWon);
         return winners;
     }

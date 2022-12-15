@@ -294,6 +294,9 @@
                         case 'announceElimination':
                             triggerAnnounceElimination(data[1]);
                             break;
+                        case 'announceWinner':
+                            triggerAnnounceWinner(data[1]["winners"], data[1]["mimicsWon"]);
+                            break;
                         default:
                             console.log(data)
                             addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
@@ -518,26 +521,23 @@
                 .then(function () {
                     $('#eliminated-slide').fadeIn(500);
                 });
-
-            setTimeout(() => {
-                transitionBackToGiveClue();
-            }, 7000);
         }
 
         function triggerAnnounceWinner(winners, mimicsWon) {
             winnersList = "";
+            winningTeamText = "";
 
             // Set the winning player list
-            for (var player in playersInGame) {
-                if (peer.id == player) {
+            for (let step = 0; step < winners.length; step++) {
+                if (peer.id == winners[step]) {
                     winnersList = winnersList +
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
-                        playersInGame[player]["playerName"] +
+                        playersInGame[winners[step]]["playerName"] +
                         "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 } else {
                     winnersList = winnersList +
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
-                        playersInGame[player]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
+                        playersInGame[winners[step]]["playerName"] + "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 }
             }
             // Set the winning player list to the element
@@ -545,10 +545,21 @@
 
             // Set the winning team text
             if (mimicsWon) {
-                $('#winning-team').text("Mimics Won!");
+                if (players[peer.id]["role"] == "Mimic") {
+                    winningTeamText = "You Won!, ";
+                } else {
+                    winningTeamText = "You Lost!, ";
+                }
+                winningTeamText = winningTeamText + "Mimics Won!";
             } else {
-                $('#winning-team').text("Civilians Won!");
+                if (players[peer.id]["role"] == "Civilian") {
+                    winningTeamText = "You Won!, ";
+                } else {
+                    winningTeamText = "You Lost!, ";
+                }
+                winningTeamText = winningTeamText + "Civilians Won!";
             }
+            $('#winning-team').text(winningTeamText);
 
             // Show the winners slide
             $('.slide').fadeOut(500)
