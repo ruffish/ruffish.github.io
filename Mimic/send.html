@@ -501,7 +501,6 @@
         }
 
         function triggerTakeVote() {
-            updatePlayersInGameList();
             // Check if clientPlayer is still in the game
             if (playersInGame[peer.id] == null) {
                 $('.slide').fadeOut(500)

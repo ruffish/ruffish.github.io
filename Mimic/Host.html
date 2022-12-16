@@ -470,6 +470,7 @@
         }
 
         function triggerTakeVote() {
+            updatePlayersInGameList();
             // Check if clientPlayer is still in the game
             if (playersInGame[peer.id] == null) {
                 $('.slide').fadeOut(500)
@@ -505,7 +506,6 @@
                     $('.slide').hide();
                     $('#eliminated-slide').fadeIn(500);
                 });
-            updatePlayersInGameList();
         }
 
         function triggerAnnounceWinner(winners, mimicsWon) {
