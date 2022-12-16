@@ -219,6 +219,7 @@ footer {
 }
 
 .chat-table {
+    max-width: 500px;
     width: 100%;
     position: relative;
     height: 150px;
