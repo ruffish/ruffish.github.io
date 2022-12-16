@@ -161,15 +161,23 @@ pairs = [
 ];
 
 var mimicInGame = false;
-paused = true;
+var paused = true;
 var numIterations = 0;
 var playersInGame = {};
+let game;
 
 function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function activateGame() {
+    // Create a new game
+    game = new MimicGame();
+    mimicInGame = false;
+    paused = true;
+    numIterations = 0;
+    playersInGame = {};
+
     // Assign players that want to play to the game.
     for (let playerId in players) {
         let player = players[playerId];
@@ -501,9 +509,6 @@ class MimicGame {
         return winners;
     }
 }
-
-// Create a new game
-const game = new MimicGame();
 
 // In this code, the `MimicGame` class represents the game and contains the main game loop. It has methods for setting the number of playersInGame, secret and mimic words, starting the game, and announcing the winner.
 

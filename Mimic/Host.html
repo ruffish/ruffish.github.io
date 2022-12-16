@@ -129,6 +129,8 @@
                     <h3>Winners:</h3><br>
                     <div id="winning-player-list">
                     </div>
+                    <br>
+                    <button onclick="activateGame()" class="regular-button">Start a New Game</button>
                 </div>
             </div>
         </div>
@@ -556,6 +558,26 @@
                 });
         }
 
+        // Check which slide is currently being shown (display none or not)
+        function checkCurrentSlide() {
+            if ($('#starting-slide').is(':visible')) {
+                return "starting-slide";
+            } else if ($('#game-slide').is(':visible')) {
+                if ($('#give-clue-slide').is(':visible')) {
+                    return "give-clue-slide";
+                } else if ($('#take-vote-slide').is(':visible')) {
+                    return "take-vote-slide";
+                } else if ($('#eliminated-slide').is(':visible')) {
+                    return "eliminated-slide";
+                } else if ($('#winner-slide').is(':visible')) {
+                    return "winner-slide";
+                } else if ($('#wait-vote-slide').is(':visible')) {
+                    return "wait-vote-slide";
+                };
+            }
+        }
+        
+
         function updatePlayersInGameList() {
             console.log("PlayersInGame List Updating");
             let playersInGameList = "";
@@ -583,7 +605,7 @@
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.85">
+    <script src="./mimicGameLogic.js?v=0.86">
     </script>
 </body>
 
