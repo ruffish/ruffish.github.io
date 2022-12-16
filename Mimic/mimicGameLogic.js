@@ -160,7 +160,7 @@ pairs = [
     ['Maths', 'Science']
 ];
 
-var mimicInGame = false;
+var mimicInGame = true;
 var paused = true;
 var numIterations = 0;
 var playersInGame = {};
@@ -173,7 +173,7 @@ function generateRandomNumber(min, max) {
 function activateGame() {
     // Create a new game
     game = new MimicGame();
-    mimicInGame = false;
+    mimicInGame = true;
     paused = true;
     numIterations = 0;
     playersInGame = {};
@@ -475,6 +475,9 @@ class MimicGame {
         for (let playerId in playersInGame) {
             if (playersInGame[playerId]["role"] == "Mimic") {
                 mimicInGame = true;
+                break;
+            } else {
+                mimicInGame = false;
             }
         }
         // The game is over if there is only two playersInGame remaining
@@ -483,7 +486,6 @@ class MimicGame {
 
     // Announce the winner of the game
     announceWinner() {
-        let mimicsWon = false;
         let winners = []
         if (mimicInGame == true) {
             for (let playerID in playersInGame) {
@@ -491,7 +493,6 @@ class MimicGame {
                     winners.push(playersInGame[playerID]["playerID"]);
                 }
             }
-            mimicsWon = true;
         } else {
             for (let playerID in playersInGame) {
                 if (playersInGame[playerID]["role"] == "Civilian") {
@@ -502,11 +503,10 @@ class MimicGame {
         for (let step = 0; step < conn.length; step++) {
             conn[step].send(["announceWinner", {
                 "winners": winners,
-                "mimicsWon": mimicsWon
+                "mimicsWon": mimicInGame
             }]);
         }
-        triggerAnnounceWinner(winners, mimicsWon);
-        return winners;
+        triggerAnnounceWinner(winners, mimicInGame);
     }
 }
 
