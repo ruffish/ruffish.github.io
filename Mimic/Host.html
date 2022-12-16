@@ -514,8 +514,6 @@
             let winnersList = "";
             let winningTeamText = "";
 
-            console.log(winners);
-
             // Set the winning player list
             for (let step = 0; step < winners.length; step++) {
                 if (peer.id == winners[step]) {
@@ -530,8 +528,6 @@
                         "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 }
             }
-
-            console.log(winnersList);
 
             // Set the winning player list to the element
             $('#winning-player-list').html(winnersList);
