@@ -555,12 +555,12 @@
                 if (peer.id == winners[step]) {
                     winnersList = winnersList +
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
-                        playersInGame[winners[step]]["playerName"] +
+                        players[winners[step]]["playerName"] +
                         "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 } else {
                     winnersList = winnersList +
                         "<div class=\"player-container\"><div id=\"vote-showName-container\" class=\"showName-container\"><p class=\"player-name-text\">" +
-                        playersInGame[winners[step]]["playerName"] +
+                        players[winners[step]]["playerName"] +
                         "</p><div id=\"vote-button-container\" class=\"vote-button-container\"></div></div></div>"
                 }
             }
