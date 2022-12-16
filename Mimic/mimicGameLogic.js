@@ -488,15 +488,15 @@ class MimicGame {
     announceWinner() {
         let winners = []
         if (mimicInGame == true) {
-            for (let playerID in playersInGame) {
-                if (playersInGame[playerID]["role"] == "Mimic") {
-                    winners.push(playersInGame[playerID]["playerID"]);
+            for (let playerID in players) {
+                if (players[playerID]["role"] == "Mimic" && players[playerID]["inPlay"] == true) {
+                    winners.push(players[playerID]["playerID"]);
                 }
             }
         } else {
-            for (let playerID in playersInGame) {
-                if (playersInGame[playerID]["role"] == "Civilian") {
-                    winners.push(playersInGame[playerID]["playerID"]);
+            for (let playerID in players) {
+                if (players[playerID]["role"] == "Civilian" && players[playerID]["inPlay"] == true) {
+                    winners.push(players[playerID]["playerID"]);
                 }
             }
         }
