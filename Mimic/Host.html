@@ -576,7 +576,20 @@
                 };
             }
         }
-        
+
+        // Reset the game
+        function resetGame() {
+            // Send a message to all clients to reset the game
+            for (let step = 0; step < conn.length; step++) {
+                conn[step].send(["resetGame"]);
+            }
+            $('#game-slide')
+                .fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#starting-slide').fadeIn(500);
+                });
+        }
 
         function updatePlayersInGameList() {
             console.log("PlayersInGame List Updating");
@@ -605,7 +618,7 @@
         }
     </script>
 
-    <script src="./mimicGameLogic.js?v=0.87">
+    <script src="./mimicGameLogic.js?v=0.88">
     </script>
 </body>
 

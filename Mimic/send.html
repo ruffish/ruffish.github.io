@@ -84,7 +84,7 @@
                         3. Vote off the Civilians
                     </p>
                     <br><br>
-                    <button class="im-ready-button regular-button" onclick="imReady(this)">I'm Ready</button>
+                    <button id="im-ready-button" class="im-ready-button regular-button" onclick="imReady(this)">I'm Ready</button>
                 </div>
             </div>
             <div id="give-clue-slide" class="no-display slide">
@@ -297,6 +297,9 @@
                             break;
                         case 'announceWinner':
                             triggerAnnounceWinner(data[1]["winners"], data[1]["mimicsWon"]);
+                            break;
+                        case 'resetGame':
+                            triggerResetGame();
                             break;
                         default:
                             console.log(data)
@@ -583,6 +586,16 @@
                 .then(function () {
                     $('.slide').hide();
                     $('#winner-slide').fadeIn(500);
+                });
+        }
+
+        // Reset the game
+        function resetGame() {
+            $('#game-slide')
+                .fadeOut(500)
+                .promise()
+                .then(function () {
+                    $('#starting-slide').fadeIn(500);
                 });
         }
 
