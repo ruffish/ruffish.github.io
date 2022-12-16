@@ -33,7 +33,7 @@
     </header>
 
     <div class="Main">
-        <div id="starting-slide">
+        <div id="starting-slide" class="slide">
             <div class="Main-top-container">
                 <h2 class="game-title">Mimic Revanced</h2>
             </div>
@@ -461,7 +461,7 @@
             $('#im-ready-button').show();
             $('#player-secret-word').text(playersInGame[peer.id]["word"]);
 
-            $('#starting-slide')
+            $('.slide')
                 .fadeOut(500)
                 .promise()
                 .then(function () {
