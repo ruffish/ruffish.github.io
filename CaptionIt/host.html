@@ -194,7 +194,7 @@
                             console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
                             break;
                         case 'setPlayerInPlay':
-                            setPlayerInPlay(data[1]["playerID"], data[1]["inPlay"]);
+                            togglePlayerStatus("", data[1]["playerID"]);
                             break;
                         case 'setPlayerReady':
                             setPlayerReady(null, data[1]["playerID"], data[1]["ready"]);
