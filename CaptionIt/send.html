@@ -372,8 +372,12 @@
         }
 
         function changePlayerName(playerID, newName) {
-            players[playerID]["playerName"] = newName;
-            updatePlayerList();
+            if (conn && conn.open) {
+                conn.send(["setPlayerName", {
+                    "playerName": clientPlayerName,
+                    "playerID": peer.id
+                }]);
+            }
             return;
         };
 
@@ -413,10 +417,6 @@
                         players[player]["playerName"] +
                         "</p></div><div id=\"playerStatus-button-container\"class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
                 }
-            }
-            // Send players data to everyone connected, so they can update their player lists
-            for (let step = 0; step < conn.length; step++) {
-                conn[step].send(["playersData", players]);
             }
             playerListElement.innerHTML = playersConnectedList;
         }
