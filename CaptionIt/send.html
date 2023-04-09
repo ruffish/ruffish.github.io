@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css?v=0.01">
+    <title>Caption It</title>
+</head>
+
+<body>
+    <header>
+        <div class="top-container unselectable">
+            <p class="share-link-prompt-text">Share this link to invite others. (click to copy)</p>
+            <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">
+                f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
+            <br>
+            <div id="status" class="status">Connecting . . .</div>
+        </div>
+    </header>
+
+    <div class="Main">
+        <div id="lobby-slide" class="slide">
+            <div class="main-top">
+                <h2 class="game-title">Caption It</h2>
+            </div>
+            <div class="Main-mid-container">
+                <br>
+                <div id="player-list">
+                    <div class="player-container">
+                        <div id="showName-container" class="showName-container">
+                            <p class="player-name-text">Host</p>
+                            <div onclick="showChangeName(this)" id="changeName-button-container"
+                                class="changeName-button-container">
+                                <i class="fa-solid fa-pen changeName-button"></i>
+                            </div>
+                        </div>
+                        <div id="changeName-container" class="changeName-container no-display">
+                            <input type="text" id="changeName-input" placeholder="Enter a name...">
+                            <i onclick="changeOwnName(this, peer.id, document.getElementById('changeName-input').value)"
+                                class="fa-regular fa-floppy-disk confirm-ChangeName-button"></i>
+                        </div>
+                        <div onclick="togglePlayerStatus(this, peer.id)" id="playerStatus-button-container"
+                            class="playerStatus-button-container">
+                            <i class="fa-solid fa-user playerStatus-button playing"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Main-bottom-container">
+                <button class="regular-button" onclick="activateGame()">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add new elements for the picture-caption game -->
+    <img id="random-picture" src="" alt="Random picture" />
+    <input type="text" id="caption-input" placeholder="Enter your caption" />
+    <button id="submit-caption">Submit Caption</button>
+    <div id="captions-container"></div>
+    <button id="vote">Vote</button>
+    <div id="score-board"></div>
+
+    <div class="chat-container">
+        <div class="chat-table">
+            <i id="clearMsgsButton" class="fa-solid fa-eraser"></i>
+            <div class="message" id="message"></div>
+            <div class="send-message-container">
+                <input type="text" id="sendMessageBox" placeholder="Enter a message...">
+                <button type="button" id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./peerjsmin.js"></script>
+    <script>
+        // Generate a random number between 0 and 1
+        let randomNumber = Math.random();
+        // Multiply the result by 10 to get a number between 0 and 10
+        randomNumber = randomNumber * 100;
+        // Use Math.floor() to round the number down to the nearest integer
+        randomNumber = Math.floor(randomNumber);
+        // Add 1 to the result to get a number between 1 and 10 (instead of between 0 and 9)
+        randomNumber = randomNumber + 1;
+        let clientPlayerName = "player " + randomNumber.toString();
+        document.getElementById('player-name-text').innerText = clientPlayerName;
+
+        var players = {};
+        var playersInGame = {};
+        var lastPeerId = null;
+        var peer = null; // own peer object
+        var hostID = null;
+        var conn = null;
+        var recvIdInput = document.getElementById("receiver-id");
+
+        var message = document.getElementById("message");
+        var sendMessageBox = document.getElementById("sendMessageBox");
+        var sendButton = document.getElementById("sendButton");
+        var changeNameBox = document.getElementById("changeNameBox");
+        var changeNameButton = document.getElementById("changeNameButton");
+        var clearMsgsButton = document.getElementById("clearMsgsButton");
+        var playerListElement = document.getElementById("player-list");
+        var votePlayerListElement = document.getElementById("vote-player-list");
+
+        (function () {
+            var status = document.getElementById("status");
+
+            /**
+             * Create the Peer object for our end of the connection.
+             *
+             * Sets up callbacks that handle any events related to our
+             * peer object.
+             */
+            function initialize() {
+                // Create own peer object with connection to shared PeerJS server
+                peer = new Peer(null, {
+                    debug: 2
+                });
+
+                peer.on('open', function (id) {
+                    // Workaround for peer.reconnect deleting previous id
+                    if (peer.id === null) {
+                        console.log('Received null id from peer open');
+                        peer.id = lastPeerId;
+                    } else {
+                        lastPeerId = peer.id;
+                    }
+
+                    console.log('ID: ' + peer.id);
+                });
+                peer.on('connection', function (c) {
+                    // Disallow incoming connections
+                    c.on('open', function () {
+                        c.send("Sender does not accept incoming connections");
+                        setTimeout(function () {
+                            c.close();
+                        }, 500);
+                    });
+                });
+                peer.on('disconnected', function () {
+                    status.innerHTML = "Connection lost. Please reconnect";
+                    console.log('Connection lost. Please reconnect');
+
+                    // Workaround for peer.reconnect deleting previous id
+                    peer.id = lastPeerId;
+                    peer._lastServerId = lastPeerId;
+                    peer.reconnect();
+                });
+                peer.on('close', function () {
+                    conn = null;
+                    status.innerHTML = "Connection destroyed. Please refresh";
+                    console.log('Connection destroyed');
+                });
+                peer.on('error', function (err) {
+                    console.log(err);
+                    alert('' + err);
+                });
+            };
+
+            /**
+             * Create the connection between the two Peers.
+             *
+             * Sets up callbacks that handle any events related to the
+             * connection and data received on it.
+             */
+            function join() {
+                // Close old connection
+                if (conn) {
+                    conn.close();
+                }
+
+                // Auto Room Connect
+                try {
+                    const queryString = window.location.search;
+                    console.log(queryString);
+                    const urlParams = new URLSearchParams(queryString);
+                    var ID = urlParams.get('hostid');
+                } catch {
+                    ID = recvIdInput.value;
+                }
+
+                console.log("JOINIDHERE: ");
+                console.log(ID);
+
+                // Create connection to destination peer specified in the input field
+                conn = peer.connect(ID, {
+                    reliable: true,
+                });
+
+                conn.on('open', function () {
+                    console.log(peer.id);
+                    status.innerHTML = "Connected to: " + conn.peer;
+                    console.log("Connected to: " + conn.peer);
+
+                    // Send player data to the host
+                    conn.send(["setPlayerData", {
+                        "playerName": clientPlayerName,
+                        "playerID": peer.id,
+                        "inPlay": true,
+                        "caption": "NA"
+                    }]);
+
+                    // Check URL params for comamnds that should be sent immediately
+                    var command = getUrlParam("command");
+                    if (command)
+                        conn.send(command);
+                });
+                // Handle incoming data (messages only since this is the signal sender)
+                conn.on('data', function (data) {
+                    switch (data[0]) {
+                        case 'playersData':
+                            players = data[1];
+                            updatePlayerList();
+                            break;
+                        case 'playersInGameData':
+                            playersInGame = data[1];
+                            updatePlayersInGameList();
+                            break;
+                        case 'triggerRound':
+                            triggerCurrentRound();
+                            break;
+                        case 'giveClue':
+                            triggerGiveClue(data[1]["playerID"], data[1]["iteration"]);
+                            break;
+                        case 'takeVote':
+                            triggerTakeVote();
+                            break;
+                        case 'announceElimination':
+                            triggerAnnounceElimination(data[1]);
+                            break;
+                        case 'announceWinner':
+                            triggerAnnounceWinner(data[1]["winners"], data[1]["mimicsWon"]);
+                            break;
+                        case 'resetGame':
+                            resetGame();
+                            break;
+                        default:
+                            console.log(data)
+                            addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
+                                data[1]["msg"]);
+                            break;
+                    };
+                });
+                conn.on('close', function () {
+                    status.innerHTML = "Connection closed";
+                });
+            };
+
+            /**
+             * Get first "GET style" parameter from href.
+             * This enables delivering an initial command upon page load.
+             *
+             * Would have been easier to use location.hash.
+             */
+            function getUrlParam(name) {
+                name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                var regexS = "[\\?&]" + name + "=([^&#]*)";
+                var regex = new RegExp(regexS);
+                var results = regex.exec(window.location.href);
+                if (results == null)
+                    return null;
+                else
+                    return results[1];
+            };
+
+            function addMessage(msg) {
+                var now = new Date();
+                var h = now.getHours();
+                var m = addZero(now.getMinutes());
+
+                if (h > 12)
+                    h -= 12;
+                else if (h === 0)
+                    h = 12;
+
+                function addZero(t) {
+                    if (t < 10)
+                        t = "0" + t;
+                    return t;
+                };
+
+                message.innerHTML = message.innerHTML + "<br><span class=\"msg-time\">" + h + ":" + m + ":" +
+                    "</span>  -  " + msg;
+                message.scrollTop = message.scrollHeight;
+            };
+
+            function clearMessages() {
+                message.innerHTML = "";
+                addMessage("Msgs cleared");
+            };
+
+            // Listen for enter in message box
+            sendMessageBox.addEventListener('keypress', function (e) {
+                var event = e || window.event;
+                var char = event.which || event.keyCode;
+                if (char == '13')
+                    sendButton.click();
+            });
+            // Send message
+            sendButton.addEventListener('click', function () {
+                if (conn && conn.open) {
+                    var msg = sendMessageBox.value;
+                    sendMessageBox.value = "";
+                    conn.send(["chatMessage", {
+                        "playerName": clientPlayerName,
+                        "msg": msg
+                    }]);
+                    console.log("Sent: " + msg);
+                } else {
+                    console.log('Connection is closed');
+                }
+            });
+
+            // Clear messages box
+            clearMsgsButton.addEventListener('click', clearMessages);
+
+            // Since all our callbacks are setup, start the process of obtaining an ID
+            initialize();
+            setTimeout(function () {
+                join();
+            }, 4000)
+        })();
+
+        // My functions
+        function copyShareLink() {
+            // Get the link
+            var copyText = document.getElementById("share-link");
+
+            // Copy the text in the share link element
+            navigator.clipboard.writeText(copyText.innerText);
+        }
+
+        function showChangeName(e) {
+            let showNameContainer = e.parentElement;
+            let changeNameContainer = showNameContainer.parentElement.children[1];
+            showNameContainer.classList.add('no-display');
+            changeNameContainer.classList.remove('no-display');
+
+            // Listen for enter in change name box
+            let changeNameInput = document.getElementById('changeName-input');
+            changeNameInput.focus();
+            changeNameInput.addEventListener('keypress', (event) => {
+                if (event.keyCode === 13) {
+                    console.log("Enter pressed for changing name input");
+                    changeOwnName(changeNameInput, peer.id, changeNameInput.value);
+                }
+            });
+        }
+
+        function changeOwnName(e, playerID, newName) {
+            let changeNameContainer = e.parentElement;
+            let showNameContainer = changeNameContainer.parentElement.children[0];
+            changeNameContainer.classList.add("no-display");
+            showNameContainer.classList.remove("no-display");
+
+            clientPlayerName = newName;
+            changePlayerName(playerID, clientPlayerName);
+        }
+
+        function changePlayerName(playerID, newName) {
+            players[playerID]["playerName"] = newName;
+            updatePlayerList();
+            return;
+        };
+
+        function togglePlayerStatus(e, playerID) {
+            if (players.hasOwnProperty(playerID)) {
+                if (players[playerID]["inPlay"] == true) {
+                    players[playerID]["inPlay"] = false;
+                } else {
+                    players[playerID]["inPlay"] = true;
+                }
+                updatePlayerList();
+            } else {
+                console.log("Invalid playerID: " + playerID);
+            }
+        }
+
+        function updatePlayerList() {
+            console.log("Player List Updating");
+            playersConnectedList = "";
+
+            for (var player in players) {
+                if (peer.id == player) {
+                    playersConnectedList = playersConnectedList +
+                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                        players[player]["playerName"] +
+                        "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div>"
+                    if (players[player]["inPlay"] == true) {
+                        playersConnectedList = playersConnectedList +
+                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
+                    } else {
+                        playersConnectedList = playersConnectedList +
+                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div>"
+                    }
+                } else {
+                    playersConnectedList = playersConnectedList +
+                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                        players[player]["playerName"] +
+                        "</p></div><div id=\"playerStatus-button-container\"class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
+                }
+            }
+            // Send players data to everyone connected, so they can update their player lists
+            for (let step = 0; step < conn.length; step++) {
+                conn[step].send(["playersData", players]);
+            }
+            playerListElement.innerHTML = playersConnectedList;
+        }
+
+        function setPlayerReady(e, playerID, isReady) {
+            if (e != null) {
+                // Fade out the ready button
+                $(e).fadeOut(500);
+            }
+            // Set the player's ready status to true
+            playersInGame[playerID]['ready'] = isReady;
+        }
+
+        // Function to generate and display a random picture
+        function displayRandomPicture() {
+            // Fetch a random image from a suitable API or your own collection
+            // Set the 'src' attribute of the 'random-picture' element to the image URL
+        }
+
+        // Function to handle caption submissions from players
+        function submitCaption(caption) {
+            // Send the submitted caption to all connected players
+            // Update the player's caption in the 'players' data structure
+        }
+
+        // Function to display all submitted captions for voting
+        function displayCaptionsForVoting() {
+            // Loop through the 'players' data structure
+            // Append each player's caption to the 'captions-container' element
+        }
+
+        // Function to handle voting for the funniest caption
+        function voteForFunniestCaption(playerID) {
+            // Increment the score of the selected player in the 'players' data structure
+            // Update and display the current scores
+        }
+
+        // Function to update and display the current scores
+        function updateScoreBoard() {
+            // Loop through the 'players' data structure
+            // Update the 'score-board' element with each player's score
+        }
+    </script>
+</body>
+
+</html>
