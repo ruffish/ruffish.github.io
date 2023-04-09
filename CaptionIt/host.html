@@ -193,6 +193,9 @@
                             changePlayerName(data[1]["playerID"], data[1]["playerName"]);
                             console.log(data[1]["playerID"] + " changed to " + data[1]["playerName"]);
                             break;
+                        case 'setPlayerInPlay':
+                            setPlayerInPlay(data[1]["playerID"], data[1]["inPlay"]);
+                            break;
                         case 'setPlayerReady':
                             setPlayerReady(null, data[1]["playerID"], data[1]["ready"]);
                             break;
@@ -367,10 +370,10 @@
                         "</p></div>"
                     if (players[player]["inPlay"] == true) {
                         playersConnectedList = playersConnectedList +
-                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
+                            "<div id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
                     } else {
                         playersConnectedList = playersConnectedList +
-                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div></div>"
+                            "<div id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div></div>"
                     }
                 }
             }
