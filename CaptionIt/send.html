@@ -26,7 +26,7 @@
     <header>
         <div class="top-container unselectable">
             <p class="share-link-prompt-text">Share this link to invite others. (click to copy)</p>
-            <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">
+            <div id="share-link" onclick="copyShareLink()" title="Copy this link and send it to your friends.">
                 f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
             <br>
             <div id="status" class="status">Connecting . . .</div>
@@ -43,7 +43,7 @@
                 <div id="player-list">
                     <div class="player-container">
                         <div id="showName-container" class="showName-container">
-                            <p class="player-name-text">Host</p>
+                            <p id="player-name-text" class="player-name-text">Host</p>
                             <div onclick="showChangeName(this)" id="changeName-button-container"
                                 class="changeName-button-container">
                                 <i class="fa-solid fa-pen changeName-button"></i>
