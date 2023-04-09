@@ -358,13 +358,20 @@
                             "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
                     } else {
                         playersConnectedList = playersConnectedList +
-                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div>"
+                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div></div>"
                     }
                 } else {
                     playersConnectedList = playersConnectedList +
                         "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
                         players[player]["playerName"] +
-                        "</p></div><div id=\"playerStatus-button-container\"class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
+                        "</p></div>"
+                    if (players[player]["inPlay"] == true) {
+                        playersConnectedList = playersConnectedList +
+                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-user playerStatus-button playing\"></i></div></div>"
+                    } else {
+                        playersConnectedList = playersConnectedList +
+                            "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div></div>"
+                    }
                 }
             }
             // Send players data to everyone connected, so they can update their player lists
