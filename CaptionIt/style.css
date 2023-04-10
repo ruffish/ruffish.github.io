@@ -125,7 +125,7 @@ h3 {
     /* background-color: #D27685; */
     /* Change the background color for each player */
     border-radius: 0.5rem;
-    padding: 0.2rem 1rem;
+    padding: 0 1rem;
 }
 
 .player-name-text {
