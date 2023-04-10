@@ -35,13 +35,13 @@
 
     <div class="Main">
         <div id="lobby-slide" class="slide">
-            <div class="main-top">
-                <h2 class="game-title">Caption It</h2>
-            </div>
             <div class="Main-mid-container">
                 <br>
                 <div id="player-list">
                     <div class="player-container">
+                        <div>
+                            <i class="fa-solid fa-circle ready"></i>
+                        </div>
                         <div id="showName-container" class="showName-container">
                             <p class="player-name-text">Host</p>
                             <div onclick="showChangeName(this)" id="changeName-button-container"
@@ -165,6 +165,7 @@
                         "playerID": peer.id,
                         "playerName": clientPlayerName,
                         "inPlay": true,
+                        "readyUp": true,
                         "caption": "NA"
                     }
 
@@ -180,6 +181,7 @@
                         "playerID": c.peer,
                         "playerName": "unknown",
                         "inPlay": true,
+                        "readyUp": false,
                         "caption": "NA"
                     };
                     c.send(["playersData", players]);

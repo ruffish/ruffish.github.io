@@ -11,7 +11,7 @@ html {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: rgb(0, 0, 0);
+    background-color: #00A19D;
 }
 
 /* Status and Link Section */
@@ -21,7 +21,7 @@ header {
     left: 0;
     right: 0;
     width: 100%;
-    background-color: #eb8d4f;
+    background-color: #FFB344;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,7 +45,7 @@ header {
 }
 
 #receiver-id {
-    background-color: #ffffff;
+    background-color: #f7ebcc;
     color: #333;
     font-size: 14px;
     font-weight: bold;
@@ -78,7 +78,7 @@ header {
 
 .slide {
     text-align: center;
-    background-color: #ffffff;
+    background-color: #f7ebcc;
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -101,15 +101,19 @@ h3 {
     color: #2c3e50;
 }
 
-#player-list {
-    margin-top: 1rem;
-}
-
 .player-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 1rem 2rem;
+}
+
+.ready {
+    color: rgb(146, 255, 146);
+}
+
+.not-ready {
+    color: rgb(255, 0, 0);
 }
 
 .showName-container,
@@ -118,7 +122,7 @@ h3 {
     align-items: center;
     flex-grow: 1;
     justify-content: space-between;
-    background-color: #70d374;
+    /* background-color: #D27685; */
     /* Change the background color for each player */
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
@@ -251,7 +255,7 @@ h3 {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: #e6e6e6;
+    background-color: #f7ebcc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.041);
 }
