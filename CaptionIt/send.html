@@ -299,7 +299,7 @@
                             break;
                         default:
                             console.log(data)
-                            addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
+                            addMessage("<span" + " style=\"color:" + players[data[1]["playerID"]]["colour"] + ";\" class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
                                 data[1]["msg"]);
                             break;
                     };

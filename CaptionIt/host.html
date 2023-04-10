@@ -266,7 +266,7 @@
                                     "msg": data[1]["msg"]
                                 }]);
                             }
-                            addMessage("<span" + " style=\"" + players[data[1]["playerID"]]["colour"] + "class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
+                            addMessage("<span" + " style=\"color:" + players[data[1]["playerID"]]["colour"] + ";\" class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
                                 data[1]["msg"]);
                             break;
                     };
@@ -405,7 +405,7 @@
                         }]);
                     }
                     console.log("Sent: " + msg)
-                    addMessage("<span" + " style=\"" + players[peer.id]["colour"] + "class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
+                    addMessage("<span" + " style=color:\"" + players[peer.id]["colour"] + ";\" class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
                 } else {
                     console.log('Connection is closed');
                 }
