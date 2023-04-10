@@ -38,7 +38,7 @@
             <div class="Main-mid-container">
                 <br>
                 <div id="player-list">
-                    <div class="player-container">
+                    <div player="HOST" class="player-container">
                         <div>
                             <i class="fa-solid fa-circle ready"></i>
                         </div>
@@ -119,6 +119,15 @@
             setCookie('deviceID', deviceID, 365); // Store the device ID in a cookie for 365 days
         }
 
+        let goldenRatioConjugate = 0.618033988749895;
+
+        function generateRandomColor() {
+            let h = (Math.random() + goldenRatioConjugate) % 1 * 360;
+            const s = Math.floor(Math.random() * 25) + 70; // Saturation: 70-100%
+            const l = Math.floor(Math.random() * 20) + 45; // Lightness: 30-70%
+            return `hsl(${h}, ${s}%, ${l}%)`;
+        }
+
         // Connection and Game Handling
         var clientPlayerName = "Host";
         var players = {};
@@ -164,10 +173,16 @@
                         "deviceID": deviceID,
                         "playerID": peer.id,
                         "playerName": clientPlayerName,
+                        "colour": generateRandomColor(),
                         "inPlay": true,
                         "readyUp": true,
                         "caption": "NA"
                     }
+
+                    // Change player name colour
+                    document.querySelector('[player="HOST"]').style.color = players[peer.id].colour;
+                    document.querySelector('[player="HOST"]').children[1].children[0].style.color = players[
+                        peer.id].colour;
 
                     recvId.innerHTML = "<span id=\"share-link\">https://" + window.location
                         .hostname + "/CaptionIt/send.html?hostid=" + peer.id + "</span>";
@@ -180,6 +195,7 @@
                         "deviceID": "unknown: " + c.peer,
                         "playerID": c.peer,
                         "playerName": "unknown",
+                        "colour": generateRandomColor(),
                         "inPlay": true,
                         "readyUp": false,
                         "caption": "NA"
@@ -250,7 +266,7 @@
                                     "msg": data[1]["msg"]
                                 }]);
                             }
-                            addMessage("<span class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
+                            addMessage("<span" + " style=\"" + players[data[1]["playerID"]]["colour"] + "class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
                                 data[1]["msg"]);
                             break;
                     };
@@ -383,12 +399,13 @@
                     sendMessageBox.value = "";
                     for (let step = 0; step < conn.length; step++) {
                         conn[step].send(["chatMessage", {
+                            "playerID": peer.id,
                             "playerName": clientPlayerName,
                             "msg": msg
                         }]);
                     }
                     console.log("Sent: " + msg)
-                    addMessage("<span class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
+                    addMessage("<span" + " style=\"" + players[peer.id]["colour"] + "class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
                 } else {
                     console.log('Connection is closed');
                 }

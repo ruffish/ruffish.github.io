@@ -119,6 +119,15 @@
             setCookie('deviceID', deviceID, 365); // Store the device ID in a cookie for 365 days
         }
 
+        function getRandomBrightColor() {
+            const minBrightness = 200;
+            const r = Math.floor(Math.random() * (256 - minBrightness) + minBrightness);
+            const g = Math.floor(Math.random() * (256 - minBrightness) + minBrightness);
+            const b = Math.floor(Math.random() * (256 - minBrightness) + minBrightness);
+
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
         // Connection and Game Handling
         // Generate a random number between 0 and 1
         let randomNumber = Math.random();
@@ -377,6 +386,7 @@
                     var msg = sendMessageBox.value;
                     sendMessageBox.value = "";
                     conn.send(["chatMessage", {
+                        "playerID": peer.id,
                         "playerName": clientPlayerName,
                         "msg": msg
                     }]);
@@ -407,7 +417,7 @@
 
         function showChangeName(e) {
             let showNameContainer = e.parentElement;
-            let changeNameContainer = showNameContainer.parentElement.children[1];
+            let changeNameContainer = showNameContainer.parentElement.children[2];
             showNameContainer.classList.add('no-display');
             changeNameContainer.classList.remove('no-display');
 
@@ -424,7 +434,7 @@
 
         function changeOwnName(e, playerID, newName) {
             let changeNameContainer = e.parentElement;
-            let showNameContainer = changeNameContainer.parentElement.children[0];
+            let showNameContainer = changeNameContainer.parentElement.children[1];
             changeNameContainer.classList.add("no-display");
             showNameContainer.classList.remove("no-display");
 
