@@ -235,6 +235,11 @@
                             playersInGame = data[1];
                             updatePlayersInGameList();
                             break;
+                        case 'heartbeat':
+                            conn.send(["heartbeat", {
+                                "playerID": peer.id,
+                            }]);
+                            break;
                         case 'triggerRound':
                             triggerCurrentRound();
                             break;
