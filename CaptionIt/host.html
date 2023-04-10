@@ -254,7 +254,7 @@
                 currentConn.on('close', function () { // Execute code when user disconnects.
                     for (let step = 0; step < conn.length; step++) {
                         if (conn[step]["_open"] == false) {
-                            disconnectedPlayers[conn[step].peer] = players[conn[step].peer];
+                            disconnectedPlayers[conn[step].peer['deviceID']] = players[conn[step].peer];
                             delete players[conn[step]['peer']];
                             conn.splice(step, 1);
                         }
@@ -287,7 +287,7 @@
             function removePlayer(playerID) {
                 const index = conn.findIndex(connection => connection.peer === playerID);
                 if (index !== -1) {
-                    disconnectedPlayers[playerID] = players[playerID]
+                    disconnectedPlayers[players[playerID]["deviceID"]] = players[playerID]
                     delete players[playerID];
                     conn.splice(index, 1);
                     clearTimeout(playerTimeouts[playerID]);
