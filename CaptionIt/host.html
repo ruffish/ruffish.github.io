@@ -161,6 +161,7 @@
                     }
 
                     players[peer.id] = {
+                        "deviceID": deviceID,
                         "playerID": peer.id,
                         "playerName": clientPlayerName,
                         "inPlay": true,
@@ -175,6 +176,7 @@
                 peer.on('connection', function (c) {
                     conn.push(c);
                     players[c.peer] = {
+                        "deviceID": "unknown: " + c.peer,
                         "playerID": c.peer,
                         "playerName": "unknown",
                         "inPlay": true,
@@ -310,6 +312,7 @@
                     players[deviceID] = disconnectedPlayers[deviceID];
                     delete disconnectedPlayers[deviceID];
                 } else {
+                    players[playerID]["deviceID"] = deviceID;
                     players[playerID]["playerID"] = playerID;
                     players[playerID]["inPlay"] = inPlay;
                     players[playerID]["playerName"] = newName;
