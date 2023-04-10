@@ -202,6 +202,9 @@
                         case 'setPlayerReady':
                             setPlayerReady(null, data[1]["playerID"], data[1]["ready"]);
                             break;
+                        case 'heartbeat':
+                            resetPlayerTimeout(data[1]['playerID']);
+                            break;
                         case 'castVote':
                             castVote(data[1]["playerID"], false);
                             break;
@@ -227,8 +230,47 @@
                     updatePlayerList();
                 });
             }
- 
 
+            // Heartbeat System
+            function sendHeartbeat() {
+                for (let step = 0; step < conn.length; step++) {
+                    conn[step].send(["heartbeat", {
+                        "playerID": conn[step].peer,
+                    }]);
+                }
+            }
+
+            const heartbeatInterval = 5000; // Send a heartbeat every 5 seconds
+            setInterval(sendHeartbeat, heartbeatInterval);
+
+            const heartbeatTimeout = 10000; // Consider a player disconnected after 10 seconds without a response
+            let playerTimeouts = {};
+
+            conn.forEach(connection => {
+                playerTimeouts[connection.peer] = setTimeout(() => {
+                    removePlayer(connection.peer);
+                }, heartbeatTimeout);
+            });
+
+            function removePlayer(playerID) {
+                const index = conn.findIndex(connection => connection.peer === playerID);
+                if (index !== -1) {
+                    delete players[playerID];
+                    conn.splice(index, 1);
+                    clearTimeout(playerTimeouts[playerID]);
+                    delete playerTimeouts[playerID];
+                    updatePlayerList();
+                }
+            }
+
+            function resetPlayerTimeout(playerID) {
+                clearTimeout(playerTimeouts[playerID]);
+                playerTimeouts[playerID] = setTimeout(() => {
+                    removePlayer(playerID);
+                }, heartbeatTimeout);
+            }
+
+            // Set player data
             function setPlayerData(playerID, newName, inPlay) {
                 players[playerID]["playerID"] = playerID;
                 players[playerID]["inPlay"] = inPlay;
