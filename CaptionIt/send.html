@@ -203,7 +203,7 @@
 
                 conn.on('open', function () {
                     console.log(peer.id);
-                    recvId.innerHTML = "<span id=\"share-link\">https://" + window.location
+                    recvIdInput.innerHTML = "<span id=\"share-link\">https://" + window.location
                         .hostname + "/CaptionIt/send.html?hostid=" + conn.peer + "</span>";
                     status.innerHTML = "Connected to: " + conn.peer;
                     console.log("Connected to: " + conn.peer);
