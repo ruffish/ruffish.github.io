@@ -262,6 +262,7 @@
                         default:
                             for (let step = 0; step < conn.length; step++) {
                                 conn[step].send(["chatMessage", {
+                                    "playerID": data[1]["playerID"],
                                     "playerName": data[1]["playerName"],
                                     "msg": data[1]["msg"]
                                 }]);
@@ -405,7 +406,7 @@
                         }]);
                     }
                     console.log("Sent: " + msg)
-                    addMessage("<span" + " style=color:\"" + players[peer.id]["colour"] + ";\" class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
+                    addMessage("<span" + " style=\"color:" + players[peer.id]["colour"] + ";\" class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
                 } else {
                     console.log('Connection is closed');
                 }
