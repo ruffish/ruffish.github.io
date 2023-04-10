@@ -267,7 +267,9 @@
                                     "msg": data[1]["msg"]
                                 }]);
                             }
-                            addMessage("<span" + " style=\"color:" + players[data[1]["playerID"]]["colour"] + ";\" class=\"peerMsg\">" + data[1]["playerName"] + ": </span>" +
+                            addMessage("<span" + " style=\"color:" + players[data[1]["playerID"]][
+                                "colour"] + ";\" class=\"peerMsg\">" + data[1]["playerName"] +
+                                ": </span>" +
                                 data[1]["msg"]);
                             break;
                     };
@@ -405,7 +407,8 @@
                         }]);
                     }
                     console.log("Sent: " + msg)
-                    addMessage("<span" + " style=\"color:" + players[peer.id]["colour"] + ";\" class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
+                    addMessage("<span" + " style=\"color:" + players[peer.id]["colour"] +
+                        ";\" class=\"selfMsg\">" + clientPlayerName + ": </span>" + msg);
                 } else {
                     console.log('Connection is closed');
                 }
@@ -488,7 +491,8 @@
                             "<div><i class=\"fa-solid fa-circle not-ready\"></i></div>"
                     }
                     playersConnectedList = playersConnectedList +
-                        "<div id=\"showName-container\"class=\"showName-container\"><p style=\"color: " + players[player]["colour"] + ";\" class=\"player-name-text\">" +
+                        "<div id=\"showName-container\"class=\"showName-container\"><p style=\"color: " + players[
+                            player]["colour"] + ";\" class=\"player-name-text\">" +
                         players[player]["playerName"] +
                         "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div>"
                     if (players[player]["inPlay"] == true) {
@@ -499,7 +503,8 @@
                             "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div>"
                     }
                 } else {
-                    playersConnectedList = playersConnectedList + "<div style=\"color:" +  + "class=\"player-container\">"
+                    playersConnectedList = playersConnectedList + "<div style=\"color:" + players[player]["colour"] +
+                        ";\" class=\"player-container\">"
                     if (players[player]["readyUp"] == true) {
                         playersConnectedList = playersConnectedList +
                             "<div><i class=\"fa-solid fa-circle ready\"></i></div>"
@@ -508,7 +513,8 @@
                             "<div><i class=\"fa-solid fa-circle not-ready\"></i></div>"
                     }
                     playersConnectedList = playersConnectedList +
-                        "<div id=\"showName-container\"class=\"showName-container\"><p style=\"color: " + players[player]["colour"] + ";\" class=\"player-name-text\">" +
+                        "<div id=\"showName-container\"class=\"showName-container\"><p style=\"color: " + players[
+                            player]["colour"] + ";\" class=\"player-name-text\">" +
                         players[player]["playerName"] +
                         "</p></div>"
                     if (players[player]["inPlay"] == true) {

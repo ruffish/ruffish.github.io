@@ -499,7 +499,7 @@
                             "<div onclick=\"togglePlayerStatus(this, peer.id)\" id=\"playerStatus-button-container\" class=\"playerStatus-button-container\"><i class=\"fa-solid fa-eye playerStatus-button spectating\"></i></div>"
                     }
                 } else {
-                    playersConnectedList = playersConnectedList + "<div style=\"color:" + +"class=\"player-container\">"
+                    playersConnectedList = playersConnectedList + "<div style=\"color:" + players[player]["colour"] + ";\" class=\"player-container\">"
                     if (players[player]["readyUp"] == true) {
                         playersConnectedList = playersConnectedList +
                             "<div><i class=\"fa-solid fa-circle ready\"></i></div>"
