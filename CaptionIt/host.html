@@ -91,12 +91,34 @@
 
     <script src="./peerjsmin.js"></script>
     <script>
+        // Cookie Handling
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = 'expires=' + date.toUTCString();
+            document.cookie = name + '=' + value + '; ' + expires + '; path=/';
+        }
+
+        function getCookie(name) {
+            const value = '; ' + document.cookie;
+            const parts = value.split('; ' + name + '=');
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        let deviceID = getCookie('deviceID');
+        if (!deviceID) {
+            deviceID = generateDeviceID();
+            setCookie('deviceID', deviceID, 365); // Store the device ID in a cookie for 365 days
+        }
+
+        // Connection and Game Handling
         var clientPlayerName = "Host";
         var players = {};
         var lastPeerId = null;
         var peer = null; // Own peer object
         var peerId = null;
         var conn = [];
+        var disconnectedPlayers = {};
 
         var recvId = document.getElementById("receiver-id");
         var message = document.getElementById("message");
@@ -189,7 +211,8 @@
                     var playerVote = "<span class=\"cueMsg\">" + data[0] + ": </span>";
                     switch (data[0]) {
                         case 'setPlayerData':
-                            setPlayerData(data[1]["playerID"], data[1]["playerName"], data[1]["inPlay"]);
+                            setPlayerData(data[1]["deviceID"], data[1]["playerID"], data[1]["playerName"],
+                                data[1]["inPlay"]);
                             updatePlayerList();
                             break;
                         case 'setPlayerName':
@@ -223,6 +246,7 @@
                 currentConn.on('close', function () { // Execute code when user disconnects.
                     for (let step = 0; step < conn.length; step++) {
                         if (conn[step]["_open"] == false) {
+                            disconnectedPlayers[conn[step].peer] = players[conn[step].peer];
                             delete players[conn[step]['peer']];
                             conn.splice(step, 1);
                         }
@@ -255,6 +279,7 @@
             function removePlayer(playerID) {
                 const index = conn.findIndex(connection => connection.peer === playerID);
                 if (index !== -1) {
+                    disconnectedPlayers[playerID] = players[playerID]
                     delete players[playerID];
                     conn.splice(index, 1);
                     clearTimeout(playerTimeouts[playerID]);
@@ -271,12 +296,17 @@
             }
 
             // Set player data
-            function setPlayerData(playerID, newName, inPlay) {
-                players[playerID]["playerID"] = playerID;
-                players[playerID]["inPlay"] = inPlay;
-                players[playerID]["playerName"] = newName;
-                players[playerID]["caption"] = "NA";
-                return;
+            function setPlayerData(deviceID, playerID, newName, inPlay) {
+                // Check if deviceID is in disconnectedPlayers and then re-assign player data before disconnecting
+                if (disconnectedPlayers[deviceID]) {
+                    players[deviceID] = disconnectedPlayers[deviceID];
+                    delete disconnectedPlayers[deviceID];
+                } else {
+                    players[playerID]["playerID"] = playerID;
+                    players[playerID]["inPlay"] = inPlay;
+                    players[playerID]["playerName"] = newName;
+                    players[playerID]["caption"] = "NA";
+                }
             }
 
             // Chat functions
