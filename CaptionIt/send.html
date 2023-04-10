@@ -84,6 +84,9 @@
                 <button type="button" id="sendButton">Send</button>
             </div>
         </div>
+        <div class="collapse-arrow uncollapsed-arrow">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
     </div>
 
     <script src="./peerjsmin.js"></script>
@@ -279,6 +282,7 @@
                     return results[1];
             };
 
+            // Chat functions
             function addMessage(msg) {
                 var now = new Date();
                 var h = now.getHours();
@@ -304,6 +308,26 @@
                 message.innerHTML = "";
                 addMessage("Msgs cleared");
             };
+
+            // collapse/expand chat
+            document.querySelector(".collapse-arrow").addEventListener("click", function () {
+                const chatContainer = document.querySelector(".chat-container");
+                const arrowIcon = document.querySelector(".collapse-arrow i");
+
+                chatContainer.classList.toggle("collapsed");
+
+                if (chatContainer.classList.contains("collapsed")) {
+                    arrowIcon.classList.remove("fa-chevron-down");
+                    arrowIcon.classList.add("fa-chevron-up");
+                    arrowIcon.parentElement.classList.remove("uncollapsed-arrow");
+                    arrowIcon.parentElement.classList.add("collapsed-arrow");
+                } else {
+                    arrowIcon.classList.remove("fa-chevron-up");
+                    arrowIcon.classList.add("fa-chevron-down");
+                    arrowIcon.parentElement.classList.remove("collapsed-arrow");
+                    arrowIcon.parentElement.classList.add("uncollapsed-arrow");
+                }
+            });
 
             // Listen for enter in message box
             sendMessageBox.addEventListener('keypress', function (e) {
