@@ -309,7 +309,7 @@
             function setPlayerData(deviceID, playerID, newName, inPlay) {
                 // Check if deviceID is in disconnectedPlayers and then re-assign player data before disconnecting
                 if (disconnectedPlayers[deviceID]) {
-                    players[deviceID] = disconnectedPlayers[deviceID];
+                    players[playerID] = disconnectedPlayers[deviceID];
                     delete disconnectedPlayers[deviceID];
                 } else {
                     players[playerID]["deviceID"] = deviceID;
