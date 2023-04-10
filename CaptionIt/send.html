@@ -18,7 +18,7 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/6594176c2b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./style.css?v=0.02">
+    <link rel="stylesheet" href="./style.css?v=0.03">
     <title>Caption It</title>
 </head>
 
@@ -467,7 +467,13 @@
             for (var player in players) {
                 if (peer.id == player) {
                     playersConnectedList = playersConnectedList +
-                        "<div class=\"player-container\"><div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
+                        "<div class=\"player-container\">"
+                    if (players[player]["readyUp"] == true) {
+                        playersConnectedList = playersConnectedList + "<div><i class=\"fa-solid fa-circle ready\"></i></div>"
+                    } else {
+                        playersConnectedList = playersConnectedList + "<div><i class=\"fa-solid fa-circle not-ready\"></i></div>"
+                    }
+                    playersConnectedList = playersConnectedList + "<div id=\"showName-container\"class=\"showName-container\"><p class=\"player-name-text\">" +
                         players[player]["playerName"] +
                         "</p><div onclick=\"showChangeName(this)\"id=\"changeName-button-container\"class=\"changeName-button-container\"><i class=\"fa-solid fa-pen changeName-button\"></i></div></div><div id=\"changeName-container\"class=\"changeName-container no-display\"><input type=\"text\" id=\"changeName-input\"placeholder=\"Enter a name...\"><i onclick=\"changeOwnName(this, peer.id, document.getElementById('changeName-input').value)\"class=\"fa-regular fa-floppy-disk confirm-ChangeName-button\"></i></div>"
                     if (players[player]["inPlay"] == true) {
