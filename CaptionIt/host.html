@@ -33,8 +33,19 @@
         </div>
     </header>
 
+    <div class="score-section">
+        <h5>Score</h5>
+        <div class="score-list">
+            <!-- Player scores will be displayed here -->
+            <div class="score-player-container">
+                <p clas="score-player-name">Host</p>
+                <p class="player-score">0</p>
+            </div>
+        </div>
+    </div>
+
     <div class="Main">
-        <div id="lobby-slide" class="slide">
+        <div id="lobby-slide" class="slide no-display">
             <div class="Main-mid-container">
                 <br>
                 <div id="player-list">
@@ -65,15 +76,35 @@
                 <button class="regular-button" onclick="activateGame()">Start Game</button>
             </div>
         </div>
-    </div>
+        <div id="captionSlide" class="slide no-display">
+            <!-- Add new elements for the picture-caption game -->
+            <img id="caption-random-pic" class="random-picture" src="https://media.self.com/photos/5d5da0c07ccc7b00097e8fdd/4:3/w_2560%2Cc_limit/Faith-043.jpg" alt="Random picture" />
+            <textarea id="caption-input" placeholder="Enter your caption"></textarea>
+            <button id="submit-caption">Submit Caption</button>
+        </div>
 
-    <!-- Add new elements for the picture-caption game -->
-    <img id="random-picture" src="" alt="Random picture" />
-    <input type="text" id="caption-input" placeholder="Enter your caption" />
-    <button id="submit-caption">Submit Caption</button>
-    <div id="captions-container"></div>
-    <button id="vote">Vote</button>
-    <div id="score-board"></div>
+        <div id="takeVote" class="slide">
+            <img id="vote-random-pic" class="random-picture" src="https://media.self.com/photos/5d5da0c07ccc7b00097e8fdd/4:3/w_2560%2Cc_limit/Faith-043.jpg" alt="Random picture" />
+            <div class="caption-list">
+                <div class="caption">
+                    <p class="caption-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate suscipit ipsa, alias recusandae non id odit in cumque vitae eveniet</p>
+                    <button class="vote-button">Vote</button>
+                </div>
+                <div class="caption">
+                    <p class="caption-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate suscipit ipsa, alias recusandae non id odit in cumque vitae eveniet</p>
+                    <button class="vote-button">Vote</button>
+                </div>
+                <div class="caption">
+                    <p class="caption-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate suscipit ipsa, alias recusandae non id odit in cumque vitae eveniet</p>
+                    <button class="vote-button">Vote</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="announceWinner" class="slide no-display">
+
+        </div>
+    </div>
 
     <div class="chat-container">
         <div class="chat-table">
@@ -81,7 +112,7 @@
             <div class="message" id="message"></div>
             <div class="send-message-container">
                 <input type="text" id="sendMessageBox" placeholder="Enter a message...">
-                <button type="button" id="sendButton">Send</button>
+                <button type="button" id="sendButton"><i class="fa-regular fa-paper-plane"></i></button>
             </div>
         </div>
         <div class="collapse-arrow uncollapsed-arrow">
@@ -176,7 +207,8 @@
                         "colour": generateRandomColor(),
                         "inPlay": true,
                         "readyUp": true,
-                        "caption": "NA"
+                        "caption": "NA",
+                        "score": 0
                     }
 
                     // Change player name colour
@@ -198,7 +230,8 @@
                         "colour": generateRandomColor(),
                         "inPlay": true,
                         "readyUp": false,
-                        "caption": "NA"
+                        "caption": "NA",
+                        "score": 0
                     };
                     c.send(["playersData", players]);
                     currentConn = c
@@ -268,7 +301,8 @@
                                 }]);
                             }
                             addMessage("<span" + " style=\"color:" + players[data[1]["playerID"]][
-                                "colour"] + ";\" class=\"peerMsg\">" + data[1]["playerName"] +
+                                    "colour"
+                                ] + ";\" class=\"peerMsg\">" + data[1]["playerName"] +
                                 ": </span>" +
                                 data[1]["msg"]);
                             break;
@@ -364,7 +398,6 @@
 
             function clearMessages() {
                 message.innerHTML = "";
-                addMessage("Msgs cleared");
             }
 
             // collapse/expand chat
