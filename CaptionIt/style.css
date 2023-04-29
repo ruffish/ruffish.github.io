@@ -88,14 +88,14 @@ header {
 }
 
 /* Mobile view */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .score-section {
         display: none;
     }
 }
 
 /* Desktop view */
-@media (min-width: 769px) {
+@media (min-width: 1001px) {
     .score-section {
         width: auto;
         bottom: 1rem;
@@ -124,6 +124,20 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 100%;
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 1000px) {
+    .Main {
+        padding: 0 0;
+    }
+
+    .slide {
+        width: 95%;
+        margin: 0 10px !important;
+        padding: 15px;
+        border-radius: 8px;
+    }
 }
 
 .game-title {
@@ -261,7 +275,7 @@ h3 {
 }
 
 /* Mobile view */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     #caption-random-pic {
         max-height: 40vh;
         /* Adjust this value according to your preference */
@@ -269,7 +283,7 @@ h3 {
 }
 
 /* Desktop view */
-@media (min-width: 769px) {
+@media (min-width: 1001px) {
     #caption-random-pic {
         max-height: 60vh;
         max-width: 500px;
@@ -316,7 +330,7 @@ h3 {
     margin: 60px 0 0 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     #vote-random-pic {
         max-height: 40vh;
         /* Adjust this value according to your preference */
@@ -324,7 +338,7 @@ h3 {
 }
 
 /* Desktop view */
-@media (min-width: 769px) {
+@media (min-width: 1001px) {
     #vote-random-pic {
         max-height: 25vh;
         /* Adjust this value according to your preference */
@@ -336,13 +350,21 @@ h3 {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 1rem;
     width: 100%;
-    height: 48vh; /* Set a fixed height, adjust based on your requirements */
+    max-height: 48vh;
+    /* Set a fixed height, adjust based on your requirements */
     padding: 1rem;
     box-sizing: border-box;
-    overflow-y: auto; /* Show a vertical scrollbar when the content overflows */
+    overflow-y: auto;
+    /* Show a vertical scrollbar when the content overflows */
     /* Scrollbar styling */
     scrollbar-color: #2c3e50 #F5F5F5;
     scrollbar-width: 5px;
+}
+
+@media (max-width: 1000px) {
+    .caption-list {
+        grid-template-columns: repeat(auto-fit, minmax(219px, 1fr));
+    }
 }
 
 .caption-list::-webkit-scrollbar {
@@ -445,6 +467,24 @@ h3 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.041);
 }
 
+/* Low Width Desktop/Tablet */
+@media (max-width: 1310px) {
+    .chat-table {
+        background-color: #fae6b3;
+        /* Adjust the box shadow so it shows above the element instead of below */
+        box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.09);
+    }
+}
+
+/* Mobile */
+@media (max-width: 1000px) {
+    .chat-table {
+        background-color: #f8e2ab;
+        /* Adjust the box shadow so it shows above the element instead of below */
+        box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.09);
+    }
+}
+
 #clearMsgsButton {
     position: absolute;
     right: 12px;
@@ -481,7 +521,7 @@ h3 {
     border-radius: 4px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .chat-container {
         width: 100%;
         height: 200px;
@@ -497,4 +537,15 @@ h3 {
 
 .no-display {
     display: none !important;
+}
+
+.no-displayMobile {
+    display: block !important;
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 1000px) {
+    .no-displayMobile {
+        display: none !important;
+    }
 }
