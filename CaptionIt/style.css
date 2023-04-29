@@ -104,11 +104,10 @@ header {
 
 .Main {
     position: absolute;
-    top: 0;
+    top: calc(10px + 60px);
     left: 0;
     right: 0;
     bottom: 0;
-    padding-top: calc(10px + 2.5em);
     /* header padding + header content height */
     display: flex;
     flex-direction: column;
@@ -130,6 +129,7 @@ header {
 @media (max-width: 1000px) {
     .Main {
         padding: 0 0;
+        top: 0;
     }
 
     .slide {
