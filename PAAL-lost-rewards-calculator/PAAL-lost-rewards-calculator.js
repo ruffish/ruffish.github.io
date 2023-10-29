@@ -24,7 +24,10 @@ const getContractAbi = async (contractAddress) => {
     }
 }
 
-const getContractAddressByMethodName = async (walletAddress, methodName) => {
+const getContractAddressByMethodName = async (walletAddress, methodName, endDateStr) => {
+    const endDate = new Date(endDateStr);
+    const endTimestamp = Math.floor(endDate.getTime() / 1000);
+
     const params = {
         module: 'account',
         action: 'txlist',
@@ -39,6 +42,11 @@ const getContractAddressByMethodName = async (walletAddress, methodName) => {
         const response = await axios.get(ETH_ENDPOINT, { params });
         const transactions = response.data.result;
         for (let tx of transactions) {
+            if (methodName == "stake") { // If method is "stake", skip transactions past the end date
+                const txTimestamp = parseInt(tx.timeStamp);
+                if (txTimestamp > endTimestamp) continue; // Skip if the transaction is after the end date
+            }
+
             const contractAddress = tx.to;
             const abi = await getContractAbi(contractAddress);
             if (!abi) continue;
@@ -185,7 +193,7 @@ const getTransactionsUpToDate = async (walletAddress, targetDate) => {
 const main = async () => {
     const endDateStr = '2023-10-27 17:43:00';
 
-    CLAIMED_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'claimRewards');
+    CLAIMED_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'claimRewards', endDateStr);
     let abi = await getContractAbi(CLAIMED_CONTRACT_ADDRESS);
     if (!abi) {
         console.error("Unable to fetch the ABI for the claimed contract.");
@@ -198,7 +206,7 @@ const main = async () => {
         return;
     }
 
-    STAKING_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'stake');
+    STAKING_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'stake', endDateStr);
     abi = await getContractAbi(STAKING_CONTRACT_ADDRESS);
     if (!abi) {
         console.error("Unable to fetch the ABI for the staking contract.");
