@@ -24,6 +24,42 @@ const getContractAbi = async (contractAddress) => {
     }
 }
 
+const getContractAddressByMethodName = async (walletAddress, methodName) => {
+    const params = {
+        module: 'account',
+        action: 'txlist',
+        address: walletAddress,
+        startblock: 0,
+        endblock: 99999999,
+        sort: 'desc',
+        apikey: ETH_API_KEY
+    };
+
+    try {
+        const response = await axios.get(ETH_ENDPOINT, { params });
+        const transactions = response.data.result;
+        for (let tx of transactions) {
+            const contractAddress = tx.to;
+            const abi = await getContractAbi(contractAddress);
+            if (!abi) continue;
+            for (let item of abi) {
+                if (item.type === 'function' && item.name === methodName) {
+                    const signature = `${item.name}(${item.inputs.map(input => input.type).join(',')})`;
+                    const hashed = Web3.utils.keccak256(signature);
+                    const methodId = hashed.slice(0, 10);
+                    if (tx.input.startsWith(methodId)) {
+                        return contractAddress;  // Return the staking pool address the user last interacted with using "stake" method
+                    }
+                }
+            }
+        }
+        return null;
+    } catch (error) {
+        console.error("Failed to get transactions or decode input", error);
+        return null;
+    }
+}
+
 const getUnstakeMethodId = (abi) => {
     for (let item of abi) {
         if (item.type === 'function' && item.name === 'unstake') {
@@ -149,6 +185,7 @@ const getTransactionsUpToDate = async (walletAddress, targetDate) => {
 const main = async () => {
     const endDateStr = '2023-10-27 17:43:00';
 
+    CLAIMED_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'claimRewards');
     let abi = await getContractAbi(CLAIMED_CONTRACT_ADDRESS);
     if (!abi) {
         console.error("Unable to fetch the ABI for the claimed contract.");
@@ -161,6 +198,7 @@ const main = async () => {
         return;
     }
 
+    STAKING_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'stake');
     abi = await getContractAbi(STAKING_CONTRACT_ADDRESS);
     if (!abi) {
         console.error("Unable to fetch the ABI for the staking contract.");
