@@ -1,5 +1,9 @@
-let ETH_API_KEY = 'TCZMYYGC5XWCVK6SCA482E9IJ49PK2HMKE';
 const ETH_ENDPOINT = 'https://api.etherscan.io/api';
+const pool14DayContractAddress = '0x85e253162C7e97275b703980F6b6fA8c0469D624';
+const pool28DayContractAddress = '0x163Ad6AC78FFE40E194310faEaDA8f6615942d7b';
+const pool56DayContractAddress = '0x8431060c8e72793aFaDA261E9DD0Ab950e80894F';
+
+let ETH_API_KEY = 'TCZMYYGC5XWCVK6SCA482E9IJ49PK2HMKE';
 let CLAIMED_CONTRACT_ADDRESS = '';
 let STAKING_CONTRACT_ADDRESS = '';
 let WALLET_ADDRESS = '0x0';
@@ -196,6 +200,10 @@ const getTransactionsUpToDate = async (walletAddress, targetDate) => {
 
 const main = async () => {
     const endDateStr = '2023-10-27 17:43:00';
+    let old_apr = 0
+    let new_apr = 0
+
+    await sleep(5000);  // Sleep for 5 seconds
 
     CLAIMED_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'claimRewards', endDateStr);
     console.log('after Claimed Contract Address: ' + CLAIMED_CONTRACT_ADDRESS)
@@ -205,7 +213,7 @@ const main = async () => {
         return;
     }
 
-    await sleep(1000);  // Sleep for 1 seconds
+    await sleep(3000);  // Sleep for 3 seconds
 
     const claimRewardsMethodId = getClaimRewardsMethodId(abi);
     if (!claimRewardsMethodId) {
@@ -221,6 +229,23 @@ const main = async () => {
     if (!abi) {
         console.error("Unable to fetch the ABI for the staking contract.");
         return;
+    }
+
+    console.log('STAKING_CONTRACT_ADDRESS:', STAKING_CONTRACT_ADDRESS);
+    console.log('pool56DayContractAddress:', pool56DayContractAddress);
+
+    if (STAKING_CONTRACT_ADDRESS.toLowerCase() == pool14DayContractAddress.toLowerCase()) {
+        console.log("POOL DETECTED: 14 Days")
+        old_apr = 35
+        new_apr = 15
+    } else if (STAKING_CONTRACT_ADDRESS.toLowerCase() == pool28DayContractAddress.toLowerCase()) {
+        console.log("POOL DETECTED: 28 Days")
+        old_apr = 80
+        new_apr = 40
+    } else if (STAKING_CONTRACT_ADDRESS.toLowerCase() == pool56DayContractAddress.toLowerCase()) {
+        console.log("POOL DETECTED: 56 Days")
+        old_apr = 105
+        new_apr = 60
     }
 
     await sleep(3000);  // Sleep for 3 seconds
@@ -264,7 +289,3 @@ const main = async () => {
     document.getElementById('modalResultText').innerHTML = resultText;
     document.getElementById('loader-wrapper').style.display = 'none';
 }
-
-// Remember to define old_apr and new_apr before calling the main function:
-const old_apr = 105;
-const new_apr = 60;
