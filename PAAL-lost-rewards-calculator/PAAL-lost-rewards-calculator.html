@@ -84,6 +84,66 @@
             height: auto;
             /* Maintain the aspect ratio */
         }
+
+        .loader-wrapper {
+            position: relative;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            transform: translate(-50%, -50%);
+            animation: rotate 1s linear infinite;
+        }
+
+        .loader div {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: purple;
+            border-radius: 50%;
+            animation: bounce 0.5s alternate infinite ease;
+        }
+
+        .loader div:nth-child(1) {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 0.1s;
+        }
+
+        .loader div:nth-child(2) {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            animation-delay: 0.3s;
+        }
+
+        .loader div:nth-child(3) {
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+            animation-delay: 0.5s;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            100% {
+                transform: scale(1.5);
+            }
+        }
     </style>
 </head>
 
@@ -105,6 +165,13 @@
             <span style="color: black;" class="close" onclick="closeModal()">&times;</span>
             <h2 style="color: black;">Calculation Results</h2>
             <p style="color: black;" id="modalResultText"></p>
+            <div id="loader-wrapper" class="loader-wrapper">
+                <div class="loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
         </div>
     </div>
 

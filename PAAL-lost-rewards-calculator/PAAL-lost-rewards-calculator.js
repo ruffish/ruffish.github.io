@@ -4,6 +4,10 @@ let CLAIMED_CONTRACT_ADDRESS = '';
 let STAKING_CONTRACT_ADDRESS = '';
 let WALLET_ADDRESS = '0x0';
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const getContractAbi = async (contractAddress) => {
     const params = {
         module: 'contract',
@@ -84,7 +88,7 @@ const getStakeMethodId = (abi) => {
         if (item.type === 'function' && item.name === 'stake') {
             const signature = `${item.name}(${item.inputs.map(input => input.type).join(',')})`;
             const hashed = Web3.utils.keccak256(signature);
-            console.log(hashed.slice(0, 10));
+            console.log("STAKE ID: " + hashed.slice(0, 10));
             return hashed.slice(0, 10);
         }
     }
@@ -96,7 +100,7 @@ const getClaimRewardsMethodId = (abi) => {
         if (item.type === 'function' && item.name === 'claimRewards') {
             const signature = `${item.name}(${item.inputs.map(input => input.type).join(',')})`;
             const hashed = Web3.utils.keccak256(signature);
-            console.log(hashed.slice(0, 10))
+            console.log("CLAIM ID: " + hashed.slice(0, 10))
             return hashed.slice(0, 10);
         }
     }
@@ -194,11 +198,14 @@ const main = async () => {
     const endDateStr = '2023-10-27 17:43:00';
 
     CLAIMED_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'claimRewards', endDateStr);
+    console.log('after Claimed Contract Address: ' + CLAIMED_CONTRACT_ADDRESS)
     let abi = await getContractAbi(CLAIMED_CONTRACT_ADDRESS);
     if (!abi) {
         console.error("Unable to fetch the ABI for the claimed contract.");
         return;
     }
+
+    await sleep(1000);  // Sleep for 1 seconds
 
     const claimRewardsMethodId = getClaimRewardsMethodId(abi);
     if (!claimRewardsMethodId) {
@@ -206,12 +213,17 @@ const main = async () => {
         return;
     }
 
+    await sleep(3000);  // Sleep for 3 seconds
+
     STAKING_CONTRACT_ADDRESS = await getContractAddressByMethodName(WALLET_ADDRESS, 'stake', endDateStr);
+    console.log('after Staking Contract Address: ' + STAKING_CONTRACT_ADDRESS)
     abi = await getContractAbi(STAKING_CONTRACT_ADDRESS);
     if (!abi) {
         console.error("Unable to fetch the ABI for the staking contract.");
         return;
     }
+
+    await sleep(3000);  // Sleep for 3 seconds
 
     const unstakeMethodId = getUnstakeMethodId(abi);
     if (!unstakeMethodId) {
@@ -250,6 +262,7 @@ const main = async () => {
 
     // Update modal content
     document.getElementById('modalResultText').innerHTML = resultText;
+    document.getElementById('loader-wrapper').style.display = 'none';
 }
 
 // Remember to define old_apr and new_apr before calling the main function:
