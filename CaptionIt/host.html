@@ -26,8 +26,7 @@
     <header class="no-displayMobile">
         <div class="top-container unselectable">
             <p class="share-link-prompt-text">Share this link to invite others. (click to copy)</p>
-            <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends.">
-                f1718af9-f9c5-4df6-a9da-db0954ea2368</div>
+            <div id="receiver-id" onclick="copyShareLink()" title="Copy this link and send it to your friends."></div>
             <br>
             <div id="status" class="status">. . .</div>
         </div>
@@ -37,15 +36,11 @@
         <h5>Score</h5>
         <div class="score-list">
             <!-- Player scores will be displayed here -->
-            <div class="score-player-container">
-                <p clas="score-player-name">Host</p>
-                <p class="player-score">0</p>
-            </div>
         </div>
     </div>
 
     <div class="Main">
-        <div id="lobby-slide" class="slide no-display">
+        <div id="lobby-slide" class="slide">
             <div class="Main-mid-container">
                 <br>
                 <div id="player-list">
@@ -78,39 +73,26 @@
         </div>
         <div id="captionSlide" class="slide no-display">
             <!-- Add new elements for the picture-caption game -->
-            <img id="caption-random-pic" class="random-picture" src="https://media.self.com/photos/5d5da0c07ccc7b00097e8fdd/4:3/w_2560%2Cc_limit/Faith-043.jpg" alt="Random picture" />
+            <img id="caption-random-pic" class="random-picture" alt="Random picture" />
             <textarea id="caption-input" placeholder="Enter your caption"></textarea>
-            <button id="submit-caption">Submit Caption</button>
+            <button id="submit-caption" onclick="submitCaption()">Submit Caption</button>
         </div>
 
         <div id="takeVote" class="slide no-display">
-            <img id="vote-random-pic" class="random-picture" src="https://media.self.com/photos/5d5da0c07ccc7b00097e8fdd/4:3/w_2560%2Cc_limit/Faith-043.jpg" alt="Random picture" />
-            <div class="caption-list">
-                <div class="caption">
-                    <p class="caption-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate suscipit ipsa, alias recusandae non id odit in cumque vitae eveniet</p>
-                    <button class="vote-button">Vote</button>
-                </div>
-                <div class="caption">
-                    <p class="caption-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate suscipit ipsa, alias recusandae non id odit in cumque vitae eveniet</p>
-                    <button class="vote-button">Vote</button>
-                </div>
-                <div class="caption">
-                    <p class="caption-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate suscipit ipsa, alias recusandae non id odit in cumque vitae eveniet</p>
-                    <button class="vote-button">Vote</button>
-                </div>
-            </div>
+            <img id="vote-random-pic" class="random-picture" alt="Random picture" />
+            <div id="captions-container" class="caption-list"></div>
         </div>
 
-        <div id="announceWinner" class="slide">
+        <div id="announceWinner" class="slide no-display">
             <h5 style="font-weight: bold;">Scores</h5>
             <br>
             <div class="score-list">
                 <!-- Player scores will be displayed here -->
-                <div class="score-player-container">
-                    <p clas="score-player-name">Host</p>
-                    <p class="player-score">0</p>
-                </div>
             </div>
+        </div>
+
+        <div id="gameOver" class="slide no-display">
+            <!-- Winner will be displayed here -->
         </div>
     </div>
 
@@ -129,6 +111,7 @@
     </div>
 
     <script src="./peerjsmin.js"></script>
+    <script src="./captionitlogic.js"></script>
     <script>
         // Cookie Handling
         function setCookie(name, value, days) {
@@ -187,20 +170,14 @@
         (function () {
 
             var status = document.getElementById("status");
-            /**
-             * Create the Peer object for our end of the connection.
-             *
-             * Sets up callbacks that handle any events related to our
-             * peer object.
-             */
+
+            // Initialize the Peer object
             function initialize() {
-                // Create own peer object with connection to shared PeerJS server
                 peer = new Peer(null, {
                     debug: 2
                 });
 
                 peer.on('open', function (id) {
-                    // Workaround for peer.reconnect deleting previous id
                     if (peer.id === null) {
                         console.log('Received null id from peer open');
                         peer.id = lastPeerId;
@@ -218,7 +195,6 @@
                         "score": 0
                     }
 
-                    // Change player name colour
                     document.querySelector('[player="HOST"]').style.color = players[peer.id].colour;
                     document.querySelector('[player="HOST"]').children[1].children[0].style.color = players[
                         peer.id].colour;
@@ -228,6 +204,7 @@
 
                     status.innerText = "Awaiting connection...";
                 });
+
                 peer.on('connection', function (c) {
                     conn.push(c);
                     players[c.peer] = {
@@ -248,33 +225,31 @@
                         updatePlayerList();
                     }, 500)
                 });
+
                 peer.on('disconnected', function () {
                     status.innerHTML = "Connection lost. Please reconnect";
                     console.log('Connection lost. Please reconnect');
 
-                    // Workaround for peer.reconnect deleting previous id
                     peer.id = lastPeerId;
                     peer._lastServerId = lastPeerId;
                     peer.reconnect();
                 });
+
                 peer.on('close', function () {
-                    // conn = [];
                     status.innerHTML = "Connection destroyed. Please refresh";
                     console.log('Connection destroyed');
                 });
+
                 peer.on('error', function (err) {
                     console.log(err);
                     alert('' + err);
                 });
             };
 
-            /**
-             * Triggered once a connection has been achieved.
-             * Defines callbacks to handle incoming data and connection events.
-             */
+            // Once a connection is achieved
             function ready() {
                 currentConn.on('data', function (data) {
-                    console.log("Data recieved");
+                    console.log("Data received");
                     var playerVote = "<span class=\"cueMsg\">" + data[0] + ": </span>";
                     switch (data[0]) {
                         case 'setPlayerData':
@@ -296,7 +271,10 @@
                             resetPlayerTimeout(data[1]['playerID']);
                             break;
                         case 'castVote':
-                            castVote(data[1]["playerID"], false);
+                            game.submitVote(data[1]["playerID"], data[1]["captionIndex"]);
+                            break;
+                        case 'submitCaption':
+                            game.submitCaption(data[1]["playerID"], data[1]["caption"]);
                             break;
                         default:
                             for (let step = 0; step < conn.length; step++) {
@@ -314,6 +292,7 @@
                             break;
                     };
                 });
+
                 currentConn.on('close', function () { // Execute code when user disconnects.
                     for (let step = 0; step < conn.length; step++) {
                         if (conn[step]["_open"] == false) {
@@ -368,7 +347,6 @@
 
             // Set player data
             function setPlayerData(deviceID, playerID, newName, inPlay) {
-                // Check if deviceID is in disconnectedPlayers and then re-assign player data before disconnecting
                 if (disconnectedPlayers[deviceID]) {
                     players[playerID] = disconnectedPlayers[deviceID];
                     delete disconnectedPlayers[deviceID];
@@ -460,10 +438,7 @@
 
         // My functions
         function copyShareLink() {
-            // Get the link
             var copyText = document.getElementById("share-link");
-
-            // Copy the text in the share link element
             navigator.clipboard.writeText(copyText.innerText);
         }
 
@@ -473,7 +448,6 @@
             showNameContainer.classList.add('no-display');
             changeNameContainer.classList.remove('no-display');
 
-            // Listen for enter in change name box
             let changeNameInput = document.getElementById('changeName-input');
             changeNameInput.focus();
             changeNameInput.addEventListener('keypress', (event) => {
@@ -564,7 +538,6 @@
                     }
                 }
             }
-            // Send players data to everyone connected, so they can update their player lists
             for (let step = 0; step < conn.length; step++) {
                 conn[step].send(["playersData", players]);
             }
@@ -573,41 +546,64 @@
 
         function setPlayerReady(e, playerID, isReady) {
             if (e != null) {
-                // Fade out the ready button
                 $(e).fadeOut(500);
             }
-            // Set the player's ready status to true
             playersInGame[playerID]['ready'] = isReady;
         }
 
-        // Function to generate and display a random picture
         function displayRandomPicture() {
-            // Fetch a random image from a suitable API or your own collection
-            // Set the 'src' attribute of the 'random-picture' element to the image URL
+            game.generatePicture();
+            document.getElementById('caption-random-pic').src = game.pictureURL;
+            document.getElementById('vote-random-pic').src = game.pictureURL;
         }
 
-        // Function to handle caption submissions from players
-        function submitCaption(caption) {
-            // Send the submitted caption to all connected players
-            // Update the player's caption in the 'players' data structure
+        function submitCaption() {
+            const captionText = document.getElementById('caption-input').value;
+            game.submitCaption(peer.id, captionText);
+
+            for (let step = 0; step < conn.length; step++) {
+                conn[step].send(["submitCaption", {
+                    "playerID": peer.id,
+                    "caption": captionText
+                }]);
+            }
+            updatePlayerList();
         }
 
-        // Function to display all submitted captions for voting
         function displayCaptionsForVoting() {
-            // Loop through the 'players' data structure
-            // Append each player's caption to the 'captions-container' element
+            const captionsContainer = document.getElementById('captions-container');
+            captionsContainer.innerHTML = '';
+            game.captions.forEach((caption, index) => {
+                const captionElement = document.createElement('div');
+                captionElement.classList.add('caption');
+                captionElement.innerHTML = `<p class="caption-text">${caption.text}</p><button class="vote-button" onclick="voteForFunniestCaption(${index})">Vote</button>`;
+                captionsContainer.appendChild(captionElement);
+            });
         }
 
-        // Function to handle voting for the funniest caption
-        function voteForFunniestCaption(playerID) {
-            // Increment the score of the selected player in the 'players' data structure
-            // Update and display the current scores
+        function voteForFunniestCaption(captionIndex) {
+            game.submitVote(peer.id, captionIndex);
+
+            for (let step = 0; step < conn.length; step++) {
+                conn[step].send(["castVote", {
+                    "playerID": peer.id,
+                    "captionIndex": captionIndex
+                }]);
+            }
+            updateScoreBoard();
         }
 
-        // Function to update and display the current scores
         function updateScoreBoard() {
-            // Loop through the 'players' data structure
-            // Update the 'score-board' element with each player's score
+            game.updateScores();
+            const scoreBoard = document.querySelector('.score-list');
+            scoreBoard.innerHTML = '';
+            for (let playerID in players) {
+                const player = players[playerID];
+                const scoreElement = document.createElement('div');
+                scoreElement.classList.add('score-player-container');
+                scoreElement.innerHTML = `<p class="score-player-name">${player.playerName}</p><p class="player-score">${player.score}</p>`;
+                scoreBoard.appendChild(scoreElement);
+            }
         }
     </script>
 </body>
