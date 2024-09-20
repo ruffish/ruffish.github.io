@@ -1,0 +1,228 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    background-color: #17121a;
+    color: white;
+    height: 100vh;
+}
+
+#debug-console {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    min-height: 150px;
+    padding: 20px;
+    background-color: #252323;
+    border-radius: 8px;
+    border: 2px solid rgb(177, 122, 71);
+}
+
+#debug-console table {
+    width: 200px;
+    margin: 10px 0;
+}
+
+#lobby {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#host-options, #join-info {
+    margin-bottom: 20px;
+}
+
+.game-screen {
+    height: 100vh;
+}
+
+.progress-container {
+    grid-column: 1 / span 2;
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+.progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #76c7c0;
+    transition: width 0.1s linear;
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.image-container {
+    grid-column: 2;
+    height: calc(60vh - 20px); /* Sets the height to 50% of the viewport height */
+    background-color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensures content stays inside the container */
+    padding: 1px; /* Optional: Adds padding inside the container */
+    border: 1px solid #ccc;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Game Chat */
+.chat-container {
+    grid-column: 2;
+    grid-row: 2;
+    height: 40vh;
+}
+
+#chat-messages {
+    border: 1px solid #ccc;
+    height: calc(40vh - 58px);
+    overflow-y: scroll;
+    padding: 5px;
+}
+
+#chat-messages p {
+    margin: 5px 0;
+}
+
+#chat-input {
+    width: calc(100% - 80px);
+    height: 40px;
+    padding: 0 10px;
+}
+
+/* Caption Input (Write your captions) */
+.caption-input-container {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.caption-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgb(196, 196, 196);
+}
+
+#submit-caption {
+    padding: 10px 20px;
+    float: right;
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+#custom-caption {
+    width: 120px;
+    min-height: 175px;
+    border-radius: 12px;
+    padding: 20px;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.74), /* Slight shadow below */
+                0 1px 3px rgba(0, 0, 0, 0.4); /* Softer shadow for a subtle hover effect */
+    font-family: "Roboto", sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+#players-list, #caption-cards, #captions-list, #vote-winners-list, #score-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.captions-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.caption-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: border 0.2s ease;
+}
+
+.caption-item:hover {
+    border: 1px solid #888;  /* A subtle hover effect */
+}
+
+#voting-container {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+#vote-winners-container {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.vote-winners-item {
+    padding: 15px;
+    max-width: 200px;
+    margin-bottom: 5px;
+    border: 2px solid #1df700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border 0.2s ease;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Scoreboard */
+#scoreboard {
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+#score-list {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}

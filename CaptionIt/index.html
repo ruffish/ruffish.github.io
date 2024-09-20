@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Caption It</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="debug-console" class="hidden">
+        <h3>Debug Console</h3>
+        <table>
+            <tr>
+                <td>Start New Round</td>
+                <td><button id="debug-start-new-round-button">Submit</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- lobby screen -->
+    <div id="lobby">
+        <h1>Caption It</h1>
+        <div id="host-options">
+            <label for="time-limit">Time Limit (seconds):</label>
+            <input type="number" id="time-limit" value="60">
+            <label for="points-to-win">Points to Win:</label>
+            <input type="number" id="points-to-win" value="10">
+            <button id="start-game">Start Game</button>
+        </div>
+        <div id="join-info">
+            <p>Share this link to invite players:</p>
+            <input type="text" id="game-link" readonly>
+        </div>
+        <div id="game-settings">
+            <h2>Game Settings:</h2>
+            <p>Time Limit: <span id="display-time-limit"></span> seconds</p>
+            <p>Points to Win: <span id="display-points-to-win"></span></p>
+        </div>
+        <h2>Connected Players:</h2>
+        <ul id="players-list"></ul>
+    
+        <div id="change-name-section">
+            <h3>Change Your Name</h3>
+            <input type="text" id="new-player-name" placeholder="Enter your name" />
+            <button id="change-name-button">Change Name</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="game-screen hidden">
+        <div id="progress-container" class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+        <div class="game-layout">
+            <div id="image-container" class="image-container">
+                <div id="loading-icon" class="loading-spinner" style="display: none;"></div>
+                <img id="current-image" src="" alt="Current Image">
+            </div>
+            <div id="caption-input-container" class="caption-input-container">
+                <h3>Your Captions:</h3>
+                <ul id="caption-cards"></ul>
+                <textarea id="custom-caption" placeholder="Or write a custom caption..."></textarea>
+                <div class="caption-controls">
+                    <button id="submit-caption">Submit Caption</button>
+                </div>
+            </div>
+            <div id="voting-container" class="hidden">
+                <h3 id="voting-cta">Select the Funniest Caption:</h3>
+                <ul id="captions-list" class="captions-list"></ul>
+            </div>
+            <div id="vote-winners-container" class="hidden">
+                <h3>Round Winners</h3>
+                <ul id="vote-winners-list"></ul>
+            </div>
+            <div id="chat-container" class="chat-container">
+                <div id="chat-messages"></div>
+                <input type="text" id="chat-input" placeholder="Type a message...">
+                <button id="send-chat">Send</button>
+            </div>
+            <div id="scoreboard">
+                <h3>Scoreboard</h3>
+                <ul id="score-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include PeerJS and Our Script -->
+    <script src="./peerjsmin.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/peerjs@1.4.7/dist/peerjs.min.js"></script> -->
+    <script src="script.js"></script>
+</body>
+</html>
