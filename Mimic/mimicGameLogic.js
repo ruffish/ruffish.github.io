@@ -347,8 +347,9 @@ class MimicGame {
     giveClues() {
         // Use Object.keys() to get an array of the keys in the dictionary
         let playersInGameArray = Object.keys(playersInGame);
-        // Use Array.sort() to sort the array of keys and shuffle the order.
-        playersInGameArray.sort(() => Math.random() - 0.5);
+
+        shuffle(playersInGameArray);
+
         // Set variable to count interations
         let signalSent = false;
         paused = true;
